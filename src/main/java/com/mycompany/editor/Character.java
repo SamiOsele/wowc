@@ -4,6 +4,9 @@
  */
 package com.mycompany.editor;
 
+import java.io.*;
+import java.net.Socket;
+
 /**
  *
  * @author HP
@@ -65,4 +68,6 @@ public class Character {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

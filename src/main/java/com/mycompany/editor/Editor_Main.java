@@ -15,14 +15,21 @@ import org.hibernate.Transaction;
  */
 public class Editor_Main {
 
+    private static ClientSocket socket = new ClientSocket();
+
     public static void main(String[] args) {
-      
+        socket.connect();
+        socket.start();
+
+
         JFrame frame = new JFrame();
         LoginPanel login = new LoginPanel(frame);
+
         frame.setContentPane(login);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setBounds(760,340, 400,400);
     }
 }
