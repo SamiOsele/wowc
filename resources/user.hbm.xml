@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+	
+<hibernate-mapping package="com.mycompany.editor">
+	<class name="User" table="REG_USER" >
+		<id name="username" type="string">
+			<column name="username" />
+		</id>
+		<property name="password" type="string">
+			<column name="password" />
+		</property>
+		<set name="characterSet" table="Character" fetch="select" lazy="false">
+			<key>
+				<column name="username" not-null="true"></column>
+			</key>
+			<one-to-many class="Character"/>
+		</set>
+	</class>
+	
+</hibernate-mapping>
