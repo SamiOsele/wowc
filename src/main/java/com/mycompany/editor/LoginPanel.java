@@ -5,9 +5,10 @@
 package com.mycompany.editor;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 /**
- *
  * @author HP
  */
 public class LoginPanel extends javax.swing.JPanel {
@@ -17,12 +18,13 @@ public class LoginPanel extends javax.swing.JPanel {
     /**
      * Creates new form LoginPanel
      */
-    public LoginPanel( JFrame parent) {
+    public LoginPanel(JFrame parent) {
         this.parent = parent;
         initComponents();
     }
+
     private void initComponents() {
-    this.setLayout(null);
+        this.setLayout(null);
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -56,21 +58,28 @@ public class LoginPanel extends javax.swing.JPanel {
                 btn_loginActionPerformed(evt);
             }
         });
+        btn_new.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_newActionPerformed(evt);
+            }
+        });
+
         add(jLabel1);
-        jLabel1.setBounds(20,100,200,20);
+        jLabel1.setBounds(20, 100, 200, 20);
         add(jLabel2);
-        jLabel2.setBounds(20,140,200,20);
+        jLabel2.setBounds(20, 140, 200, 20);
         add(jLabel3);
-        jLabel3.setBounds(160,40,80,20);
+        jLabel3.setBounds(160, 40, 80, 20);
         add(txt_username);
-        txt_username.setBounds(90,100,100,20);
+        txt_username.setBounds(90, 100, 100, 20);
         add(txt_password);
-        txt_password.setBounds(90,140,100, 20);
+        txt_password.setBounds(90, 140, 100, 20);
         add(btn_login);
-        btn_login.setBounds(80,300,90,20);
+        btn_login.setBounds(80, 300, 90, 20);
         add(btn_new);
-        btn_new.setBounds(230,300,90,20);
+        btn_new.setBounds(230, 300, 90, 20);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,23 +87,121 @@ public class LoginPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
 
+    private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {
 
+        JFrame frame1 = new JFrame();
+        JPanel register = new JPanel();
+        register.setLayout(null);
+        frame1.add(register);
+        register.setVisible(true);
+        register.setBounds(820,390,300,300);
+        frame1.setBounds(820, 390, 300, 300);
+        frame1.setVisible(true);
+
+        javax.swing.JLabel jLabel12 = new JLabel();
+        javax.swing.JLabel jLabel22 = new JLabel();
+        javax.swing.JLabel jLabel32 = new JLabel();
+        javax.swing.JTextField txt_password1 = new JTextField();
+        javax.swing.JTextField txt_username1 = new JTextField();
+        javax.swing.JTextField txt_password2 = new JTextField();
+        javax.swing.JButton btn_register= new JButton();
+
+        txt_username1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18
+        txt_username1.setVisible(true);
+        txt_password1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_password1.setVisible(true);
+
+        btn_register.setText("Register");
+        btn_register.setVisible(true);
+        btn_register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registerActionPerformed(evt);
+            }
+        });
+
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setText("Username");
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel22.setText("Password");
+
+
+        jLabel12.setBounds(20, 20, 100, 20);
+        jLabel22.setBounds(20, 60,100, 20);
+
+
+        register.add(jLabel12);
+        register.add(jLabel22);
+
+        register.add(txt_username1);
+        txt_username1.setBounds(140,20,100,20);
+        register.add(txt_password1);
+        txt_password1.setBounds(140,60,100,20);
+
+
+        register.add(btn_register);
+        btn_register.setBounds(100,160,100,20);
+        frame1.add(register);
+
+
+
+    }
+
+    private void btn_registerActionPerformed(java.awt.event.ActionEvent evt) {
+
+        SenderObject s = new SenderObject(Instruction.CREATEUSER);
+        User l = new User();
+        l.setUsername(txt_username.getText());
+        l.setPassword(txt_password.getText());
+        l.setLevel(1);
+        l.setXp(0);
+        l.setCreatedate();
+        s.setUser(l);
+        try {
+            Editor_Main.getSocket().getOut().writeObject(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        
-        User u = Loader.loadUserObject(txt_username.getText());
-        if(u != null && u.getPassword().equals(txt_password.getText())){
-        
+        SenderObject s = new SenderObject(Instruction.REQUESTUSER);
+        User l = new User();
+        l.setUsername(txt_username.getText());
+        l.setPassword(txt_password.getText());
+        s.setUser(l);
+        try {
+            Editor_Main.getSocket().getOut().writeObject(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        User u;
+        while (true) {
+            try {
+                SenderObject b = (SenderObject) Editor_Main.getSocket().getIn().readObject();
+                u = b.getUser();
+                break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        if (u.getPassword().equals(txt_password.getText())) {
+
             Editor_MainPanel panel = new Editor_MainPanel(u);
             panel.setSize(400, 400);
             panel.setLocationRelativeTo(null);
             panel.setVisible(true);
             parent.setVisible(false);
-        }else{
+
+        } else {
             txt_password.setText("");
             txt_username.setText("");
             JOptionPane.showMessageDialog(parent, "Benutzername oder Passwort falsch!");
         }
-        
+
     }//GEN-LAST:event_btn_loginActionPerformed
 
 

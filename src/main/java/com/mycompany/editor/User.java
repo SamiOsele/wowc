@@ -4,6 +4,7 @@
  */
 package com.mycompany.editor;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -16,6 +17,9 @@ public class User {
     private int level, xp;
     private String lastlogon, createdate;
 
+    public User(){
+
+    }
     public User(String username, String password, String description, String status, int level, int xp, String lastlogon, String createdate) {
         this.username = username;
         this.password = password;
@@ -71,8 +75,8 @@ public class User {
         return createdate;
     }
 
-    public void setCreatedate(String createdate) {
-        this.createdate = createdate;
+    public void setCreatedate() {
+        this.createdate = String.valueOf(LocalDateTime.now());
     }
 
     public String getUsername() {

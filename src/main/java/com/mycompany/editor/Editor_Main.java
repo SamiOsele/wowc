@@ -18,8 +18,8 @@ public class Editor_Main {
     private static ClientSocket socket = new ClientSocket();
 
     public static void main(String[] args) {
-        socket.connect();
-        socket.start();
+        //socket.connect();
+        //socket.start();
 
 
         JFrame frame = new JFrame();
@@ -32,4 +32,9 @@ public class Editor_Main {
         frame.setVisible(true);
         frame.setBounds(760,340, 400,400);
     }
+
+    public static ClientSocket getSocket() {
+        return socket;
+    }
 }
+

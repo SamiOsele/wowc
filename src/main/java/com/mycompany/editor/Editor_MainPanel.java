@@ -31,7 +31,11 @@ public class Editor_MainPanel extends javax.swing.JFrame {
         //addCharacters();
         this.setSize(200, 400);
     }
-
+    public void Editor_MainPanel2() {
+        //initComponents();
+        //addCharacters();
+        this.setSize(200, 400);
+    }
     /* private void addCharacters(){
 
       //  Iterator<Character> it = user.getCharacterSet().iterator();
