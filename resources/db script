@@ -1,0 +1,31 @@
+create table reg_user(
+	id serial primary key,
+	username varchar(30) NOT NULL unique,
+	password varchar(30) NOT NULL,
+	level int ,
+	xp int,
+	lastlogon date,
+	createdate date,
+	description varchar(255),
+	status varchar(255)
+
+	);
+CREATE Table settings(
+	ability1 varchar(6),
+	ability2 varchar(6),
+	ability3 varchar(6),
+	ability4 varchar(6)
+
+);
+
+create table character(
+	name varchar(30) primary key,
+	gender varchar(1),
+	race varchar(30),
+	class varchar(30),
+	username varchar (30) references reg_user(username)
+);
+
+insert into reg_user(username, password) values ('player1', '12345');
+insert into character(name,gender,race,class,username) values('char1','m','dwarf','warrior','player1');
+insert into character(name,gender,race,class,username) values('char2','m','human','knight','player1');
