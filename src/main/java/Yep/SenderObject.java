@@ -1,6 +1,8 @@
-package com.mycompany.editor;
+package Yep;
 
-public class SenderObject {
+import java.io.Serializable;
+
+public class SenderObject implements Serializable {
     private Instruction instruction;
     private User user;
 
@@ -11,7 +13,6 @@ public class SenderObject {
     public SenderObject(Instruction instruction) {
         this.instruction = instruction;
     }
-
 
     public User getUser() {
         return user;

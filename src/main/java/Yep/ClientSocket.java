@@ -1,4 +1,4 @@
-package com.mycompany.editor;
+package Yep;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,10 +12,12 @@ public  class ClientSocket {
 
     public void start() {
         try {
-            InputStream inputStream= socket.getInputStream();
-            in = new ObjectInputStream(inputStream);
-            OutputStream outputStream= socket.getOutputStream();
-            out = new ObjectOutputStream(outputStream);
+            System.out.println(socket.getInetAddress().getHostAddress());
+           // InputStream inputStream= socket.getInputStream();
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+            // OutputStream outputStream= socket.getOutputStream();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -23,7 +25,7 @@ public  class ClientSocket {
     }
     public void connect() {
         try {
-            socket = new Socket("0.0.0.0", 6969);
+            socket = new Socket("192.168.43.10", 6969);
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.mycompany.editor;
+package Yep;
 
 public enum Instruction {
         CREATEUSER,

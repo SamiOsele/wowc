@@ -3,12 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
  */
 
-package com.mycompany.editor;
+package Yep;
 
 import javax.swing.JFrame;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+
 /**
  *
  * @author HP
@@ -18,9 +16,10 @@ public class Editor_Main {
     private static ClientSocket socket = new ClientSocket();
 
     public static void main(String[] args) {
-        //socket.connect();
-        //socket.start();
-
+        socket.connect();
+        System.out.println("Connection succesfull");
+        socket.start();
+        System.out.println("started");
 
         JFrame frame = new JFrame();
         LoginPanel login = new LoginPanel(frame);
