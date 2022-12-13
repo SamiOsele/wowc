@@ -29,7 +29,7 @@ public class LoginPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txt_username = new javax.swing.JTextField();
-        txt_password = new javax.swing.JTextField();
+        txt_password = new javax.swing.JPasswordField();
         btn_login = new javax.swing.JButton();
         btn_new = new JButton();
 
@@ -87,7 +87,8 @@ public class LoginPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     private JFrame frame1 = new JFrame();
     private JPanel register = new JPanel();
-
+    private javax.swing.JTextField txt_password1 = new JTextField();
+    private javax.swing.JTextField txt_username1 = new JTextField();
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {
 
 
@@ -101,9 +102,7 @@ public class LoginPanel extends javax.swing.JPanel {
         javax.swing.JLabel jLabel12 = new JLabel();
         javax.swing.JLabel jLabel22 = new JLabel();
         javax.swing.JLabel jLabel32 = new JLabel();
-        javax.swing.JTextField txt_password1 = new JTextField();
-        javax.swing.JTextField txt_username1 = new JTextField();
-        javax.swing.JTextField txt_password2 = new JTextField();
+        javax.swing.JPasswordField txt_password2 = new JPasswordField();
         javax.swing.JButton btn_register= new JButton();
 
         txt_username1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18
@@ -151,8 +150,8 @@ public class LoginPanel extends javax.swing.JPanel {
 
         SenderObject s = new SenderObject(Instruction.CREATEUSER);
         User l = new User();
-        l.setUsername(txt_username.getText());
-        l.setPassword(txt_password.getText());
+        l.setUsername(txt_username1.getText());
+        l.setPassword(txt_password1.getText());
         l.setLevel(1);
         l.setXp(0);
         l.setCreatedate();
@@ -189,23 +188,24 @@ public class LoginPanel extends javax.swing.JPanel {
             }
 
         }
+        if(u != null){
+            Editor_Main.setLoggedInUser(u);
+            StartMenu Menu = new StartMenu();
 
-        if (u.getPassword().equals(txt_password.getText())) {
+            Menu.StartMenu();
+            parent.dispose();
+             /*   Editor_MainPanel panel = new Editor_MainPanel(u);
+                panel.setSize(400, 400);
+                panel.setLocationRelativeTo(null);
+                panel.setVisible(true);
+                */
 
-            Editor_MainPanel panel = new Editor_MainPanel(u);
-            panel.setSize(400, 400);
-            panel.setLocationRelativeTo(null);
-            panel.setVisible(true);
-            parent.setVisible(false);
-
-        } else {
+        }else {
             txt_password.setText("");
             txt_username.setText("");
             JOptionPane.showMessageDialog(parent, "Benutzername oder Passwort falsch!");
-        }
-
-    }//GEN-LAST:event_btn_loginActionPerformed
-
+        }//GEN-LAST:event_btn_loginActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_login;
@@ -213,7 +213,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txt_password;
+    private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }

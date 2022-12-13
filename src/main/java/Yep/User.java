@@ -15,7 +15,7 @@ import java.util.Set;
 public class User implements Serializable {
     
     private String username, password, description, status;
-    private int level, xp;
+    private int level, xp, id;
     private String lastlogon, createdate;
 
     public User(){
@@ -30,6 +30,14 @@ public class User implements Serializable {
         this.xp = xp;
         this.lastlogon = lastlogon;
         this.createdate = createdate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -95,7 +103,8 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
-    
+
+    public void setCreatedate(String createdate) {
+        this.createdate = createdate;
+    }
 }

@@ -14,8 +14,9 @@ import javax.swing.JFrame;
 public class Editor_Main {
 
     private static ClientSocket socket = new ClientSocket();
-
+    private static User loggedInUser;
     public static void main(String[] args) {
+
         socket.connect();
         System.out.println("Connection succesfull");
         socket.start();
@@ -34,6 +35,14 @@ public class Editor_Main {
 
     public static ClientSocket getSocket() {
         return socket;
+    }
+
+    public static User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static void setLoggedInUser(User loggedInUser) {
+        Editor_Main.loggedInUser = loggedInUser;
     }
 }
 
