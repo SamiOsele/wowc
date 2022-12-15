@@ -4,8 +4,8 @@ create table reg_user(
 	password varchar(30) NOT NULL,
 	level int ,
 	xp int,
-	lastlogon date,
-	createdate date,
+	lastlogon varchar(255),
+	createdate varchar(255),
 	description varchar(255),
 	status varchar(255)
 

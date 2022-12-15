@@ -2,9 +2,18 @@ package Yep;
 
 import java.io.Serializable;
 
-public class SenderObject implements Serializable {
+public class SenderObject implements Serializable
+{   private int code;
     private Instruction instruction;
     private User user;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 
     public Instruction getInstruction() {
         return instruction;

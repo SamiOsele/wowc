@@ -175,11 +175,19 @@ public class LoginPanel extends javax.swing.JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        User u;
+        User u = null;
+        int nigger = 0;
         while (true) {
             try {
                 SenderObject b = (SenderObject) Editor_Main.getSocket().getIn().readObject();
-                u = b.getUser();
+                if(b.getCode()==69){
+                    nigger = 69;
+                    JOptionPane.showMessageDialog(null, "Dieser Benutzer ist bereits angemeldet");
+                }else{
+                    u = b.getUser();
+                }
+
+
                 break;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -200,10 +208,13 @@ public class LoginPanel extends javax.swing.JPanel {
                 panel.setVisible(true);
                 */
 
-        }else {
+        }else if (nigger == 0){
             txt_password.setText("");
             txt_username.setText("");
             JOptionPane.showMessageDialog(parent, "Benutzername oder Passwort falsch!");
+        }else {
+            txt_password.setText("");
+            txt_username.setText("");
         }//GEN-LAST:event_btn_loginActionPerformed
     }
 
