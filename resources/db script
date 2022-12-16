@@ -18,13 +18,23 @@ CREATE Table settings(
 
 );
 
-create table character(
-	name varchar(30) primary key,
-	gender varchar(1),
-	race varchar(30),
-	class varchar(30),
-	username varchar (30) references reg_user(username)
+
+
+CREATE TABLE character (
+	id serial PRIMARY KEY,
+	maxHp int,
+	ad int,
+	klasse varchar(63),
+	name varchar(63),
+	ab0 int, 
+	ab1 int, 
+	ab2 int, 
+	ab3 int, 
+	ab4 int
+
 );
+
+
 
 insert into reg_user(username, password) values ('player1', '12345');
 insert into character(name,gender,race,class,username) values('char1','m','dwarf','warrior','player1');
