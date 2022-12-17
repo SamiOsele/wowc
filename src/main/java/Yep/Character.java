@@ -1,70 +1,86 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Yep;
 
-/**
- *
- * @author HP
- */
+import java.awt.image.BufferedImage;
+
 public class Character {
-    
-    private String name;
-    private String gender;
-    private String race;
-    private String clazz;
-    private User user;
 
-    public Character(){}
-    
-    public Character(String name, String gender, String race, String clazz, User user) {
-        this.name = name;
-        this.gender = gender;
-        this.race = race;
-        this.clazz = clazz;
-        this.user = user;
-    }
+   private String name,klasse;
+   private int maxHp, shield, ad, cdr;
+   private String[] abilities;
+   private BufferedImage img;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+   public Character(String name, String klasse, int maxHp, int shield, int ad, int cdr, String[] abilities, BufferedImage img) {
+      this.name = name;
+      this.klasse = klasse;
+      this.maxHp = maxHp;
+      this.shield = shield;
+      this.ad = ad;
+      this.cdr = cdr;
+      this.abilities = abilities;
+      this.img = img;
+   }
 
-    public String getGender() {
-        return gender;
-    }
+   public BufferedImage getImg() {
+      return img;
+   }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
-    public String getRace() {
-        return race;
-    }
 
-    public void setRace(String race) {
-        this.race = race;
-    }
+   public String getName() {
+      return name;
+   }
 
-    public String getClazz() {
-        return clazz;
-    }
+   public void setName(String name) {
+      this.name = name;
+   }
 
-    public void setClazz(String clazz) {
-        this.clazz = clazz;
-    }
+   public String getKlasse() {
+      return klasse;
+   }
 
-    public User getUser() {
-        return user;
-    }
+   public void setKlasse(String klasse) {
+      this.klasse = klasse;
+   }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+   public int getMaxHp() {
+      return maxHp;
+   }
 
+   public void setMaxHp(int maxHp) {
+      this.maxHp = maxHp;
+   }
+
+   public int getShield() {
+      return shield;
+   }
+
+   public void setShield(int shield) {
+      this.shield = shield;
+   }
+
+   public int getAd() {
+      return ad;
+   }
+
+   public void setAd(int ad) {
+      this.ad = ad;
+   }
+
+   public int getCdr() {
+      return cdr;
+   }
+
+   public void setCdr(int cdr) {
+      this.cdr = cdr;
+   }
+
+   public String[] getAbilities() {
+      return abilities;
+   }
+
+   public void setAbilities(String[] abilities) {
+      this.abilities = abilities;
+   }
 
 }
