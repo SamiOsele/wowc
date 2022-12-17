@@ -24,7 +24,7 @@ CREATE TABLE character (
 	id serial PRIMARY KEY,
 	maxHp int,
 	ad int,
-	ap ind,
+	ap int,
 	klasse varchar(63),
 	name varchar(63)
 );
