@@ -25,6 +25,7 @@ CREATE TABLE character (
 	maxHp int,
 	ad int,
 	ap int,
+	description varchar(255),
 	klasse varchar(63),
 	name varchar(63)
 );
