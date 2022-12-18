@@ -30,6 +30,14 @@ CREATE TABLE character (
 	name varchar(63)
 );
 
+CREATE TABLE ability(
+	id serial PRIMARY KEY,
+	name varchar(31),
+	description varchar(255),
+	charid int,
+	FOREIGN KEY(charid) REFERENCES character(id)
+);
+
 CREATE TABLE played(
 	id serial PRIMARY KEY,
 	userid int,
