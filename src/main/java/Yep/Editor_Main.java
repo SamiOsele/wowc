@@ -4,8 +4,10 @@
  */
 
 package Yep;
-
+import Character.Character;
 import javax.swing.JFrame;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,6 +16,10 @@ import javax.swing.JFrame;
 public class Editor_Main {
 
     private static ClientSocket socket = new ClientSocket();
+
+
+
+    private static ArrayList<Character> characters;
     private static User loggedInUser;
     public static void main(String[] args) {
 
@@ -21,6 +27,19 @@ public class Editor_Main {
         System.out.println("Connection succesfull");
         socket.start();
         System.out.println("started");
+        SenderObject so = new SenderObject(Instruction.GETALLCHARS);
+        try {
+            socket.getOut().writeObject(so);
+            characters = ((SenderObject) socket.getIn().readObject()).getCharacters();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("got the characters");
+        getCharacters().get(0).getA().get(4).getName();
+        System.out.println(characters.get(0).getName());
 
         JFrame frame = new JFrame();
         LoginPanel login = new LoginPanel(frame);
@@ -43,6 +62,13 @@ public class Editor_Main {
 
     public static void setLoggedInUser(User loggedInUser) {
         Editor_Main.loggedInUser = loggedInUser;
+    }
+    public static ArrayList<Character> getCharacters() {
+        return characters;
+    }
+
+    public static void setCharacters(ArrayList<Character> characters) {
+        Editor_Main.characters = characters;
     }
 }
 

@@ -3,12 +3,15 @@ package Yep;
 import NameHistory.NameHistory;
 import Queue.QueueUser;
 import Stats.Stats;
+import Character.Character;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SenderObject  implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private Instruction instruction;
     private User user;
     private int code;
@@ -21,8 +24,7 @@ public class SenderObject  implements Serializable {
     private String newUsername;
     private ArrayList<NameHistory> nameHistory;
 
-    @Serial
-    private static final long serialVersionUID = 6529685098267757690L;
+
 
     public Instruction getInstruction() {
         return instruction;

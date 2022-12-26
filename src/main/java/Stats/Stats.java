@@ -3,10 +3,13 @@ package Stats;
 import Played.Played;
 import Yep.User;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Set;
 
-public class Stats {
-
+public class Stats implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private int id, hoursPlayed, minutesPlayed, kills, deaths;
     private User user;
     private Set<Played> played;

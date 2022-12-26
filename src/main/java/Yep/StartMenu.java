@@ -1,7 +1,8 @@
 package Yep;
 
 import Queue.QueueUser;
-
+import Character.Character;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -105,7 +106,7 @@ public class StartMenu {
         }
 
         menu.removeAll();
-
+        menu.updateUI();
         JLabel team1 = new JLabel();
         JLabel team2 = new JLabel();
         JLabel player1 = new JLabel();
@@ -114,7 +115,7 @@ public class StartMenu {
         JLabel player4 = new JLabel();
         JLabel player5 = new JLabel();
         JLabel player6 = new JLabel();
-
+        menu.updateUI();
         team1.setBackground(Color.darkGray);
         team1.setFont(new java.awt.Font("Gill Sans Nova", 1, 50));
         team1.setForeground(Color.white);
@@ -229,11 +230,19 @@ public class StartMenu {
 
         }
         int counter = 0;
-
+        int miger = 0;
         for (int i = 0; i < 9; i++) {
             bo2();
             JButton character = new JButton();
             character.setVisible(true);
+            miger+= 1;
+            try {
+                Image img = ImageIO.read(getClass().getResource("/characters/"+miger + ".png"));
+                character.setIcon(new ImageIcon(img));
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             character.setBounds(600 + counter, 800, 64, 64);
             characters.add(character);
             menu.add(character);
@@ -536,10 +545,8 @@ public class StartMenu {
 
 
     private  void  nuierButton(String name1, String klasse1, String ability1, String ability2, String ability3, String ult1, String passive1) {
-        System.out.println("y<oo");
         name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         name.setText(name1);
-        System.out.println(name1);
         name.setBackground(Color.darkGray);
         name.setForeground(Color.white);
         name.setBounds(300, 300, 200, 20);
@@ -605,54 +612,54 @@ public class StartMenu {
         if (characters.get(0).equals(ent.getSource())) {
 
             bo3();
-            nuierButton("KV-1s", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(0).getName(), Editor_Main.getCharacters().get(0).getKlasse(), Editor_Main.getCharacters().get(0).getA().get(1).getName(), Editor_Main.getCharacters().get(0).getA().get(2).getName(), Editor_Main.getCharacters().get(0).getA().get(3).getName(), Editor_Main.getCharacters().get(0).getA().get(4).getName(), Editor_Main.getCharacters().get(0).getA().get(0).getName());
             tuasochnmochn();
 
         } else if (characters.get(1).equals(ent.getSource())) {
 
             bo3();
-            nuierButton("Sage", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(1).getName(), Editor_Main.getCharacters().get(1).getKlasse(), Editor_Main.getCharacters().get(1).getA().get(1).getName(), Editor_Main.getCharacters().get(1).getA().get(2).getName(), Editor_Main.getCharacters().get(1).getA().get(3).getName(), Editor_Main.getCharacters().get(1).getA().get(4).getName(), Editor_Main.getCharacters().get(1).getA().get(0).getName());
             tuasochnmochn();
 
         } else if (characters.get(2).equals(ent.getSource())) {
 
-            nuierButton("NiggaSlayer321", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(2).getName(), Editor_Main.getCharacters().get(2).getKlasse(), Editor_Main.getCharacters().get(2).getA().get(1).getName(), Editor_Main.getCharacters().get(2).getA().get(2).getName(), Editor_Main.getCharacters().get(2).getA().get(3).getName(), Editor_Main.getCharacters().get(2).getA().get(4).getName(), Editor_Main.getCharacters().get(2).getA().get(0).getName());
             tuasochnmochn();
             bo3();
 
         } else if (characters.get(3).equals(ent.getSource())) {
 
-            nuierButton("Peter", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(3).getName(), Editor_Main.getCharacters().get(3).getKlasse(), Editor_Main.getCharacters().get(3).getA().get(1).getName(), Editor_Main.getCharacters().get(3).getA().get(2).getName(), Editor_Main.getCharacters().get(3).getA().get(3).getName(), Editor_Main.getCharacters().get(3).getA().get(4).getName(), Editor_Main.getCharacters().get(3).getA().get(0).getName());
             tuasochnmochn();
             bo3();
 
         } else if (characters.get(4).equals(ent.getSource())) {
 
-            nuierButton("luis", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(4).getName(), Editor_Main.getCharacters().get(4).getKlasse(), Editor_Main.getCharacters().get(4).getA().get(1).getName(), Editor_Main.getCharacters().get(4).getA().get(2).getName(), Editor_Main.getCharacters().get(4).getA().get(3).getName(), Editor_Main.getCharacters().get(4).getA().get(4).getName(), Editor_Main.getCharacters().get(4).getA().get(0).getName());
             tuasochnmochn();
             bo3();
 
         } else if (characters.get(5).equals(ent.getSource())) {
 
-            nuierButton("Witch", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(5).getName(), Editor_Main.getCharacters().get(5).getKlasse(), Editor_Main.getCharacters().get(5).getA().get(1).getName(), Editor_Main.getCharacters().get(5).getA().get(2).getName(), Editor_Main.getCharacters().get(5).getA().get(3).getName(), Editor_Main.getCharacters().get(5).getA().get(4).getName(), Editor_Main.getCharacters().get(5).getA().get(0).getName());
             bo3();
             tuasochnmochn();
 
         } else if (characters.get(6).equals(ent.getSource())) {
 
-            nuierButton("Brim", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(6).getName(), Editor_Main.getCharacters().get(6).getKlasse(), Editor_Main.getCharacters().get(6).getA().get(1).getName(), Editor_Main.getCharacters().get(6).getA().get(2).getName(), Editor_Main.getCharacters().get(6).getA().get(3).getName(), Editor_Main.getCharacters().get(6).getA().get(4).getName(), Editor_Main.getCharacters().get(6).getA().get(0).getName());
             tuasochnmochn();
             bo3();
 
         } else if (characters.get(7).equals(ent.getSource())) {
 
-            nuierButton("Kayo", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(7).getName(), Editor_Main.getCharacters().get(7).getKlasse(), Editor_Main.getCharacters().get(7).getA().get(1).getName(), Editor_Main.getCharacters().get(7).getA().get(2).getName(), Editor_Main.getCharacters().get(7).getA().get(3).getName(), Editor_Main.getCharacters().get(7).getA().get(4).getName(), Editor_Main.getCharacters().get(7).getA().get(0).getName());
             tuasochnmochn();
             bo3();
 
         } else if (characters.get(8).equals(ent.getSource())) {
 
-            nuierButton("Jett", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(8).getName(), Editor_Main.getCharacters().get(8).getKlasse(), Editor_Main.getCharacters().get(8).getA().get(1).getName(), Editor_Main.getCharacters().get(8).getA().get(2).getName(), Editor_Main.getCharacters().get(8).getA().get(3).getName(), Editor_Main.getCharacters().get(8).getA().get(4).getName(), Editor_Main.getCharacters().get(8).getA().get(0).getName());
             tuasochnmochn();
             bo3();
 
@@ -681,40 +688,54 @@ public class StartMenu {
 
         if (characters.get(0).equals(evt.getSource())) {
 
-            nuierButton("KV-1s", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(0).getName(), Editor_Main.getCharacters().get(0).getKlasse(), Editor_Main.getCharacters().get(0).getA().get(1).getName(), Editor_Main.getCharacters().get(0).getA().get(2).getName(), Editor_Main.getCharacters().get(0).getA().get(3).getName(), Editor_Main.getCharacters().get(0).getA().get(4).getName(), Editor_Main.getCharacters().get(0).getA().get(0).getName());
             tuasochnmochn();
+
         } else if (characters.get(1).equals(evt.getSource())) {
 
-            nuierButton("Sage", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(1).getName(), Editor_Main.getCharacters().get(1).getKlasse(), Editor_Main.getCharacters().get(1).getA().get(1).getName(), Editor_Main.getCharacters().get(1).getA().get(2).getName(), Editor_Main.getCharacters().get(1).getA().get(3).getName(), Editor_Main.getCharacters().get(1).getA().get(4).getName(), Editor_Main.getCharacters().get(1).getA().get(0).getName());
             tuasochnmochn();
+
         } else if (characters.get(2).equals(evt.getSource())) {
 
-            nuierButton("Niggaslayer321", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(2).getName(), Editor_Main.getCharacters().get(2).getKlasse(), Editor_Main.getCharacters().get(2).getA().get(1).getName(), Editor_Main.getCharacters().get(2).getA().get(2).getName(), Editor_Main.getCharacters().get(2).getA().get(3).getName(), Editor_Main.getCharacters().get(2).getA().get(4).getName(), Editor_Main.getCharacters().get(2).getA().get(0).getName());
             tuasochnmochn();
+
+
         } else if (characters.get(3).equals(evt.getSource())) {
 
-            nuierButton("Peter", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(3).getName(), Editor_Main.getCharacters().get(3).getKlasse(), Editor_Main.getCharacters().get(3).getA().get(1).getName(), Editor_Main.getCharacters().get(3).getA().get(2).getName(), Editor_Main.getCharacters().get(3).getA().get(3).getName(), Editor_Main.getCharacters().get(3).getA().get(4).getName(), Editor_Main.getCharacters().get(3).getA().get(0).getName());
             tuasochnmochn();
+
+
         } else if (characters.get(4).equals(evt.getSource())) {
 
-            nuierButton("Luis", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(4).getName(), Editor_Main.getCharacters().get(4).getKlasse(), Editor_Main.getCharacters().get(4).getA().get(1).getName(), Editor_Main.getCharacters().get(4).getA().get(2).getName(), Editor_Main.getCharacters().get(4).getA().get(3).getName(), Editor_Main.getCharacters().get(4).getA().get(4).getName(), Editor_Main.getCharacters().get(4).getA().get(0).getName());
             tuasochnmochn();
+
+
         } else if (characters.get(5).equals(evt.getSource())) {
 
-            nuierButton("Witch", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(5).getName(), Editor_Main.getCharacters().get(5).getKlasse(), Editor_Main.getCharacters().get(5).getA().get(1).getName(), Editor_Main.getCharacters().get(5).getA().get(2).getName(), Editor_Main.getCharacters().get(5).getA().get(3).getName(), Editor_Main.getCharacters().get(5).getA().get(4).getName(), Editor_Main.getCharacters().get(5).getA().get(0).getName());
             tuasochnmochn();
+
         } else if (characters.get(6).equals(evt.getSource())) {
 
-            nuierButton("Brim", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(6).getName(), Editor_Main.getCharacters().get(6).getKlasse(), Editor_Main.getCharacters().get(6).getA().get(1).getName(), Editor_Main.getCharacters().get(6).getA().get(2).getName(), Editor_Main.getCharacters().get(6).getA().get(3).getName(), Editor_Main.getCharacters().get(6).getA().get(4).getName(), Editor_Main.getCharacters().get(6).getA().get(0).getName());
             tuasochnmochn();
+
         } else if (characters.get(7).equals(evt.getSource())) {
 
-            nuierButton("Kayo", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(7).getName(), Editor_Main.getCharacters().get(7).getKlasse(), Editor_Main.getCharacters().get(7).getA().get(1).getName(), Editor_Main.getCharacters().get(7).getA().get(2).getName(), Editor_Main.getCharacters().get(7).getA().get(3).getName(), Editor_Main.getCharacters().get(7).getA().get(4).getName(), Editor_Main.getCharacters().get(7).getA().get(0).getName());
             tuasochnmochn();
+
+
         } else if (characters.get(8).equals(evt.getSource())) {
 
-            nuierButton("Jett", "TANK", "ability1", "ability2", "ability3", "ult", "passive");
+            nuierButton(Editor_Main.getCharacters().get(8).getName(), Editor_Main.getCharacters().get(8).getKlasse(), Editor_Main.getCharacters().get(8).getA().get(1).getName(), Editor_Main.getCharacters().get(8).getA().get(2).getName(), Editor_Main.getCharacters().get(8).getA().get(3).getName(), Editor_Main.getCharacters().get(8).getA().get(4).getName(), Editor_Main.getCharacters().get(8).getA().get(0).getName());
             tuasochnmochn();
+
+
         }
 
 

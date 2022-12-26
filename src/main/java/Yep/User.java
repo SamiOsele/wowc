@@ -1,5 +1,6 @@
 package Yep;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -10,6 +11,8 @@ import java.util.Set;
  */
 public class User implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private String username, password, description, status;
     private int id, level, xp;
     private String lastlogon, createdate;

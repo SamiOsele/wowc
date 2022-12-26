@@ -1,15 +1,29 @@
-package Yep;
+package Character;
 
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class Character implements Serializable {
+   @Serial
+   private static final long serialVersionUID = 6529685098267757690L;
    private int id, maxHp, shield, ad, cdr, hp, ap;
    private String klasse, name, description;
    private BufferedImage img;
    private Set<Ability> abilitys;
 
+   private ArrayList<Ability> a;
+
+   public ArrayList<Ability> getA() {
+      return a;
+   }
+
+   public void setA(ArrayList<Ability> a) {
+      this.a = a;
+   }
 
    public int getId() {
       return id;
@@ -47,11 +61,11 @@ public class Character implements Serializable {
       this.img = img;
    }
 
-   public Set<Ability> getabilitys() {
+   public Set<Ability> getAbilitys() {
       return abilitys;
    }
 
-   public void setabilitys(Set<Ability> abilitys) {
+   public void setAbilitys(Set<Ability> abilitys) {
       this.abilitys = abilitys;
    }
 

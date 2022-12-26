@@ -1,9 +1,14 @@
 package Played;
 
-import Yep.Character;
+import Character.Character;
 
-public class Played {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Played implements Serializable {
     private int id, games, wins, statsId;
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private Character charId;
 
 
