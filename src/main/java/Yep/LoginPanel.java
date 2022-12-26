@@ -5,6 +5,7 @@
 package Yep;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 
 /**
@@ -202,11 +203,7 @@ public class LoginPanel extends javax.swing.JPanel {
 
             Menu.StartMenu();
             parent.dispose();
-             /*   Editor_MainPanel panel = new Editor_MainPanel(u);
-                panel.setSize(400, 400);
-                panel.setLocationRelativeTo(null);
-                panel.setVisible(true);
-                */
+
 
         }else if (nigger == 0){
             txt_password.setText("");
@@ -217,6 +214,7 @@ public class LoginPanel extends javax.swing.JPanel {
             txt_username.setText("");
         }//GEN-LAST:event_btn_loginActionPerformed
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_login;
