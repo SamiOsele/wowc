@@ -1,32 +1,64 @@
 package Yep;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
+import java.util.Set;
 
-public class Character {
-
-   private String name,klasse;
-   private int maxHp, shield, ad, cdr;
-   private String[] abilities;
+public class Character implements Serializable {
+   private int id, maxHp, shield, ad, cdr, hp, ap;
+   private String klasse, name, description;
    private BufferedImage img;
+   private Set<Ability> abilitys;
 
 
-   public Character(String name, String klasse, int maxHp, int shield, int ad, int cdr, String[] abilities, BufferedImage img) {
-      this.name = name;
-      this.klasse = klasse;
-      this.maxHp = maxHp;
-      this.shield = shield;
-      this.ad = ad;
-      this.cdr = cdr;
-      this.abilities = abilities;
+   public int getId() {
+      return id;
+   }
+
+   public void setId(int id) {
+      this.id = id;
+   }
+
+   public int getHp() {
+      return hp;
+   }
+
+   public void setHp(int hp) {
+      this.hp = hp;
+   }
+
+   public int getAp() {
+      return ap;
+   }
+
+   public void setAp(int ap) {
+      this.ap = ap;
+   }
+
+   public String getDescription() {
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
+   }
+
+   public void setImg(BufferedImage img) {
       this.img = img;
+   }
+
+   public Set<Ability> getabilitys() {
+      return abilitys;
+   }
+
+   public void setabilitys(Set<Ability> abilitys) {
+      this.abilitys = abilitys;
    }
 
    public BufferedImage getImg() {
       return img;
    }
-
-
-
+   
    public String getName() {
       return name;
    }
@@ -73,14 +105,6 @@ public class Character {
 
    public void setCdr(int cdr) {
       this.cdr = cdr;
-   }
-
-   public String[] getAbilities() {
-      return abilities;
-   }
-
-   public void setAbilities(String[] abilities) {
-      this.abilities = abilities;
    }
 
 }

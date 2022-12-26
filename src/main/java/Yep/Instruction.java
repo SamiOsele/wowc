@@ -4,6 +4,10 @@ public enum Instruction {
         CREATEUSER,
         DELETEUSER,
         REQUESTUSER,
-        JOINQUEUE,
         UPDATEUSER,
+        JOINQUEUE,
+        GETALLCHARS,
+        SELCHAR,
+        GETCHARS,
+        EXAB,
 }

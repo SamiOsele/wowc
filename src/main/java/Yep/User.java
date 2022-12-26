@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Yep;
 
 import java.io.Serializable;
@@ -13,9 +9,9 @@ import java.util.Set;
  * @author HP
  */
 public class User implements Serializable {
-    
+
     private String username, password, description, status;
-    private int level, xp, id;
+    private int id, level, xp;
     private String lastlogon, createdate;
 
     public User(){
@@ -30,14 +26,6 @@ public class User implements Serializable {
         this.xp = xp;
         this.lastlogon = lastlogon;
         this.createdate = createdate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -104,7 +92,16 @@ public class User implements Serializable {
         this.password = password;
     }
 
+
     public void setCreatedate(String createdate) {
         this.createdate = createdate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
