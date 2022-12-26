@@ -38,8 +38,7 @@ public class Editor_Main {
         }
 
         System.out.println("got the characters");
-        getCharacters().get(0).getA().get(4).getName();
-        System.out.println(characters.get(0).getName());
+        System.out.println(getCharacters().get(0).getA().get(4).getName());
 
         JFrame frame = new JFrame();
         LoginPanel login = new LoginPanel(frame);

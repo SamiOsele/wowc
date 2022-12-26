@@ -13,7 +13,6 @@ public class Character implements Serializable {
    private int id, maxHp, shield, ad, cdr, hp, ap;
    private String klasse, name, description;
    private BufferedImage img;
-   private Set<Ability> abilitys;
 
    private ArrayList<Ability> a;
 
@@ -59,14 +58,6 @@ public class Character implements Serializable {
 
    public void setImg(BufferedImage img) {
       this.img = img;
-   }
-
-   public Set<Ability> getAbilitys() {
-      return abilitys;
-   }
-
-   public void setAbilitys(Set<Ability> abilitys) {
-      this.abilitys = abilitys;
    }
 
    public BufferedImage getImg() {

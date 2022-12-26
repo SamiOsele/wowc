@@ -10,4 +10,5 @@ public enum Instruction {
         SELCHAR,
         GETCHARS,
         EXAB,
+        RDMCHAR,
 }
