@@ -114,7 +114,7 @@ public class StartMenu {
                     JLabel time = new JLabel();
 
 
-/*
+
             AtomicInteger counternigga = new AtomicInteger(90);
              ScheduledExecutorService sceduler = Executors.newScheduledThreadPool(1);
          sceduler.scheduleAtFixedRate(() -> {
@@ -145,7 +145,7 @@ public class StartMenu {
             }
 
         }, 0,1, TimeUnit.SECONDS);
-*/
+
                     System.out.println("fuck u");
 
 
