@@ -6,9 +6,9 @@ public class game {
 
     JPanel menu;
 
-   public void  lul(JPanel menus){
+   public void  lul(JPanel menu){
 
-       menu = menus;
+       this.menu = menu;
 
     }
 

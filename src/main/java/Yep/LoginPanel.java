@@ -202,6 +202,7 @@ public class LoginPanel extends javax.swing.JPanel {
             StartMenu Menu = new StartMenu();
 
             Menu.StartMenu();
+            Menu.SeitenMenu();
             parent.dispose();
 
 

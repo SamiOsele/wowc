@@ -1,8 +1,9 @@
 package Yep;
 
 
-import Queue.QueueUser;
 import Character.Character;
+import Queue.QueueUser;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -28,26 +29,24 @@ public class StartMenu {
     public int champselected =0;
         public void StartMenu(){
 
-
             menu.setLayout(null);
             frame.add(menu);
             frame.setVisible(true);
             frame.setSize(1920,1040);
             menu.setBackground(Color.darkGray);
-            seitenMenu(menu);
+
 
         }
 
-        private void seitenMenu(JPanel menu){
-            this.menu = menu;
-            JLabel username= new JLabel();
-            username.setBackground(Color.darkGray);
-            username.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-            username.setForeground(Color.white);
-            username.setText(String.valueOf(Editor_Main.getLoggedInUser().getUsername()));
-            username.setVisible(true);
-            username.setBounds(20,20,200,20);
-            menu.add(username);
+    public void SeitenMenu() {
+        JLabel username = new JLabel();
+        username.setBackground(Color.darkGray);
+        username.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        username.setForeground(Color.white);
+        username.setText(String.valueOf(Editor_Main.getLoggedInUser().getUsername()));
+        username.setVisible(true);
+        username.setBounds(20, 20, 200, 20);
+        menu.add(username);
 
 
             JLabel level= new JLabel();
@@ -111,47 +110,45 @@ public class StartMenu {
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
+                    menu.removeAll();
                     JLabel time = new JLabel();
+                    time.setBackground(Color.darkGray);
+                    time.setFont(new java.awt.Font("Gill Sans Nova", 1, 40));
+                    time.setForeground(Color.white);
+                    time.setVisible(true);
+                    time.setBounds(960, 60, 100, 60);
+                    menu.add(time);
+                    menu.updateUI();
+
+                    AtomicInteger counternigga = new AtomicInteger(90);
+                    ScheduledExecutorService sceduler = Executors.newScheduledThreadPool(1);
+                    sceduler.scheduleAtFixedRate(() -> {
+                        System.out.println(counternigga);
+
+                        time.setText(String.valueOf(counternigga.get()));
+                        counternigga.getAndDecrement();
+
+                        if (counternigga.get() == 0 && champselected == 0) {
 
 
-
-            AtomicInteger counternigga = new AtomicInteger(90);
-             ScheduledExecutorService sceduler = Executors.newScheduledThreadPool(1);
-         sceduler.scheduleAtFixedRate(() -> {
-            System.out.println("Miggggggg");
-
-            time.setText(String.valueOf(counternigga.get()));
-            counternigga.getAndDecrement();
-
-            if(counternigga.get() == 0 &&  champselected == 0){
-
-
-
-                try {
-                    SenderObject so = new SenderObject(Instruction.RDMCHAR);
-                    Editor_Main.getSocket().getOut().writeObject(so);
-
-
-                    rdmChar = ((SenderObject)Editor_Main.getSocket().getIn().readObject()).getCharacter();
-
-                    champselected = 1;
+                            try {
+                                SenderObject so = new SenderObject(Instruction.RDMCHAR);
+                                Editor_Main.getSocket().getOut().writeObject(so);
+                                rdmChar = ((SenderObject)Editor_Main.getSocket().getIn().readObject()).getCharacter();
+                                champselected = 1;
+                                sceduler.shutdownNow();
 
                 } catch (IOException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
 
-                sceduler.shutdownNow();
+
 
             }
 
         }, 0,1, TimeUnit.SECONDS);
 
-                    System.out.println("fuck u");
 
-
-                    System.out.println("diocane i funk a ");
-
-                    xp.setText("30");
 
                     menu.updateUI();
                     JLabel team1 = new JLabel();
@@ -163,13 +160,7 @@ public class StartMenu {
                     JLabel player5 = new JLabel();
                     JLabel player6 = new JLabel();
 
-                    time.setBackground(Color.darkGray);
-                    time.setFont(new java.awt.Font("Gill Sans Nova", 1, 40));
-                    time.setForeground(Color.white);
-                    time.setVisible(true);
-                    time.setBounds(30, 40, 40, 40);
-                    menu.add(time);
-                    menu.updateUI();
+
 
                     menu.updateUI();
                     team1.setBackground(Color.darkGray);
@@ -323,13 +314,13 @@ public class StartMenu {
 
 
                     }
-                    while(champselected!= 1){
+             /*       while(champselected!= 1){
 
 
 
                     };
 
-
+*/
                 }
             });
 
