@@ -18,7 +18,6 @@ public class Editor_Main {
     private static ClientSocket socket = new ClientSocket();
 
 
-
     private static ArrayList<Character> characters;
     private static User loggedInUser;
     public static void main(String[] args) {
