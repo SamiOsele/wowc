@@ -1,6 +1,6 @@
 package Queue;
 
-import Character.Character;
+import Character.Charakter;
 import Yep.User;
 
 import java.io.Serial;
@@ -10,12 +10,12 @@ public class QueueUser implements Serializable {
     @Serial
     private static final long serialVersionUID = 6529685098267757690L;
     private User user;
-    private Character Character;
+    private Charakter charakter;
     private int team;
 
-    public QueueUser(User user, Character Character, int team) {
+    public QueueUser(User user, Charakter charakter, int team) {
         this.user = user;
-        this.Character = Character;
+        this.charakter = charakter;
         this.team = team;
     }
 
@@ -27,12 +27,12 @@ public class QueueUser implements Serializable {
         this.user = user;
     }
 
-    public Character getCharacter() {
-        return Character;
+    public Charakter getCharacter() {
+        return charakter;
     }
 
-    public void setCharacter(Character Character) {
-        this.Character = Character;
+    public void setCharacter(Charakter Character) {
+        this.charakter = Character;
     }
 
     public int getTeam() {
