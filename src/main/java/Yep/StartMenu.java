@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -402,33 +403,33 @@ public class StartMenu {
         try {
             if(queueUsers.get(0).getCharacter() != null) {
                 int first= queueUsers.get(0).getCharacter().getId() ;
-                Image img1 = ImageIO.read(getClass().getResource("/characters/" + first + ".png"));
+                Image img1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + first + ".png")));
                 label1.setIcon(new ImageIcon(img1));
                 label1.setText("du hure");
             }
             if(queueUsers.get(1).getCharacter() != null) {
                 int second= queueUsers.get(1).getCharacter().getId() ;
-                Image img2 = ImageIO.read(getClass().getResource("/characters/" + second + ".png"));
+                Image img2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + second + ".png")));
                 label2.setIcon(new ImageIcon(img2));
             }
             if(queueUsers.get(2).getCharacter() != null) {
                 int third= queueUsers.get(2).getCharacter().getId() ;
-                Image img3 =ImageIO.read(getClass().getResource("/characters/" + third + ".png"));
+                Image img3 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + third + ".png")));
                 label3.setIcon(new ImageIcon(img3));
             }
             if(queueUsers.get(3).getCharacter() != null) {
                 int fourth= queueUsers.get(3).getCharacter().getId() ;
-                Image img4 = ImageIO.read(getClass().getResource("/characters/" + fourth + ".png"));
+                Image img4 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fourth + ".png")));
                 label4.setIcon(new ImageIcon(img4));
             }
             if(queueUsers.get(4).getCharacter() != null) {
                 int fifth= queueUsers.get(4).getCharacter().getId() ;
-                Image img5 =ImageIO.read(getClass().getResource("/characters/"+fifth+".png"));
+                Image img5 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fifth + ".png")));
                 label5.setIcon(new ImageIcon(img5));
             }
             if(queueUsers.get(5).getCharacter() != null) {
                 int sixth= queueUsers.get(5).getCharacter().getId() ;
-                Image img6 =  ImageIO.read(getClass().getResource("/characters/"+sixth+".png"));
+                Image img6 =  ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + sixth + ".png")));
                 label6.setIcon(new ImageIcon(img6));
             }
             System.out.println("diocan");
