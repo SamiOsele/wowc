@@ -6,6 +6,7 @@ import Queue.QueueUser;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.TableHeaderUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
@@ -28,7 +29,7 @@ public class StartMenu {
     public Character rdmChar;
     private ArrayList<JLabel> labels;
     private ArrayList<QueueUser> currentAgents = new ArrayList<>();
-
+    private boolean channelfree = true;
     public int champselected = 0;
 
     public void StartMenu() {
@@ -277,46 +278,48 @@ public class StartMenu {
                 menu.add(label6);
                 ScheduledExecutorService scheduler2 = Executors.newScheduledThreadPool(1);
                 scheduler2.scheduleAtFixedRate(() -> {
+                    if(channelfree){
 
-                    try {
-                        SenderObject so = new SenderObject(Instruction.REQGAMEUSER);
-                        Editor_Main.getSocket().getOut().writeUnshared(so);
+                        try {
+                            SenderObject so = new SenderObject(Instruction.REQGAMEUSER);
+                            Editor_Main.getSocket().getOut().writeUnshared(so);
 
-                        SenderObject so4 = (SenderObject) Editor_Main.getSocket().getIn().readObject();
+                            QueueUser so4 = (QueueUser) Editor_Main.getSocket().getIn().readObject();
+                            currentAgents.clear();
+                            currentAgents.add(so4);
+                            System.out.println(currentAgents.get(0).getCharacter().getName());
 
-                        currentAgents = so4.getQueueUsers();
-                        System.out.println(currentAgents);
-                        for (int i=0; i< 6; i++){
-                           if (currentAgents.get(i).getCharacter() != null) {
-                               System.out.println(currentAgents.get(i).getCharacter().getName());
-                           }
+
+                             } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
                         }
-
-
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    } catch (ClassNotFoundException e) {
-                        throw new RuntimeException(e);
                     }
+
+
+
+
+
 
 
                 }, 0, 500, TimeUnit.MILLISECONDS);
 
                 Thread th3 = new Thread(() -> {
 
-                    while (true){
-                        if (currentAgents.size() > 0) {
-                            renderAgentsUnderUser();
-                        }
+                    while (true) {
+                        if (currentAgents != null) {
+                            if (currentAgents.size() > 0) {
+                                renderAgentsUnderUser();
+                            }
 
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-
                 });
                 th3.start();
 
@@ -478,22 +481,28 @@ public class StartMenu {
 
         removelustigesochn();
         menu.updateUI();
-
-
+        channelfree=false;
+        try {
+            Thread.sleep(769);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         SenderObject so = new SenderObject(Instruction.SELCHAR);
         so.setC(agent);
 
+
         try {
             Editor_Main.getSocket().getOut().writeObject(so);
+            SenderObject so5= (SenderObject) Editor_Main.getSocket().getIn().readObject();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         champselected = 1;
 
-
-        game game = new game();
-        game.lul(menu);
+        channelfree= true;
 
 
     }
