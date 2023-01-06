@@ -166,9 +166,11 @@ public class LoginPanel extends javax.swing.JPanel {
         }
         frame1.dispose();
     }
+
+    public User l = new User();
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         SenderObject s = new SenderObject(Instruction.REQUESTUSER);
-        User l = new User();
+
         l.setUsername(txt_username.getText());
         l.setPassword(txt_password.getText());
         s.setUser(l);
@@ -178,6 +180,7 @@ public class LoginPanel extends javax.swing.JPanel {
             e.printStackTrace();
         }
         User u = null;
+
         int nigger = 0;
         while (true) {
             try {

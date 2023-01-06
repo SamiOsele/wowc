@@ -17,7 +17,7 @@ public class SenderObject  implements Serializable {
     private User user;
     private int code;
     private ArrayList<QueueUser> queueUsers;
-    private Charakter character;
+    private Charakter charakter;
     private ArrayList<Charakter> characters;
     private Stats  stats;
     private int c;
@@ -85,11 +85,11 @@ public class SenderObject  implements Serializable {
     }
 
     public Charakter getCharacter() {
-        return character;
+        return charakter;
     }
 
     public void setCharacter(Charakter character) {
-        this.character = character;
+        this.charakter = character;
     }
 
     public int getC() {
