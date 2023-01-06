@@ -40,7 +40,7 @@ public class Editor_Main {
         System.out.println("got the characters");
         System.out.println(getCharacters().get(0).getA().get(4).getName());
 
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Login");
         LoginPanel login = new LoginPanel(frame);
 
         frame.setContentPane(login);
