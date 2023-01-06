@@ -18,4 +18,5 @@ public enum Instruction {
         GETSETTINGS,
         GAMESTARTCD,
         GAMEFINISCHED,
+        DC,
 }

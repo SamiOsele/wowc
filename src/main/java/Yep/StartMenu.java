@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static Yep.Instruction.CHANGENAME;
+import static Yep.Instruction.DC;
 
 
 public class StartMenu {
@@ -107,9 +108,10 @@ public class StartMenu {
         changeName.addActionListener((l) -> {
             SenderObject so = new SenderObject(CHANGENAME);
             so.setNewUsername(newUsername.getText());
+            SenderObject so2 = new SenderObject(DC);
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
-
+                Editor_Main.getSocket().getOut().writeObject(so2);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -139,6 +141,8 @@ public class StartMenu {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SenderObject s = new SenderObject(Instruction.JOINQUEUE);
                 menu.remove(nameHistory);
+                menu.remove(newUsername);
+                menu.remove(changeName);
                 try {
 
                     Editor_Main.getSocket().getOut().writeObject(s);

@@ -25,6 +25,7 @@ public class Editor_Main {
         socket.connect();
         System.out.println("Connection succesfull");
         socket.start();
+
         System.out.println("started");
         SenderObject so = new SenderObject(Instruction.GETALLCHARS);
         try {

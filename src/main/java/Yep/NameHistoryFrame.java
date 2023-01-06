@@ -30,11 +30,11 @@ public class NameHistoryFrame extends JFrame {
 
     public void showNames() {
         this.setVisible(true);
-
         for (int i = 0; i < nameHistories.size(); i++) {
             JPanel p = new JPanel();
             p.setBackground(Color.DARK_GRAY);
-            p.setSize(300, 40);
+
+            p.setBounds(40, 40 * i, 300, 40 );
 
             JLabel l = new JLabel();
             l.setText(nameHistories.get(i).getDateAndTime().substring(0,10) + " "   + (nameHistories.get(i).getDateAndTime().substring(11,16)  + " ->  " + nameHistories.get(i).getUsername()));

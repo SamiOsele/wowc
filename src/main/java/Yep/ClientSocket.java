@@ -18,6 +18,7 @@ public  class ClientSocket {
             in = new ObjectInputStream(socket.getInputStream());
             // OutputStream outputStream= socket.getOutputStream();
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,5 +39,9 @@ public  class ClientSocket {
 
     public ObjectOutputStream getOut() {
         return out;
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 }
