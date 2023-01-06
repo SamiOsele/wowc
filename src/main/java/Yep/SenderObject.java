@@ -3,7 +3,7 @@ package Yep;
 import NameHistory.NameHistory;
 import Queue.QueueUser;
 import Stats.Stats;
-import Character.Charakter;
+import Character.Character;
 import Character.Settings;
 
 import java.io.Serial;
@@ -84,11 +84,11 @@ public class SenderObject  implements Serializable {
         this.queueUsers = queueUsers;
     }
 
-    public Charakter getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 
-    public void setCharacter(Charakter character) {
+    public void setCharacter(Character character) {
         this.character = character;
     }
 
@@ -108,11 +108,11 @@ public class SenderObject  implements Serializable {
         this.ab = ab;
     }
 
-    public ArrayList<Charakter> getCharacters() {
+    public ArrayList<Character> getCharacters() {
         return characters;
     }
 
-    public void setCharacters(ArrayList<Charakter> characters) {
+    public void setCharacters(ArrayList<Character> characters) {
         this.characters = characters;
     }
 
@@ -140,7 +140,6 @@ public class SenderObject  implements Serializable {
     public void setNameHistory(ArrayList<NameHistory> nameHistory) {
         this.nameHistory = nameHistory;
     }
-
     public QueueUser getQueueUser1() {
         return queueUser1;
     }
@@ -188,4 +187,5 @@ public class SenderObject  implements Serializable {
     public void setQueueUser6(QueueUser queueUser6) {
         this.queueUser6 = queueUser6;
     }
+
 }
