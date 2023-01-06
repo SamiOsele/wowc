@@ -93,7 +93,6 @@ public class StartMenu {
 
                     Editor_Main.getSocket().getOut().writeObject(s);
                     while (queueUsers == null) {
-                        System.out.println("Nigga");
                         SenderObject sr = (SenderObject) Editor_Main.getSocket().getIn().readObject();
 
                         if (sr.getInstruction() == Instruction.JOINQUEUE) {
@@ -281,14 +280,20 @@ public class StartMenu {
 
                     try {
                         SenderObject so = new SenderObject(Instruction.REQGAMEUSER);
-                        Editor_Main.getSocket().getOut().writeObject(so);
+                        Editor_Main.getSocket().getOut().writeUnshared(so);
 
                         SenderObject so4 = (SenderObject) Editor_Main.getSocket().getIn().readObject();
 
                         currentAgents = so4.getQueueUsers();
-                        System.out.println("hello I am not racist");
+                        System.out.println(currentAgents);
+                        for (int i=0; i< 6; i++){
+                           if (currentAgents.get(i).getCharacter() != null) {
+                               System.out.println(currentAgents.get(i).getCharacter().getName());
+                           }
+                        }
 
-                        renderAgentsUnderUser();
+
+
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     } catch (ClassNotFoundException e) {
@@ -297,6 +302,23 @@ public class StartMenu {
 
 
                 }, 0, 500, TimeUnit.MILLISECONDS);
+
+                Thread th3 = new Thread(() -> {
+
+                    while (true){
+                        if (currentAgents.size() > 0) {
+                            renderAgentsUnderUser();
+                        }
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                });
+                th3.start();
 
 
                 for (QueueUser u : queueUsers
@@ -380,7 +402,7 @@ public class StartMenu {
 
 
     private void renderAgentsUnderUser() {
-        System.out.println("du hureeeeeeeeeeeeeeee");
+
 
 
         label1.setBounds(100,350,64,64);
@@ -399,40 +421,39 @@ public class StartMenu {
         label6.setText("dor georg isch geil ");
 
 
-        System.out.println("asdasdasd");
+
         try {
-            if(queueUsers.get(0).getCharacter() != null) {
+            if(currentAgents.get(0).getCharacter() != null) {
                 int first= queueUsers.get(0).getCharacter().getId() ;
                 Image img1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + first + ".png")));
                 label1.setIcon(new ImageIcon(img1));
                 label1.setText("du hure");
             }
-            if(queueUsers.get(1).getCharacter() != null) {
+            if(currentAgents.get(1).getCharacter() != null) {
                 int second= queueUsers.get(1).getCharacter().getId() ;
                 Image img2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + second + ".png")));
                 label2.setIcon(new ImageIcon(img2));
             }
-            if(queueUsers.get(2).getCharacter() != null) {
+            if(currentAgents.get(2).getCharacter() != null) {
                 int third= queueUsers.get(2).getCharacter().getId() ;
                 Image img3 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + third + ".png")));
                 label3.setIcon(new ImageIcon(img3));
             }
-            if(queueUsers.get(3).getCharacter() != null) {
+            if(currentAgents.get(3).getCharacter() != null) {
                 int fourth= queueUsers.get(3).getCharacter().getId() ;
                 Image img4 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fourth + ".png")));
                 label4.setIcon(new ImageIcon(img4));
             }
-            if(queueUsers.get(4).getCharacter() != null) {
+            if(currentAgents.get(4).getCharacter() != null) {
                 int fifth= queueUsers.get(4).getCharacter().getId() ;
                 Image img5 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fifth + ".png")));
                 label5.setIcon(new ImageIcon(img5));
             }
-            if(queueUsers.get(5).getCharacter() != null) {
+            if(currentAgents.get(5).getCharacter() != null) {
                 int sixth= queueUsers.get(5).getCharacter().getId() ;
                 Image img6 =  ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + sixth + ".png")));
                 label6.setIcon(new ImageIcon(img6));
             }
-            System.out.println("diocan");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -443,9 +464,9 @@ public class StartMenu {
         label4.setVisible(true);
         label5.setVisible(true);
         label6.setVisible(true);
-
+        System.out.println("Hello");
         menu.updateUI();
-        System.out.println("lul");
+
 
     }
 
