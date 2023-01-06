@@ -8,7 +8,7 @@ public class Ability implements Serializable {
     private static final long serialVersionUID = 6529685098267757690L;
     private int id,aid;
     private String name, description;
-    private Character charid;
+    private Charakter charid;
 
     public Ability() {
 
@@ -46,11 +46,11 @@ public class Ability implements Serializable {
         this.description = description;
     }
 
-    public Character getCharid() {
+    public Charakter getCharid() {
         return charid;
     }
 
-    public void setCharid(Character charid) {
+    public void setCharid(Charakter charid) {
         this.charid = charid;
     }
 }

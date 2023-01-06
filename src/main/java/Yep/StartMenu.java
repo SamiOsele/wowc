@@ -1,11 +1,12 @@
 package Yep;
 
 
-import Character.Character;
+import Character.Charakter;
 import Queue.QueueUser;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.plaf.TableHeaderUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,15 +19,18 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static Yep.Instruction.CHANGENAME;
+
 
 public class StartMenu {
     private JFrame frame = new JFrame();
     private JPanel menu = new JPanel();
+    private NameHistoryFrame nameHistoryFrame = new NameHistoryFrame();
 
     public ArrayList<QueueUser> queueUsers;
     private JButton selectCharacter = new JButton();
 
-    public Character rdmChar;
+    public Charakter rdmChar;
     private ArrayList<JLabel> labels;
     private ArrayList<QueueUser> currentAgents = new ArrayList<>();
     private boolean channelfree = true;
@@ -74,6 +78,52 @@ public class StartMenu {
         menu.add(xp);
 
 
+        JButton nameHistory = new JButton();
+        nameHistory.setBackground(Color.gray);
+        nameHistory.setText("Name History");
+        nameHistory.setForeground(Color.white);
+        nameHistory.setBounds(40, 280, 200, 40);
+        nameHistory.setBorder(new LineBorder(Color.BLACK, 2));
+        nameHistory.addActionListener((l) -> {
+            nameHistoryFrame.updateNameHistory();
+            nameHistoryFrame.showNames();
+        });
+
+        menu.add(nameHistory);
+
+        JTextField newUsername = new JTextField();
+        newUsername.setBackground(Color.gray);
+        newUsername.setBounds(40, 150, 200, 40);
+        newUsername.setForeground(Color.white);
+        newUsername.setBorder(new LineBorder(Color.BLACK, 2));
+        menu.add(newUsername);
+
+        JButton changeName = new JButton();
+        changeName.setBackground(Color.gray);
+        changeName.setText("Change Name");
+        changeName.setForeground(Color.white);
+        changeName.setBounds(40, 200, 200, 40);
+        changeName.setBorder(new LineBorder(Color.BLACK, 2));
+        changeName.addActionListener((l) -> {
+            SenderObject so = new SenderObject(CHANGENAME);
+            so.setNewUsername(newUsername.getText());
+            try {
+                Editor_Main.getSocket().getOut().writeObject(so);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            JOptionPane.showMessageDialog(null," Name Changed -> Pls Restart the client");
+            try {
+                Thread.sleep(5000);
+                System.exit(0);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        menu.add(changeName);
+
         JButton queue = new JButton();
         queue.setBackground(Color.darkGray);
         queue.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
@@ -87,9 +137,8 @@ public class StartMenu {
         Selection yes = new Selection();
         queue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-
                 SenderObject s = new SenderObject(Instruction.JOINQUEUE);
-
+                menu.remove(nameHistory);
                 try {
 
                     Editor_Main.getSocket().getOut().writeObject(s);
@@ -284,10 +333,16 @@ public class StartMenu {
                             SenderObject so = new SenderObject(Instruction.REQGAMEUSER);
                             Editor_Main.getSocket().getOut().writeUnshared(so);
 
-                            QueueUser so4 = (QueueUser) Editor_Main.getSocket().getIn().readObject();
-                            currentAgents.clear();
-                            currentAgents.add(so4);
-                            System.out.println(currentAgents.get(0).getCharacter().getName());
+                        SenderObject so4 = (SenderObject) Editor_Main.getSocket().getIn().readUnshared();
+
+                        currentAgents = so4.getQueueUsers();
+                        System.out.println(currentAgents);
+                        for (int i=0; i< 6; i++){
+                           if (currentAgents.get(i).getCharacter() != null) {
+                               System.out.println(currentAgents.get(i).getCharacter().getName());
+                           }
+                        }
+
 
 
                              } catch (IOException e) {
@@ -320,6 +375,7 @@ public class StartMenu {
                             }
                         }
                     }
+
                 });
                 th3.start();
 

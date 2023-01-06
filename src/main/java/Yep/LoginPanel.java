@@ -5,8 +5,9 @@
 package Yep;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
+import Character.SettingsMgr;
+import Queue.QueueUser;
 
 /**
  * @author HP
@@ -186,6 +187,7 @@ public class LoginPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Dieser Benutzer ist bereits angemeldet");
                 }else{
                     u = b.getUser();
+                    SettingsMgr.init(Editor_Main.getSocket());
                 }
 
 

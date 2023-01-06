@@ -4,8 +4,8 @@ public enum Instruction {
         CREATEUSER,
         DELETEUSER,
         REQUESTUSER,
-        UPDATEUSER,
         JOINQUEUE,
+        UPDATEUSER,
         GETALLCHARS,
         SELCHAR,
         GETCHARS,
@@ -15,7 +15,7 @@ public enum Instruction {
         REQNAMEHISTORY,
         RDMCHAR,
         REQGAMEUSER,
+        GETSETTINGS,
         GAMESTARTCD,
         GAMEFINISCHED,
-        GETSETTINGS,
 }

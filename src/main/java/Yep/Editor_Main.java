@@ -4,7 +4,7 @@
  */
 
 package Yep;
-import Character.Character;
+import Character.Charakter;
 import javax.swing.JFrame;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class Editor_Main {
     private static ClientSocket socket = new ClientSocket();
 
 
-    private static ArrayList<Character> characters;
+    private static ArrayList<Charakter> characters;
     private static User loggedInUser;
     public static void main(String[] args) {
 
@@ -61,11 +61,11 @@ public class Editor_Main {
     public static void setLoggedInUser(User loggedInUser) {
         Editor_Main.loggedInUser = loggedInUser;
     }
-    public static ArrayList<Character> getCharacters() {
+    public static ArrayList<Charakter> getCharacters() {
         return characters;
     }
 
-    public static void setCharacters(ArrayList<Character> characters) {
+    public static void setCharacters(ArrayList<Charakter> characters) {
         Editor_Main.characters = characters;
     }
 }
