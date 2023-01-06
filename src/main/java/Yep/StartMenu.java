@@ -7,7 +7,7 @@ import Queue.QueueUser;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.TableHeaderUI;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
@@ -24,20 +24,17 @@ import static Yep.Instruction.DC;
 
 
 public class StartMenu {
-    private JFrame frame = new JFrame();
-    private JPanel menu = new JPanel();
-    private NameHistoryFrame nameHistoryFrame = new NameHistoryFrame();
+    private final JFrame frame = new JFrame();
+    private final JPanel menu = new JPanel();
+    private final NameHistoryFrame nameHistoryFrame = new NameHistoryFrame();
 
     public ArrayList<QueueUser> queueUsers;
-    private JButton selectCharacter = new JButton();
+    private final JButton selectCharacter = new JButton();
 
     public Charakter rdmChar;
     private ArrayList<JLabel> labels;
     private ArrayList<QueueUser> currentAgents = new ArrayList<>();
     private boolean channelfree = true;
-    public int champselected = 0;
-
-
 
 
     JLabel player1 = new JLabel();
