@@ -11,4 +11,5 @@ public enum Instruction {
         GETCHARS,
         EXAB,
         RDMCHAR,
+        REQGAMEUSER,
 }

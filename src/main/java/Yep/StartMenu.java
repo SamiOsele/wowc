@@ -18,25 +18,28 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class StartMenu {
-        private JFrame frame= new JFrame();
-        private  JPanel menu = new JPanel();
+    private JFrame frame = new JFrame();
+    private JPanel menu = new JPanel();
 
     public ArrayList<QueueUser> queueUsers;
     private JButton selectCharacter = new JButton();
 
     public Character rdmChar;
+    private ArrayList<JLabel> labels;
+    private ArrayList<QueueUser> currentAgents = new ArrayList<>();
 
-    public int champselected =0;
-        public void StartMenu(){
+    public int champselected = 0;
 
-            menu.setLayout(null);
-            frame.add(menu);
-            frame.setVisible(true);
-            frame.setSize(1920,1040);
-            menu.setBackground(Color.darkGray);
+    public void StartMenu() {
+
+        menu.setLayout(null);
+        frame.add(menu);
+        frame.setVisible(true);
+        frame.setSize(1920, 1040);
+        menu.setBackground(Color.darkGray);
 
 
-        }
+    }
 
     public void SeitenMenu() {
         JLabel username = new JLabel();
@@ -49,301 +52,426 @@ public class StartMenu {
         menu.add(username);
 
 
-            JLabel level= new JLabel();
-            level.setBackground(Color.darkGray);
-            level.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-            level.setForeground(Color.white);
-            level.setText("Level: " +String.valueOf(Editor_Main.getLoggedInUser().getLevel()));
-            level.setVisible(true);
-            level.setBounds(1800,50,100,30);
-            menu.add(level);
+        JLabel level= new JLabel();
+        level.setBackground(Color.darkGray);
+        level.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        level.setForeground(Color.white);
+        level.setText("Level: " +String.valueOf(Editor_Main.getLoggedInUser().getLevel()));
+        level.setVisible(true);
+        level.setBounds(1800,50,100,30);
+        menu.add(level);
 
 
-            JLabel xp= new JLabel();
-            xp.setBackground(Color.darkGray);
-            xp.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-            xp.setForeground(Color.white);
-            xp.setText("Xp: " +String.valueOf(Editor_Main.getLoggedInUser().getXp()));
-            xp.setVisible(true);
-            xp.setBounds(1800,80,100,20);
-            menu.add(xp);
+        JLabel xp= new JLabel();
+        xp.setBackground(Color.darkGray);
+        xp.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        xp.setForeground(Color.white);
+        xp.setText("Xp: " +String.valueOf(Editor_Main.getLoggedInUser().getXp()));
+        xp.setVisible(true);
+        xp.setBounds(1800,80,100,20);
+        menu.add(xp);
 
 
+        JButton queue = new JButton();
+        queue.setBackground(Color.darkGray);
+        queue.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        queue.setForeground(Color.white);
+        queue.setText("JOIN MATCH");
+        queue.setVisible(true);
+        queue.setBounds(800,600,200,40);
+        queue.setBorder(null);
+        queue.setModel(new FixedStateButtonModel());
+        menu.add(queue);
+        Selection yes = new Selection();
+        queue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-            JButton queue = new JButton();
-            queue.setBackground(Color.darkGray);
-            queue.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-            queue.setForeground(Color.white);
-            queue.setText("JOIN MATCH");
-            queue.setVisible(true);
-            queue.setBounds(800,600,200,40);
-            queue.setBorder(null);
-            queue.setModel(new FixedStateButtonModel());
-            menu.add(queue);
-            Selection yes = new Selection();
-            queue.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SenderObject s = new SenderObject(Instruction.JOINQUEUE);
 
-                    SenderObject s = new SenderObject(Instruction.JOINQUEUE);
+                try {
 
-                    try {
+                    Editor_Main.getSocket().getOut().writeObject(s);
+                    while (queueUsers == null) {
+                        System.out.println("Nigga");
+                        SenderObject sr = (SenderObject) Editor_Main.getSocket().getIn().readObject();
 
-                        Editor_Main.getSocket().getOut().writeObject(s);
-                        while (queueUsers == null) {
-                            System.out.println("Nigga");
-                            SenderObject sr = (SenderObject) Editor_Main.getSocket().getIn().readObject();
+                        if (sr.getInstruction() == Instruction.JOINQUEUE) {
+                            queueUsers = sr.getQueueUsers();
 
-                            if (sr.getInstruction() == Instruction.JOINQUEUE) {
-                                queueUsers = sr.getQueueUsers();
-
-
-                            }
-                        }
-
-                        for (QueueUser user : queueUsers) {
-
-                            System.out.println(user.getUser().getUsername());
 
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
                     }
-                    menu.removeAll();
-                    JLabel time = new JLabel();
-                    time.setBackground(Color.darkGray);
-                    time.setFont(new java.awt.Font("Gill Sans Nova", 1, 40));
-                    time.setForeground(Color.white);
-                    time.setVisible(true);
-                    time.setBounds(960, 60, 100, 60);
-                    menu.add(time);
-                    menu.updateUI();
 
-                    AtomicInteger counternigga = new AtomicInteger(90);
-                    ScheduledExecutorService sceduler = Executors.newScheduledThreadPool(1);
-                    sceduler.scheduleAtFixedRate(() -> {
-                        System.out.println(counternigga);
+                    for (QueueUser user : queueUsers) {
 
-                        time.setText(String.valueOf(counternigga.get()));
-                        counternigga.getAndDecrement();
+                        System.out.println(user.getUser().getUsername());
 
-                        if (counternigga.get() == 0 && champselected == 0) {
-
-
-                            try {
-                                SenderObject so = new SenderObject(Instruction.RDMCHAR);
-                                Editor_Main.getSocket().getOut().writeObject(so);
-                                rdmChar = ((SenderObject)Editor_Main.getSocket().getIn().readObject()).getCharacter();
-                                champselected = 1;
-                                sceduler.shutdownNow();
-
-                } catch (IOException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
+                menu.removeAll();
+                JLabel time = new JLabel();
+                time.setBackground(Color.darkGray);
+                time.setFont(new java.awt.Font("Gill Sans Nova", 1, 40));
+                time.setForeground(Color.white);
+                time.setVisible(true);
+                time.setBounds(960, 60, 100, 60);
+                menu.add(time);
+                menu.updateUI();
+
+                AtomicInteger counternigga = new AtomicInteger(90);
+                ScheduledExecutorService sceduler = Executors.newScheduledThreadPool(1);
+                sceduler.scheduleAtFixedRate(() -> {
+                    System.out.println(counternigga);
+
+                    time.setText(String.valueOf(counternigga.get()));
+                    counternigga.getAndDecrement();
+
+                    if (counternigga.get() == 0 && champselected == 0) {
 
 
-
-            }
-
-        }, 0,1, TimeUnit.SECONDS);
-
-
-
-                    menu.updateUI();
-                    JLabel team1 = new JLabel();
-                    JLabel team2 = new JLabel();
-                    JLabel player1 = new JLabel();
-                    JLabel player2 = new JLabel();
-                    JLabel player3 = new JLabel();
-                    JLabel player4 = new JLabel();
-                    JLabel player5 = new JLabel();
-                    JLabel player6 = new JLabel();
-
-
-
-                    menu.updateUI();
-                    team1.setBackground(Color.darkGray);
-                    team1.setFont(new java.awt.Font("Gill Sans Nova", 1, 50));
-                    team1.setForeground(Color.white);
-                    team1.setText("Team 1");
-                    team1.setVisible(true);
-                    team1.setBounds(120, 100, 200, 50);
-                    menu.add(team1);
-
-                    team2.setBackground(Color.darkGray);
-                    team2.setFont(new java.awt.Font("Gill Sans Nova", 1, 50));
-                    team2.setForeground(Color.white);
-                    team2.setText("Team 2");
-                    team2.setVisible(true);
-                    team2.setBounds(1600, 100, 200, 50);
-                    menu.add(team2);
-
-                    player1.setBackground(Color.darkGray);
-                    player1.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-                    player1.setForeground(Color.white);
-                    player1.setText(String.valueOf(queueUsers.get(0).getUser().getUsername()));
-                    player1.setVisible(true);
-                    player1.setBounds(60, 300, 200, 20);
-                    menu.add(player1);
-
-                    player2.setBackground(Color.darkGray);
-                    player2.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-                    player2.setForeground(Color.white);
-                    player2.setText(String.valueOf(queueUsers.get(1).getUser().getUsername()));
-                    player2.setVisible(true);
-                    player2.setBounds(60, 500, 200, 20);
-                    menu.add(player2);
-
-                    player3.setBackground(Color.darkGray);
-                    player3.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-                    player3.setForeground(Color.white);
-                    player3.setText(String.valueOf(queueUsers.get(2).getUser().getUsername()));
-                    player3.setVisible(true);
-                    player3.setBounds(60, 700, 200, 20);
-                    menu.add(player3);
-
-                    player4.setBackground(Color.darkGray);
-                    player4.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-                    player4.setForeground(Color.white);
-                    player4.setText(String.valueOf(queueUsers.get(3).getUser().getUsername()));
-                    player4.setVisible(true);
-                    player4.setBounds(1600, 300, 200, 20);
-                    menu.add(player4);
-
-                    player5.setBackground(Color.darkGray);
-                    player5.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-                    player5.setForeground(Color.white);
-                    player5.setText(String.valueOf(queueUsers.get(4).getUser().getUsername()));
-                    player5.setVisible(true);
-                    player5.setBounds(1600, 500, 200, 20);
-                    menu.add(player5);
-
-                    player6.setBackground(Color.darkGray);
-                    player6.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-                    player6.setForeground(Color.white);
-                    player6.setText(String.valueOf(queueUsers.get(5).getUser().getUsername()));
-                    player6.setVisible(true);
-                    player6.setBounds(1600, 700, 200, 20);
-                    menu.add(player6);
-
-                    menu.updateUI();
-
-                    Thread th = new Thread(() -> {
-                        int counter = 0;
-                        while (counter < 6) {
-
-                            try {
-                                SenderObject so = (SenderObject) Editor_Main.getSocket().getIn().readObject();
-                                for (QueueUser u : queueUsers) {
-                                    if (u.getUser().getUsername().equals(so.getUser().getUsername())) {
-                                        u.setCharacter(so.getCharacter());
-                                        counter++;
-                                    }
-                                }
-
-                            } catch (IOException | ClassNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-
-                    });
-                    th.start();
-
-                    int counterx = 0;
-
-
-                    for (QueueUser u : queueUsers
-                    ) {
-
-                        if (u.getCharacter() != null) {
-                            if (u.getCharacter().getImg() != null) {
-                                BufferedImage bi = u.getCharacter().getImg();
-                                Graphics g = bi.getGraphics();
-
-                                g.drawImage(bi, 300 + counterx, 900, 64, 64, null);
-
-                                counterx += 30;
-                            }
-
-                        }
-
-                    }
-                    int counter = 0;
-                    int miger = 0;
-                    for (int i = 0; i < 9; i++) {
-                        bo2();
-                        JButton character = new JButton();
-                        character.setVisible(true);
-                        miger += 1;
                         try {
-                            Image img = ImageIO.read(getClass().getResource("/characters/" + miger + ".png"));
-                            character.setIcon(new ImageIcon(img));
+                            SenderObject so = new SenderObject(Instruction.RDMCHAR);
+                            Editor_Main.getSocket().getOut().writeObject(so);
+                            rdmChar = ((SenderObject)Editor_Main.getSocket().getIn().readObject()).getCharacter();
+                            champselected = 1;
+                            sceduler.shutdownNow();
 
-                        } catch (IOException e) {
+                        } catch (IOException | ClassNotFoundException e) {
                             throw new RuntimeException(e);
                         }
-                        character.setBounds(600 + counter, 800, 64, 64);
-                        characters.add(character);
-                        menu.add(character);
-                        menu.updateUI();
-                        bo();
-                        counter += 70;
-                        character.addMouseListener(new java.awt.event.MouseAdapter() {
-                            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                                characterActionPerformed(evt);
 
+
+                    }else if(counternigga.get() == 0){
+                        sceduler.shutdownNow();
+                    }
+
+                }, 0,1, TimeUnit.SECONDS);
+
+
+                menu.updateUI();
+                JLabel team1 = new JLabel();
+                JLabel team2 = new JLabel();
+                JLabel player1 = new JLabel();
+                JLabel player2 = new JLabel();
+                JLabel player3 = new JLabel();
+                JLabel player4 = new JLabel();
+                JLabel player5 = new JLabel();
+                JLabel player6 = new JLabel();
+
+
+                menu.updateUI();
+                team1.setBackground(Color.darkGray);
+                team1.setFont(new java.awt.Font("Gill Sans Nova", 1, 50));
+                team1.setForeground(Color.white);
+                team1.setText("Team 1");
+                team1.setVisible(true);
+                team1.setBounds(120, 100, 200, 50);
+                menu.add(team1);
+
+                team2.setBackground(Color.darkGray);
+                team2.setFont(new java.awt.Font("Gill Sans Nova", 1, 50));
+                team2.setForeground(Color.white);
+                team2.setText("Team 2");
+                team2.setVisible(true);
+                team2.setBounds(1600, 100, 200, 50);
+                menu.add(team2);
+
+
+                player1.setBackground(Color.darkGray);
+                player1.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player1.setForeground(Color.white);
+                player1.setText(String.valueOf(queueUsers.get(0).getUser().getUsername()));
+                player1.setVisible(true);
+                player1.setBounds(60, 300, 200, 20);
+                menu.add(player1);
+
+                player2.setBackground(Color.darkGray);
+                player2.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player2.setForeground(Color.white);
+                player2.setText(String.valueOf(queueUsers.get(1).getUser().getUsername()));
+                player2.setVisible(true);
+                player2.setBounds(60, 500, 200, 20);
+                menu.add(player2);
+
+                player3.setBackground(Color.darkGray);
+                player3.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player3.setForeground(Color.white);
+                player3.setText(String.valueOf(queueUsers.get(2).getUser().getUsername()));
+                player3.setVisible(true);
+                player3.setBounds(60, 700, 200, 20);
+                menu.add(player3);
+
+                player4.setBackground(Color.darkGray);
+                player4.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player4.setForeground(Color.white);
+                player4.setText(String.valueOf(queueUsers.get(3).getUser().getUsername()));
+                player4.setVisible(true);
+                player4.setBounds(1600, 300, 200, 20);
+                menu.add(player4);
+
+                player5.setBackground(Color.darkGray);
+                player5.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player5.setForeground(Color.white);
+                player5.setText(String.valueOf(queueUsers.get(4).getUser().getUsername()));
+                player5.setVisible(true);
+                player5.setBounds(1600, 500, 200, 20);
+                menu.add(player5);
+
+                player6.setBackground(Color.darkGray);
+                player6.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player6.setForeground(Color.white);
+                player6.setText(String.valueOf(queueUsers.get(5).getUser().getUsername()));
+                player6.setVisible(true);
+                player6.setBounds(1600, 700, 200, 20);
+                menu.add(player6);
+
+                labels= new ArrayList<>();
+                labels.add(player1);
+                labels.add(player2);
+                labels.add(player3);
+                labels.add(player4);
+                labels.add(player5);
+                labels.add(player6);
+
+
+                menu.updateUI();
+
+      /*          Thread th = new Thread(() -> {
+                    int counter = 0;
+                    while (counter < 6) {
+
+                        try {
+                            SenderObject so = (SenderObject) Editor_Main.getSocket().getIn().readObject();
+                            for (QueueUser u : queueUsers) {
+                                if (u.getUser().getUsername().equals(so.getUser().getUsername())) {
+                                    u.setCharacter(so.getCharacter());
+                                    counter++;
+                                }
                             }
 
-                            public void mouseExited(java.awt.event.MouseEvent evt) {
-                                characterActionPerformedExited(evt);
-                            }
-                        });
-                        character.addActionListener(new java.awt.event.ActionListener() {
-                            public void actionPerformed(java.awt.event.ActionEvent ent) {
-                                characterActionPerformedClicked(ent);
-                            }
-                        });
+                        } catch (IOException | ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
 
                     }
-             /*       while(champselected!= 1){
 
-
-
-                    };
-
+                });
+                th.start();
 */
+                int counterx = 0;
+                menu.add(label1);
+                menu.add(label2);
+                menu.add(label3);
+                menu.add(label4);
+                menu.add(label5);
+                menu.add(label6);
+                ScheduledExecutorService scheduler2 = Executors.newScheduledThreadPool(1);
+                scheduler2.scheduleAtFixedRate(() -> {
+
+                    try {
+                        SenderObject so = new SenderObject(Instruction.REQGAMEUSER);
+                        Editor_Main.getSocket().getOut().writeObject(so);
+
+                        SenderObject so4 = (SenderObject) Editor_Main.getSocket().getIn().readObject();
+
+                        currentAgents = so4.getQueueUsers();
+                        System.out.println("hello I am not racist");
+
+                        renderAgentsUnderUser();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                }, 0, 500, TimeUnit.MILLISECONDS);
+
+
+                for (QueueUser u : queueUsers
+                ) {
+
+                    if (u.getCharacter() != null) {
+                        if (u.getCharacter().getImg() != null) {
+                            BufferedImage bi = u.getCharacter().getImg();
+                            Graphics g = bi.getGraphics();
+
+                            g.drawImage(bi, 300 + counterx, 900, 64, 64, null);
+
+                            counterx += 30;
+                        }
+
+                    }
+
                 }
-            });
+                int counter = 0;
+                int miger = 0;
+                for (int i = 0; i < 9; i++) {
+                    bo2();
+                    JButton character = new JButton();
+                    character.setVisible(true);
+                    miger += 1;
+                    try {
+                        Image img = ImageIO.read(getClass().getResource("/characters/" + miger + ".png"));
+                        character.setIcon(new ImageIcon(img));
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    character.setBounds(600 + counter, 800, 64, 64);
+                    characters.add(character);
+                    menu.add(character);
+                    menu.updateUI();
+                    bo();
+                    counter += 70;
+                    character.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseEntered(java.awt.event.MouseEvent evt) {
+                            characterActionPerformed(evt);
+
+                        }
+
+                        public void mouseExited(java.awt.event.MouseEvent evt) {
+                            characterActionPerformedExited(evt);
+                        }
+                    });
+                    character.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent ent) {
+                            characterActionPerformedClicked(ent);
+                        }
+                    });
+
+
+                }
+
+            }
+        });
+
+
+    }
 
 
 
+    private void removelustigesochn() {
+
+        characters.forEach(menu::remove);
+
+
+    }
+
+
+    JLabel label1 = new JLabel();
+    JLabel label2 = new JLabel();
+    JLabel label3 = new JLabel();
+    JLabel label4 = new JLabel();
+    JLabel label5 = new JLabel();
+    JLabel label6 = new JLabel();
+
+
+
+    private void renderAgentsUnderUser() {
+        System.out.println("du hureeeeeeeeeeeeeeee");
+
+
+        label1.setBounds(100,350,64,64);
+        label2.setBounds(100,550,64,64);
+        label3.setBounds(100,650,64,64);
+        label4.setBounds(1640,350,64,64);
+        label5.setBounds(1640,550,64,64);
+        label6.setBounds(1640,650,64,64);
+        label1.setBackground(Color.red);
+
+        label1.setText("dor georg isch geil");
+        label2.setText("dor georg isch geil ");
+        label3.setText("dor georg isch geil ");
+        label4.setText("dor georg isch geil ");
+        label5.setText("dor georg isch geil ");
+        label6.setText("dor georg isch geil ");
+
+
+        System.out.println("asdasdasd");
+        try {
+            if(queueUsers.get(0).getCharacter() != null) {
+                int first= queueUsers.get(0).getCharacter().getId() ;
+                Image img1 = ImageIO.read(getClass().getResource("/characters/" + first + ".png"));
+                label1.setIcon(new ImageIcon(img1));
+                label1.setText("du hure");
+            }
+            if(queueUsers.get(1).getCharacter() != null) {
+                int second= queueUsers.get(1).getCharacter().getId() ;
+                Image img2 = ImageIO.read(getClass().getResource("/characters/" + second + ".png"));
+                label2.setIcon(new ImageIcon(img2));
+            }
+            if(queueUsers.get(2).getCharacter() != null) {
+                int third= queueUsers.get(2).getCharacter().getId() ;
+                Image img3 =ImageIO.read(getClass().getResource("/characters/" + third + ".png"));
+                label3.setIcon(new ImageIcon(img3));
+            }
+            if(queueUsers.get(3).getCharacter() != null) {
+                int fourth= queueUsers.get(3).getCharacter().getId() ;
+                Image img4 = ImageIO.read(getClass().getResource("/characters/" + fourth + ".png"));
+                label4.setIcon(new ImageIcon(img4));
+            }
+            if(queueUsers.get(4).getCharacter() != null) {
+                int fifth= queueUsers.get(4).getCharacter().getId() ;
+                Image img5 =ImageIO.read(getClass().getResource("/characters/"+fifth+".png"));
+                label5.setIcon(new ImageIcon(img5));
+            }
+            if(queueUsers.get(5).getCharacter() != null) {
+                int sixth= queueUsers.get(5).getCharacter().getId() ;
+                Image img6 =  ImageIO.read(getClass().getResource("/characters/"+sixth+".png"));
+                label6.setIcon(new ImageIcon(img6));
+            }
+            System.out.println("diocan");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
+        label1.setVisible(true);
+        label2.setVisible(true);
+        label3.setVisible(true);
+        label4.setVisible(true);
+        label5.setVisible(true);
+        label6.setVisible(true);
+
+        menu.updateUI();
+        System.out.println("lul");
+
+    }
+
 
 
 
 
     private void selectCharacter(ActionEvent evt) {
 
+        removelustigesochn();
+        menu.updateUI();
+
+
         SenderObject so = new SenderObject(Instruction.SELCHAR);
         so.setC(agent);
+
         try {
             Editor_Main.getSocket().getOut().writeObject(so);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         champselected = 1;
+
+
         game game = new game();
         game.lul(menu);
-
 
 
     }

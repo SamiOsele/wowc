@@ -4,6 +4,7 @@ import NameHistory.NameHistory;
 import Queue.QueueUser;
 import Stats.Stats;
 import Character.Character;
+import Character.Settings;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -23,8 +24,26 @@ public class SenderObject  implements Serializable {
     private int ab;
     private String newUsername;
     private ArrayList<NameHistory> nameHistory;
+    private Settings settings;
+    private int teamWon;
 
 
+
+    public  Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+
+    public int getTeamWon() {
+        return teamWon;
+    }
+
+    public void setTeamWon(int teamWon) {
+        this.teamWon = teamWon;
+    }
 
     public Instruction getInstruction() {
         return instruction;
