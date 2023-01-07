@@ -143,16 +143,43 @@ public class StartMenu {
         queue.setText("JOIN MATCH");
         queue.setVisible(true);
         queue.setBounds(800,600,200,40);
-        queue.setBorder(null);
+        queue.setBorder(new LineBorder(Color.BLACK, 1));
+
         queue.setModel(new FixedStateButtonModel());
         menu.add(queue);
+
+        JLabel lblQueueTime = new JLabel();
+        lblQueueTime.setText("Time elapsed: 0:0");
+        lblQueueTime.setFont(new Font("Verdana" , Font.BOLD , 18));
+        lblQueueTime.setForeground(new Color(206, 192, 192));
+        lblQueueTime.setBounds(810, 550, 200, 40);
+        lblQueueTime.setVisible(false);
+        menu.add(lblQueueTime);
+
         Selection yes = new Selection();
         queue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SenderObject s = new SenderObject(Instruction.JOINQUEUE);
+                nameHistory.setVisible(false);
                 menu.remove(nameHistory);
                 menu.remove(newUsername);
                 menu.remove(changeName);
+                menu.updateUI();
+                //TODO remove name History
+                lblQueueTime.setVisible(true);
+                lblQueueTime.paintImmediately(lblQueueTime.getVisibleRect());
+                AtomicInteger sec = new AtomicInteger();
+                ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                ses.scheduleAtFixedRate(() -> {
+                    lblQueueTime.setText("Time elapsed: " + sec.get()/60 + ":" + sec.get()%60 );
+                    menu.updateUI();
+                    lblQueueTime.paintImmediately(lblQueueTime.getVisibleRect());
+                    sec.getAndIncrement();
+                }, 1, 1, TimeUnit.SECONDS);
+
+
+                frame.setCursor(Cursor.WAIT_CURSOR);
+
+                SenderObject s = new SenderObject(Instruction.JOINQUEUE);
                 try {
 
                     Editor_Main.getSocket().getOut().writeObject(s);
@@ -161,10 +188,11 @@ public class StartMenu {
 
                         if (sr.getInstruction() == Instruction.JOINQUEUE) {
                             queueUsers = sr.getQueueUsers();
-
-
                         }
                     }
+                    frame.setCursor(Cursor.DEFAULT_CURSOR);
+                    ses.shutdownNow();
+                    lblQueueTime.setVisible(false);
 
                     for (QueueUser user : queueUsers) {
 
