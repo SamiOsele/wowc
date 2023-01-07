@@ -10,6 +10,8 @@ import javax.swing.border.LineBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,14 +21,15 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static Yep.Instruction.CHANGENAME;
-import static Yep.Instruction.DC;
+import static Yep.Instruction.*;
 
 
 public class StartMenu {
     private final JFrame frame = new JFrame();
     private final JPanel menu = new JPanel();
     private final NameHistoryFrame nameHistoryFrame = new NameHistoryFrame();
+    private final PasswordHistoryFrame passwordHistoryFrame = new PasswordHistoryFrame();
+    private final StatsFrame statsFrame = new StatsFrame();
 
     public ArrayList<QueueUser> queueUsers;
     private final JButton selectCharacter = new JButton();
@@ -48,7 +51,50 @@ public class StartMenu {
     JLabel time = new JLabel();
 
     public void StartMenu() {
+        frame.setTitle("Game");
+        frame.setResizable(false);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
 
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                SenderObject so = new SenderObject(Instruction.DC);
+                try {
+                    Editor_Main.getSocket().getOut().writeObject(so);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         menu.setLayout(null);
         frame.add(menu);
         frame.setVisible(true);
@@ -92,8 +138,8 @@ public class StartMenu {
         JButton nameHistory = new JButton();
         nameHistory.setBackground(Color.gray);
         nameHistory.setText("Name History");
-        nameHistory.setForeground(Color.white);
-        nameHistory.setBounds(40, 280, 200, 40);
+        nameHistory.setForeground(new Color(206, 192, 192));
+        nameHistory.setBounds(40, 250, 200, 40);
         nameHistory.setBorder(new LineBorder(Color.BLACK, 2));
         nameHistory.addActionListener((l) -> {
             nameHistoryFrame.updateNameHistory();
@@ -105,36 +151,118 @@ public class StartMenu {
         JTextField newUsername = new JTextField();
         newUsername.setBackground(Color.gray);
         newUsername.setBounds(40, 150, 200, 40);
-        newUsername.setForeground(Color.white);
+        newUsername.setForeground(new Color(206, 192, 192));
         newUsername.setBorder(new LineBorder(Color.BLACK, 2));
         menu.add(newUsername);
 
         JButton changeName = new JButton();
         changeName.setBackground(Color.gray);
         changeName.setText("Change Name");
-        changeName.setForeground(Color.white);
+        changeName.setForeground(new Color(206, 192, 192));
         changeName.setBounds(40, 200, 200, 40);
         changeName.setBorder(new LineBorder(Color.BLACK, 2));
         changeName.addActionListener((l) -> {
             SenderObject so = new SenderObject(CHANGENAME);
             so.setNewUsername(newUsername.getText());
             SenderObject so2 = new SenderObject(DC);
+            SenderObject so3;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
                 Editor_Main.getSocket().getOut().writeObject(so2);
-            } catch (IOException e) {
+                so3 = (SenderObject) Editor_Main.getSocket().getIn().readObject();
+            } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            JOptionPane.showMessageDialog(null," Name Changed -> Pls Restart the client");
-            try {
-                Thread.sleep(5000);
-                System.exit(0);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            System.out.println(so3.getCode());
+            if(so3.getCode() == 99) {
+                JOptionPane.showMessageDialog(null,"Name Changed not applied User already exist");
+            }else {
+                JOptionPane.showMessageDialog(null," Name Changed -> Pls Restart the client");
+                try {
+                    Thread.sleep(2500);
+                    System.exit(0);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
+
+
+
         });
 
         menu.add(changeName);
+
+        JButton pwdHistory = new JButton();
+        pwdHistory.setBackground(Color.gray);
+        pwdHistory.setText("Password History");
+        pwdHistory.setForeground(new Color(206, 192, 192));
+        pwdHistory.setBounds(260, 250, 200, 40);
+        pwdHistory.setBorder(new LineBorder(Color.BLACK, 2));
+        pwdHistory.addActionListener((l) -> {
+            passwordHistoryFrame.updatePwdHistory();
+            passwordHistoryFrame.showPwds();
+        });
+
+        menu.add(pwdHistory);
+
+        JTextField newPwd = new JTextField();
+        newPwd.setBackground(Color.gray);
+        newPwd.setBounds(260, 150, 200, 40);
+        newPwd.setForeground(new Color(206, 192, 192));
+        newPwd.setBorder(new LineBorder(Color.BLACK, 2));
+        menu.add(newPwd);
+
+        JButton changePwd = new JButton();
+        changePwd.setBackground(Color.gray);
+        changePwd.setText("Change Password");
+        changePwd.setForeground(new Color(206, 192, 192));
+        changePwd.setBounds(260, 200, 200, 40);
+        changePwd.setBorder(new LineBorder(Color.BLACK, 2));
+        changePwd.addActionListener((l) -> {
+            SenderObject so = new SenderObject(CHANGEPWD);
+            so.setNewUsername(newPwd.getText());
+            SenderObject so2 = new SenderObject(DC);
+            SenderObject so3;
+            try {
+                Editor_Main.getSocket().getOut().writeObject(so);
+                Editor_Main.getSocket().getOut().writeObject(so2);
+                so3 = (SenderObject) Editor_Main.getSocket().getIn().readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println(so3.getCode());
+            if(so3.getCode() == 99) {
+                JOptionPane.showMessageDialog(null,"Password Changed not applied User already exist");
+            }else {
+                JOptionPane.showMessageDialog(null,"Password Changed -> Pls Restart the client");
+                try {
+                    Thread.sleep(2500);
+                    System.exit(0);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
+
+        });
+
+        menu.add(changePwd);
+
+
+
+        JButton stats = new JButton();
+        stats.setBackground(Color.gray);
+        stats.setText("Stats");
+        stats.setForeground(new Color(206, 192, 192));
+        stats.setBounds(40, 350, 200, 40);
+        stats.setBorder(new LineBorder(Color.BLACK, 2));
+        stats.addActionListener((l) -> {
+            statsFrame.updateStats();
+            statsFrame.showStats();
+        });
+
+        menu.add(stats);
 
         JButton queue = new JButton();
         queue.setBackground(Color.darkGray);
@@ -160,10 +288,14 @@ public class StartMenu {
         queue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameHistory.setVisible(false);
+                queue.setText("Joining Match");
+                queue.paintImmediately(queue.getVisibleRect());
                 menu.remove(nameHistory);
                 menu.remove(newUsername);
                 menu.remove(changeName);
+
                 menu.updateUI();
+
                 //TODO remove name History
                 lblQueueTime.setVisible(true);
                 lblQueueTime.paintImmediately(lblQueueTime.getVisibleRect());

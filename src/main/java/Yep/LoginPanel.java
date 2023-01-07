@@ -9,6 +9,8 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -37,6 +39,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private void initComponents() {
         AtomicBoolean updateCurser = new AtomicBoolean(true);
         this.setLayout(null);
+
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -120,6 +123,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txt_password1 = new JTextField();
     private javax.swing.JTextField txt_username1 = new JTextField();
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {
+
         frame1.setResizable(false);
         frame1.setCursor(Cursor.HAND_CURSOR);
         register.setLayout(null);

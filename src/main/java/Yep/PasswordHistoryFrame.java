@@ -1,41 +1,45 @@
 package Yep;
 
+import NameHistory.NameHistory;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import NameHistory.PasswordHistory;
+import NameHistory.PasswordHistoryMgr;
 
-import NameHistory.NameHistorMgr;
-import NameHistory.NameHistory;
-
-public class NameHistoryFrame extends JFrame {
+public class PasswordHistoryFrame extends JFrame {
 
     private JPanel panel = new JPanel();
-    private ArrayList<NameHistory> nameHistories;
+    private ArrayList<PasswordHistory> pwdHistory;
 
-    public NameHistoryFrame() {
-        super("Name History");
+    public PasswordHistoryFrame() {
+        super("Password History");
         panel.setLayout(null);
         panel.setBackground(Color.DARK_GRAY);
 
+        this.setResizable(false);
         this.setSize(400, 800);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.add(panel);
     }
 
-    public void updateNameHistory () {
-        nameHistories = NameHistorMgr.init();
-        Collections.reverse(nameHistories);
+    public void updatePwdHistory () {
+        pwdHistory = PasswordHistoryMgr.init();
+        System.out.println(pwdHistory.size());
+        Collections.reverse(pwdHistory);
     }
 
-    private final ArrayList<JPanel> panels = new ArrayList<>();
 
-    public void showNames() {
+    public void showPwds() {
+        panel.removeAll();
         this.setVisible(true);
-        int max = nameHistories.size();
+        int max = pwdHistory.size();
         if(max > 20)  max = 20;
         for (int i = 0; i < max; i++) {
+            System.out.println("sd");
             JPanel p = new JPanel();
             p.setBackground(Color.GRAY);
 
@@ -44,19 +48,13 @@ public class NameHistoryFrame extends JFrame {
             p.setLayout(null);
 
             JLabel l = new JLabel();
-            l.setText(nameHistories.get(i).getDateAndTime().substring(0,10) + " "   + (nameHistories.get(i).getDateAndTime().substring(11,16)  + " ->  " + nameHistories.get(i).getUsername()));
+            l.setText(pwdHistory.get(i).getDateAndTime().substring(0,10) + " "   + (pwdHistory.get(i).getDateAndTime().substring(11,16)  + " ->  " + pwdHistory.get(i).getNewPassword()));
             l.setForeground(new Color(206, 192, 192));
             l.setBounds(50, 10, 200, 20);
 
             p.add(l);
-
-
-            this.add(p);
             panel.add(p);
         }
 
     }
-
-
-
 }

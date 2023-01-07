@@ -26,7 +26,6 @@ public class Editor_Main {
         System.out.println("Connection succesfull");
         socket.start();
 
-        System.out.println("started");
         SenderObject so = new SenderObject(Instruction.GETALLCHARS);
         try {
             socket.getOut().writeObject(so);
@@ -37,8 +36,6 @@ public class Editor_Main {
             throw new RuntimeException(e);
         }
 
-        System.out.println("got the characters");
-        System.out.println(getCharacters().get(0).getA().get(4).getName());
 
         JFrame frame = new JFrame("Login");
         LoginPanel login = new LoginPanel(frame);
