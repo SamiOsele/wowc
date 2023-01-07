@@ -25,6 +25,10 @@ import static Yep.Instruction.*;
 
 
 public class StartMenu {
+    public JFrame getFrame() {
+        return frame;
+    }
+
     private final JFrame frame = new JFrame();
     private final JPanel menu = new JPanel();
 
