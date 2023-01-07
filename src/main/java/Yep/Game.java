@@ -79,7 +79,6 @@ public class Game {
         this.label44= label44;
         this.label55= label55;
         this.label66= label66;
-        this.label66= label66;
 
          if(currentAgents != null) {
 
@@ -258,12 +257,12 @@ public class Game {
                 health4.setValue(currentAgents.get(3).getCharacter().getHp());
                 health5.setValue(currentAgents.get(4).getCharacter().getHp());
                 health6.setValue(currentAgents.get(5).getCharacter().getHp());
-                health11.setText(""+currentAgents.get(0).getCharacter().getHp());
-                health22.setText(""+currentAgents.get(1).getCharacter().getHp());
-                health33.setText(""+currentAgents.get(2).getCharacter().getHp());
-                health44.setText(""+currentAgents.get(3).getCharacter().getHp());
-                health55.setText(""+currentAgents.get(4).getCharacter().getHp());
-                health66.setText(""+currentAgents.get(5).getCharacter().getHp());
+                health11.setText("HP:"+currentAgents.get(0).getCharacter().getHp());
+                health22.setText("HP:"+currentAgents.get(1).getCharacter().getHp());
+                health33.setText("HP:"+currentAgents.get(2).getCharacter().getHp());
+                health44.setText("HP:"+currentAgents.get(3).getCharacter().getHp());
+                health55.setText("HP:"+currentAgents.get(4).getCharacter().getHp());
+                health66.setText("HP: "+currentAgents.get(5).getCharacter().getHp());
                 menu.updateUI();
 
             }, 0, 500, TimeUnit.MILLISECONDS);
