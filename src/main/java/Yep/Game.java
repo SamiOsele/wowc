@@ -4,7 +4,14 @@ import Queue.QueueUser;
 import Character.Charakter;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game {
 
@@ -20,18 +27,8 @@ public class Game {
     private JButton ablt2 = new JButton();
     private JButton ablt3 = new JButton();
     private JButton ult = new JButton();
-
-
-
-
     private Charakter currentChar;
 
-    private JProgressBar health1= new JProgressBar(0,currentAgents.get(0).getCharacter().getMaxHp());
-    private JProgressBar health2= new JProgressBar(0,currentAgents.get(1).getCharacter().getMaxHp());
-    private JProgressBar health3= new JProgressBar(0,currentAgents.get(2).getCharacter().getMaxHp());
-    private JProgressBar health4= new JProgressBar(0,currentAgents.get(3).getCharacter().getMaxHp());
-    private JProgressBar health5= new JProgressBar(0,currentAgents.get(4).getCharacter().getMaxHp());
-    private JProgressBar health6= new JProgressBar(0,currentAgents.get(5).getCharacter().getMaxHp());
 
 
 
@@ -57,7 +54,6 @@ public class Game {
             Editor_Main.getLoggedInUser().getId();
         }
 
-        System.out.println("Hello");
         ablt1.setBounds(700,860,100,64);
         ablt2.setBounds(830,860,100,64);
         ablt3.setBounds(960,860,100,64);
@@ -78,32 +74,52 @@ public class Game {
         menu.add(ablt2);
         menu.add(ablt3);
         menu.add(ult);
-        System.out.println("did it");
 
-        health1.setBorder(new EmptyBorder(10, 10, 10, 10));
-        health2.setBorder(new EmptyBorder(10, 10, 10, 10));
-        health3.setBorder(new EmptyBorder(10, 10, 10, 10));
-        health4.setBorder(new EmptyBorder(10, 10, 10, 10));
-        health5.setBorder(new EmptyBorder(10, 10, 10, 10));
-        health6.setBorder(new EmptyBorder(10, 10, 10, 10));
-        health1.setBounds(player1.getBounds().x,player1.getBounds().y+50,250,30);
-        health2.setBounds(player2.getBounds().x,player2.getBounds().y+50,250,30);
-        health3.setBounds(player3.getBounds().x,player3.getBounds().y+50,250,30);
-        health4.setBounds(player4.getBounds().x,player4.getBounds().y+50,250,30);
-        health5.setBounds(player5.getBounds().x,player5.getBounds().y+50,250,30);
-        health6.setBounds(player6.getBounds().x,player6.getBounds().y+50,250,30);
-        health1.setVisible(true);
-        health2.setVisible(true);
-        health3.setVisible(true);
-        health4.setVisible(true);
-        health5.setVisible(true);
-        health6.setVisible(true);
+         JProgressBar health1= new JProgressBar(0,currentAgents.get(0).getCharacter().getMaxHp());
+         JProgressBar health2= new JProgressBar(0,currentAgents.get(1).getCharacter().getMaxHp());
+         JProgressBar health3= new JProgressBar(0,currentAgents.get(2).getCharacter().getMaxHp());
+         JProgressBar health4= new JProgressBar(0,currentAgents.get(3).getCharacter().getMaxHp());
+         JProgressBar health5= new JProgressBar(0,currentAgents.get(4).getCharacter().getMaxHp());
+         JProgressBar health6= new JProgressBar(0,currentAgents.get(5).getCharacter().getMaxHp());
+        System.out.println(currentAgents.get(0).getCharacter().getMaxHp());
         health1.setValue(currentAgents.get(0).getCharacter().getMaxHp());
         health2.setValue(currentAgents.get(1).getCharacter().getMaxHp());
         health3.setValue(currentAgents.get(2).getCharacter().getMaxHp());
         health4.setValue(currentAgents.get(3).getCharacter().getMaxHp());
         health5.setValue(currentAgents.get(4).getCharacter().getMaxHp());
         health6.setValue(currentAgents.get(5).getCharacter().getMaxHp());
+        health1.setVisible(true);
+        health2.setVisible(true);
+        health3.setVisible(true);
+        health4.setVisible(true);
+        health5.setVisible(true);
+        health6.setVisible(true);
+        health1.setBounds(player1.getBounds().x,player1.getBounds().y+50,250,30);
+        health6.setBounds(player6.getBounds().x,player6.getBounds().y+50,250,30);
+        health2.setBounds(player2.getBounds().x,player2.getBounds().y+50,250,30);
+        health3.setBounds(player3.getBounds().x,player3.getBounds().y+50,250,30);
+        health4.setBounds(player4.getBounds().x,player4.getBounds().y+50,250,30);
+        health5.setBounds(player5.getBounds().x,player5.getBounds().y+50,250,30);
+        health1.setBorder(new EmptyBorder(10, 10, 10, 10));
+        health2.setBorder(new EmptyBorder(10, 10, 10, 10));
+        health3.setBorder(new EmptyBorder(10, 10, 10, 10));
+        health4.setBorder(new EmptyBorder(10, 10, 10, 10));
+        health5.setBorder(new EmptyBorder(10, 10, 10, 10));
+        health6.setBorder(new EmptyBorder(10, 10, 10, 10));
+        health1.setForeground(Color.green);
+        health1.setBackground(Color.black);
+        health2.setForeground(Color.green);
+        health2.setBackground(Color.black);
+        health3.setForeground(Color.green);
+        health3.setBackground(Color.black);
+        health4.setForeground(Color.green);
+        health4.setBackground(Color.black);
+        health5.setForeground(Color.green);
+        health5.setBackground(Color.black);
+        health6.setForeground(Color.green);
+        health6.setBackground(Color.black);
+
+
         menu.add(health1);
         menu.add(health2);
         menu.add(health3);
@@ -111,8 +127,131 @@ public class Game {
         menu.add(health5);
         menu.add(health6);
         menu.updateUI();
+        JLabel time = new JLabel();
+        time.setBackground(Color.darkGray);
+        time.setFont(new java.awt.Font("Gill Sans Nova", 1, 40));
+        time.setForeground(Color.white);
+        time.setVisible(true);
+        time.setBounds(960, 60, 100, 60);
+        menu.add(time);
+        menu.updateUI();
+
+        AtomicInteger counter = new AtomicInteger(10);
+        ScheduledExecutorService scheduler3 = Executors.newScheduledThreadPool(1);
+        scheduler3.scheduleAtFixedRate(() -> {
+            counter.getAndDecrement();
+            time.setText(String.valueOf(counter.get()));
+
+            if (counter.get() == 0) {
+                scheduler3.shutdownNow();
+                menu.remove(time);
+            }
+                }, 0, 1, TimeUnit.SECONDS);
+
+        try {
+            Thread.sleep(12000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+        ScheduledExecutorService scheduler22 = Executors.newScheduledThreadPool(1);
+        scheduler22.scheduleAtFixedRate(() -> {
+
+            health1.setValue(currentAgents.get(0).getCharacter().getHp());
+            health2.setValue(currentAgents.get(1).getCharacter().getHp());
+            health3.setValue(currentAgents.get(2).getCharacter().getHp());
+            health4.setValue(currentAgents.get(3).getCharacter().getHp());
+            health5.setValue(currentAgents.get(4).getCharacter().getHp());
+            health6.setValue(currentAgents.get(5).getCharacter().getHp());
+
+            for (QueueUser c : currentAgents
+            ) {
+                System.out.println(c.getCharacter().getHp());
+            }
+
+        }, 0, 500, TimeUnit.MILLISECONDS);
+
+
+
+        if(counter.get()==0) {
+            if (currentChar.getId() == 1 || currentChar.getId() == 2 || currentChar.getId() == 3 || currentChar.getId() == 7 || currentChar.getId() == 8 || currentChar.getId() == 9) {
+
+                    SenderObject so = new SenderObject(Instruction.EXAB);
+                    so.setAb(0);
+                    try {
+                        Editor_Main.getSocket().getOut().writeObject(so);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+            }
+
+        }
+
+        if(counter.get()== 0) {
+            ablt1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    setAblt1(evt);
+                }
+            });ablt2.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    setAblt2(evt);
+                }
+            });ablt3.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    setAblt3(evt);
+                }
+            });
+            ult.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ult(evt);
+                }
+            });
+
+
+        }
+
+
 
     }
 
+    private void ult(ActionEvent evt){
+        SenderObject so = new SenderObject(Instruction.EXAB);
+        so.setAb(4);
+        try {
+            Editor_Main.getSocket().getOut().writeObject(so);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void setAblt3(ActionEvent evt){
+        SenderObject so = new SenderObject(Instruction.EXAB);
+        so.setAb(3);
+        try {
+            Editor_Main.getSocket().getOut().writeObject(so);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }    private void setAblt2(ActionEvent evt) {
+        SenderObject so = new SenderObject(Instruction.EXAB);
+        so.setAb(2);
+        try {
+            Editor_Main.getSocket().getOut().writeObject(so);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void setAblt1(ActionEvent evt) {
+        SenderObject so = new SenderObject(Instruction.EXAB);
+        so.setAb(1);
+        try {
+            Editor_Main.getSocket().getOut().writeObject(so);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

@@ -6,12 +6,20 @@ import java.io.Serializable;
 public class Ability implements Serializable {
     @Serial
     private static final long serialVersionUID = 6529685098267757690L;
-    private int id,aid;
+    private int id,aid,cd;
     private String name, description;
     private Charakter charid;
 
     public Ability() {
 
+    }
+
+    public int getCd() {
+        return cd;
+    }
+
+    public void setCd(int cd) {
+        this.cd = cd;
     }
 
     public int getId() {
