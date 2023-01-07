@@ -98,6 +98,12 @@ public class Game {
         health4.setVisible(true);
         health5.setVisible(true);
         health6.setVisible(true);
+        health1.setValue(currentAgents.get(0).getCharacter().getMaxHp());
+        health2.setValue(currentAgents.get(1).getCharacter().getMaxHp());
+        health3.setValue(currentAgents.get(2).getCharacter().getMaxHp());
+        health4.setValue(currentAgents.get(3).getCharacter().getMaxHp());
+        health5.setValue(currentAgents.get(4).getCharacter().getMaxHp());
+        health6.setValue(currentAgents.get(5).getCharacter().getMaxHp());
         menu.add(health1);
         menu.add(health2);
         menu.add(health3);
