@@ -23,6 +23,12 @@ import Queue.QueueUser;
 public class LoginPanel extends javax.swing.JPanel {
 
     private JFrame parent;
+    private StartMenu menu;
+
+    public StartMenu getMenu() {
+        return menu;
+    }
+
 
     /**
      * Creates new form LoginPanel
@@ -265,10 +271,10 @@ public class LoginPanel extends javax.swing.JPanel {
 
         if(u != null){
             Editor_Main.setLoggedInUser(u);
-            StartMenu Menu = new StartMenu();
+            menu = new StartMenu();
 
-            Menu.StartMenu();
-            Menu.SeitenMenu();
+            menu.StartMenu();
+            menu.SeitenMenu();
             parent.dispose();
 
 

@@ -16,10 +16,19 @@ import java.util.ArrayList;
 public class Editor_Main {
 
     private static ClientSocket socket = new ClientSocket();
-
-
     private static ArrayList<Charakter> characters;
+
+    public static LoginPanel getLogin() {
+        return login;
+    }
+
+    public static void setLogin(LoginPanel login) {
+        Editor_Main.login = login;
+    }
+
     private static User loggedInUser;
+
+    static LoginPanel  login;
     public static void main(String[] args) {
 
         socket.connect();
@@ -38,7 +47,7 @@ public class Editor_Main {
 
 
         JFrame frame = new JFrame("Login");
-        LoginPanel login = new LoginPanel(frame);
+        login = new LoginPanel(frame);
 
         frame.setContentPane(login);
         frame.pack();

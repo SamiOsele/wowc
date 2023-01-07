@@ -36,6 +36,15 @@ public class StartMenu {
 
     public Charakter rdmChar;
     private ArrayList<JLabel> labels;
+
+    public ArrayList<QueueUser> getCurrentAgents() {
+        return currentAgents;
+    }
+
+    public void setCurrentAgents(ArrayList<QueueUser> currentAgents) {
+        this.currentAgents = currentAgents;
+    }
+
     private ArrayList<QueueUser> currentAgents = new ArrayList<>();
     private boolean channelfree = true;
 
@@ -535,9 +544,6 @@ public class StartMenu {
                             SenderObject so4 = (SenderObject) Editor_Main.getSocket().getIn().readUnshared();
                             currentAgents.clear();
                             currentAgents= so4.getQueueUsers();
-                            System.out.println(currentAgents);
-
-
 
                              } catch (IOException e) {
                             System.out.println(e.getMessage());
@@ -545,10 +551,6 @@ public class StartMenu {
                             System.out.println(e.getMessage());
                         }
                     }
-
-
-
-
 
 
 
