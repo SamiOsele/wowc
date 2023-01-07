@@ -27,6 +27,8 @@ import static Yep.Instruction.*;
 public class StartMenu {
     private final JFrame frame = new JFrame();
     private final JPanel menu = new JPanel();
+
+    Game g;
     private final NameHistoryFrame nameHistoryFrame = new NameHistoryFrame();
     private final PasswordHistoryFrame passwordHistoryFrame = new PasswordHistoryFrame();
     private final StatsFrame statsFrame = new StatsFrame();
@@ -414,8 +416,8 @@ public class StartMenu {
                             removelustigesochn2();
 
 
-                            Game g = new Game();
-                            g.startGame(menu,player1,player2,player3,player4,player5,player6,currentAgents);
+                             g = new Game();
+                            g.startGame(menu,player1,player2,player3,player4,player5,player6,label11,label22,label33,label44,label55,label66);
 
 
                             sceduler.shutdownNow();
@@ -429,8 +431,8 @@ public class StartMenu {
                         removelustigesochn2();
 
 
-                        Game g = new Game();
-                        g.startGame(menu,player1,player2,player3,player4,player5,player6,currentAgents);
+                         g = new Game();
+                        g.startGame(menu,player1,player2,player3,player4,player5,player6,label11,label22,label33,label44,label55,label66);
 
 
                         sceduler.shutdownNow();
@@ -557,6 +559,12 @@ public class StartMenu {
                 menu.add(label4);
                 menu.add(label5);
                 menu.add(label6);
+                menu.add(label11);
+                menu.add(label22);
+                menu.add(label33);
+                menu.add(label44);
+                menu.add(label55);
+                menu.add(label66);
                 ScheduledExecutorService scheduler2 = Executors.newScheduledThreadPool(1);
                 scheduler2.scheduleAtFixedRate(() -> {
                     System.out.println(channelfree);
@@ -565,10 +573,16 @@ public class StartMenu {
                         try {
                             SenderObject so = new SenderObject(Instruction.REQGAMEUSER);
                             Editor_Main.getSocket().getOut().writeObject(so);
-
                             SenderObject so4 = (SenderObject) Editor_Main.getSocket().getIn().readUnshared();
                             currentAgents.clear();
                             currentAgents= so4.getQueueUsers();
+
+
+                            if(g != null){
+
+                                g.setCurrentAgents(currentAgents);
+
+                            }
 
                              } catch (IOException e) {
                             System.out.println(e.getMessage());
@@ -587,6 +601,9 @@ public class StartMenu {
                         if (currentAgents != null) {
                             if (currentAgents.size() > 0) {
                                 renderAgentsUnderUser();
+                            }
+                            if(g != null){
+                            break;
                             }
 
                             try {
@@ -698,7 +715,12 @@ public class StartMenu {
     JLabel label4 = new JLabel();
     JLabel label5 = new JLabel();
     JLabel label6 = new JLabel();
-
+    JLabel label11 = new JLabel();
+    JLabel label22 = new JLabel();
+    JLabel label33 = new JLabel();
+    JLabel label44 = new JLabel();
+    JLabel label55 = new JLabel();
+    JLabel label66 = new JLabel();
 
 
     private void renderAgentsUnderUser() {
@@ -711,15 +733,32 @@ public class StartMenu {
         label4.setBounds(1640,350,64,64);
         label5.setBounds(1640,550,64,64);
         label6.setBounds(1640,750,64,64);
-        label1.setBackground(Color.red);
 
-        label1.setText("dor georg isch geil");
-        label2.setText("dor georg isch geil ");
-        label3.setText("dor georg isch geil ");
-        label4.setText("dor georg isch geil ");
-        label5.setText("dor georg isch geil ");
-        label6.setText("dor georg isch geil ");
+        label11.setBounds(100,420,200,64);
+        label22.setBounds(100,620,200,64);
+        label33.setBounds(100,820,200,64);
+        label44.setBounds(1640,420,200,64);
+        label55.setBounds(1640,620,200,64);
+        label66.setBounds(1640,820,200,64);
 
+        label11.setBackground(Color.darkGray);
+        label11.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label11.setForeground(Color.white);
+        label22.setBackground(Color.darkGray);
+        label22.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label22.setForeground(Color.white);
+        label33.setBackground(Color.darkGray);
+        label33.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label33.setForeground(Color.white);
+        label44.setBackground(Color.darkGray);
+        label44.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label44.setForeground(Color.white);
+        label55.setBackground(Color.darkGray);
+        label55.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label55.setForeground(Color.white);
+        label66.setBackground(Color.darkGray);
+        label66.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label66.setForeground(Color.white);
 
 
         try {
@@ -727,32 +766,37 @@ public class StartMenu {
                 int first= currentAgents.get(0).getCharacter().getId();
                 Image img1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + first + ".png")));
                 label1.setIcon(new ImageIcon(img1));
-
+                label11.setText( currentAgents.get(0).getCharacter().getName());
             }
             if(currentAgents.get(1).getCharacter() != null) {
                 int second= currentAgents.get(1).getCharacter().getId() ;
                 Image img2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + second + ".png")));
                 label2.setIcon(new ImageIcon(img2));
+                label22.setText( currentAgents.get(1).getCharacter().getName());
             }
             if(currentAgents.get(2).getCharacter() != null) {
                 int third= currentAgents.get(2).getCharacter().getId() ;
                 Image img3 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + third + ".png")));
                 label3.setIcon(new ImageIcon(img3));
+                label33.setText( currentAgents.get(2).getCharacter().getName());
             }
             if(currentAgents.get(3).getCharacter() != null) {
                 int fourth= currentAgents.get(3).getCharacter().getId() ;
                 Image img4 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fourth + ".png")));
                 label4.setIcon(new ImageIcon(img4));
+                label44.setText( currentAgents.get(3).getCharacter().getName());
             }
             if(currentAgents.get(4).getCharacter() != null) {
                 int fifth= currentAgents.get(4).getCharacter().getId() ;
                 Image img5 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fifth + ".png")));
                 label5.setIcon(new ImageIcon(img5));
+                label55.setText( currentAgents.get(4).getCharacter().getName());
             }
             if(currentAgents.get(5).getCharacter() != null) {
                 int sixth= currentAgents.get(5).getCharacter().getId() ;
                 Image img6 =  ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + sixth + ".png")));
                 label6.setIcon(new ImageIcon(img6));
+                label66.setText( currentAgents.get(5).getCharacter().getName());
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -764,7 +808,12 @@ public class StartMenu {
         label4.setVisible(true);
         label5.setVisible(true);
         label6.setVisible(true);
-
+        label11.setVisible(true);
+        label22.setVisible(true);
+        label33.setVisible(true);
+        label44.setVisible(true);
+        label55.setVisible(true);
+        label66.setVisible(true);
         menu.updateUI();
 
 
