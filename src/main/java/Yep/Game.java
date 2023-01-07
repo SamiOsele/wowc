@@ -73,10 +73,7 @@ public class Game {
         this.label66= label66;
 
          if(currentAgents != null) {
-             System.out.println("i fick di hort dio cane");
-            if(currentAgents.size()== 0){
-                System.out.println("I bin groeße 0 gleich wia dor patrick a null isch");
-            }
+
             for (QueueUser u : currentAgents
             ) {
                 System.out.println(u.getUser());
