@@ -239,8 +239,11 @@ public class LoginPanel extends javax.swing.JPanel {
         l.setUsername(txt_username.getText());
         l.setPassword(txt_password.getText());
         s.setUser(l);
+
         try {
-            Editor_Main.getSocket().getOut().writeObject(s);
+            Editor_Main.getSocket().getOut().flush();
+            Editor_Main.getSocket().getOut().reset();
+            Editor_Main.getSocket().getOut().writeUnshared(s);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -271,6 +274,7 @@ public class LoginPanel extends javax.swing.JPanel {
 
         if(u != null){
             Editor_Main.setLoggedInUser(u);
+            frame1.dispose(); //TODO marked for some reason
             menu = new StartMenu();
 
             menu.StartMenu();

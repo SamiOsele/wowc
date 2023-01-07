@@ -33,6 +33,7 @@ public class NameHistoryFrame extends JFrame {
 
     public void showNames() {
         this.setVisible(true);
+        panel.removeAll();
         int max = nameHistories.size();
         if(max > 20)  max = 20;
         for (int i = 0; i < max; i++) {
@@ -51,7 +52,6 @@ public class NameHistoryFrame extends JFrame {
             p.add(l);
 
 
-            this.add(p);
             panel.add(p);
         }
 

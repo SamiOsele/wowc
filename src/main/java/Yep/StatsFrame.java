@@ -18,8 +18,7 @@ public class StatsFrame extends JFrame {
         panel.setLayout(null);
         panel.setBackground(Color.DARK_GRAY);
         this.setResizable(false);
-
-        this.setSize(350, 650);
+        this.setSize(335, 640);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.add(panel);
     }

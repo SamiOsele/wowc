@@ -30,6 +30,7 @@ public class StartMenu {
     private final NameHistoryFrame nameHistoryFrame = new NameHistoryFrame();
     private final PasswordHistoryFrame passwordHistoryFrame = new PasswordHistoryFrame();
     private final StatsFrame statsFrame = new StatsFrame();
+    private final FightLogFrame fightLogFrame = new FightLogFrame();
 
     public ArrayList<QueueUser> queueUsers;
     private final JButton selectCharacter = new JButton();
@@ -114,20 +115,30 @@ public class StartMenu {
     }
 
     public void SeitenMenu() {
+
+        JLabel lblUsername = new JLabel();
+        lblUsername.setBackground(Color.darkGray);
+        lblUsername.setFont(new java.awt.Font("Gill Sans Nova", 1, 20));
+        lblUsername.setForeground(new Color(206, 192, 192));
+        lblUsername.setText("Currently logged in as: ");
+        lblUsername.setVisible(true);
+        lblUsername.setBounds(40, 2, 260, 40);
+        menu.add(lblUsername);
+
         JLabel username = new JLabel();
         username.setBackground(Color.darkGray);
-        username.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-        username.setForeground(Color.white);
+        username.setFont(new java.awt.Font("Gill Sans Nova", 1, 20));
+        username.setForeground(new Color(206, 192, 192));
         username.setText(String.valueOf(Editor_Main.getLoggedInUser().getUsername()));
         username.setVisible(true);
-        username.setBounds(20, 20, 200, 20);
+        username.setBounds(40, 40, 200, 20);
         menu.add(username);
 
 
         JLabel level= new JLabel();
         level.setBackground(Color.darkGray);
         level.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-        level.setForeground(Color.white);
+        level.setForeground(new Color(206, 192, 192));
         level.setText("Level: " +String.valueOf(Editor_Main.getLoggedInUser().getLevel()));
         level.setVisible(true);
         level.setBounds(1800,50,100,30);
@@ -137,7 +148,7 @@ public class StartMenu {
         JLabel xp= new JLabel();
         xp.setBackground(Color.darkGray);
         xp.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-        xp.setForeground(Color.white);
+        xp.setForeground(new Color(206, 192, 192));
         xp.setText("Xp: " +String.valueOf(Editor_Main.getLoggedInUser().getXp()));
         xp.setVisible(true);
         xp.setBounds(1800,80,100,20);
@@ -272,6 +283,20 @@ public class StartMenu {
         });
 
         menu.add(stats);
+
+        JButton fightLog = new JButton();
+        fightLog.setBackground(Color.gray);
+        fightLog.setText("FightLog");
+        fightLog.setForeground(new Color(206, 192, 192));
+        fightLog.setBounds(260, 350, 200, 40);
+        fightLog.setBorder(new LineBorder(Color.BLACK, 2));
+        fightLog.addActionListener((l) -> {
+            fightLogFrame.updateFightlog();
+            fightLogFrame.showFightlog();
+        });
+
+        menu.add(fightLog);
+
 
         JButton queue = new JButton();
         queue.setBackground(Color.darkGray);

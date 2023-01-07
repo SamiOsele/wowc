@@ -20,5 +20,6 @@ public enum Instruction {
         GAMEFINISCHED,
         REQPWDHISTORY,
         CHANGEPWD,
+        REQFIGHTLOG,
         DC,
 }
