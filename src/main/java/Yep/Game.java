@@ -1,11 +1,15 @@
 package Yep;
 
-import Queue.QueueUser;
 import Character.Charakter;
+import Queue.QueueUser;
+import Character.SettingsMgr;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -28,6 +32,12 @@ public class Game {
     JLabel label44 = new JLabel();
     JLabel label55 = new JLabel();
     JLabel label66 = new JLabel();
+    JLabel health11 = new JLabel();
+    JLabel health22 = new JLabel();
+    JLabel health33 = new JLabel();
+    JLabel health44 = new JLabel();
+    JLabel health55 = new JLabel();
+    JLabel health66 = new JLabel();
     private ArrayList<QueueUser> currentAgents;
 
     public ArrayList<QueueUser> getCurrentAgents() {
@@ -53,7 +63,7 @@ public class Game {
         scheduler5.scheduleAtFixedRate(() -> {
 
             while(currentAgents == null){
-                System.out.println("du hure");
+                System.out.println("ok");
             }
 
 
@@ -70,13 +80,9 @@ public class Game {
         this.label44= label44;
         this.label55= label55;
         this.label66= label66;
-        this.label66= label66;
 
          if(currentAgents != null) {
-             System.out.println("i fick di hort dio cane");
-            if(currentAgents.size()== 0){
-                System.out.println("I bin groeße 0 gleich wia dor patrick a null isch");
-            }
+
             for (QueueUser u : currentAgents
             ) {
                 System.out.println(u.getUser());
@@ -131,30 +137,82 @@ public class Game {
             health6.setVisible(true);
             health1.setBounds(player1.getBounds().x, player1.getBounds().y + 50, 250, 30);
             health6.setBounds(player6.getBounds().x, player6.getBounds().y + 50, 250, 30);
-            health2.setBounds(player2.getBounds().x, player2.getBounds().y + 50, 250, 30);
-            health3.setBounds(player3.getBounds().x, player3.getBounds().y + 50, 250, 30);
-            health4.setBounds(player4.getBounds().x, player4.getBounds().y + 50, 250, 30);
-            health5.setBounds(player5.getBounds().x, player5.getBounds().y + 50, 250, 30);
-            health1.setBorder(new EmptyBorder(10, 10, 10, 10));
-            health2.setBorder(new EmptyBorder(10, 10, 10, 10));
-            health3.setBorder(new EmptyBorder(10, 10, 10, 10));
-            health4.setBorder(new EmptyBorder(10, 10, 10, 10));
-            health5.setBorder(new EmptyBorder(10, 10, 10, 10));
-            health6.setBorder(new EmptyBorder(10, 10, 10, 10));
-            health1.setForeground(Color.green);
-            health1.setBackground(Color.black);
-            health2.setForeground(Color.green);
-            health2.setBackground(Color.black);
-            health3.setForeground(Color.green);
-            health3.setBackground(Color.black);
-            health4.setForeground(Color.green);
-            health4.setBackground(Color.black);
-            health5.setForeground(Color.green);
-            health5.setBackground(Color.black);
+             health2.setBounds(player2.getBounds().x, player2.getBounds().y + 50, 250, 30);
+             health3.setBounds(player3.getBounds().x, player3.getBounds().y + 50, 250, 30);
+             health4.setBounds(player4.getBounds().x, player4.getBounds().y + 50, 250, 30);
+             health5.setBounds(player5.getBounds().x, player5.getBounds().y + 50, 250, 30);
+             health1.setBorder(new EmptyBorder(10, 10, 10, 10));
+             health2.setBorder(new EmptyBorder(10, 10, 10, 10));
+             health3.setBorder(new EmptyBorder(10, 10, 10, 10));
+             health4.setBorder(new EmptyBorder(10, 10, 10, 10));
+             health5.setBorder(new EmptyBorder(10, 10, 10, 10));
+             health6.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+
+
+             health11.setBackground(Color.darkGray);
+             health11.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health11.setForeground(Color.white);
+             health11.setText("HP:" + currentAgents.get(0).getCharacter().getHp());
+             health11.setVisible(true);
+             health11.setBounds(player1.getBounds().x+ player1.getWidth(), player1.getBounds().y, 200, 20);
+             health11.setBackground(Color.darkGray);
+
+             health22.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health22.setForeground(Color.white);
+             health22.setText("HP:" + currentAgents.get(1).getCharacter().getHp());
+             health22.setVisible(true);
+             health22.setBounds(player2.getBounds().x+ player2.getWidth(), player2.getBounds().y, 200, 20);
+             health22.setBackground(Color.darkGray);
+
+             health33.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health33.setForeground(Color.white);
+             health33.setText("HP:" + currentAgents.get(2).getCharacter().getHp());
+             health33.setVisible(true);
+             health33.setBounds(player3.getBounds().x+ player3.getWidth(), player3.getBounds().y, 200, 20);
+             health33.setBackground(Color.darkGray);
+
+             health44.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health44.setForeground(Color.white);
+             health44.setText("HP:" + currentAgents.get(3).getCharacter().getHp());
+             health44.setVisible(true);
+             health44.setBounds(player4.getBounds().x+ player4.getWidth(), player4.getBounds().y, 200, 20);
+             health44.setBackground(Color.darkGray);
+
+             health55.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health55.setForeground(Color.white);
+             health55.setText("HP:" + currentAgents.get(4).getCharacter().getHp());
+             health55.setVisible(true);
+             health55.setBounds(player5.getBounds().x+ player5.getWidth(), player5.getBounds().y, 200, 20);
+             health55.setBackground(Color.darkGray);
+
+             health66.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health66.setForeground(Color.white);
+             health66.setText("HP:" + currentAgents.get(5).getCharacter().getHp());
+             health66.setVisible(true);
+             health66.setBounds(player6.getBounds().x+ player6.getWidth(), player6.getBounds().y, 200, 20);
+             health66.setBackground(Color.darkGray);
+
+
+             health1.setForeground(Color.green);
+             health1.setBackground(Color.black);
+             health2.setForeground(Color.green);
+             health2.setBackground(Color.black);
+             health3.setForeground(Color.green);
+             health3.setBackground(Color.black);
+             health4.setForeground(Color.green);
+             health4.setBackground(Color.black);
+             health5.setForeground(Color.green);
+             health5.setBackground(Color.black);
             health6.setForeground(Color.green);
             health6.setBackground(Color.black);
 
-
+             menu.add(health11);
+             menu.add(health22);
+             menu.add(health33);
+             menu.add(health44);
+             menu.add(health55);
+             menu.add(health66);
             menu.add(health1);
             menu.add(health2);
             menu.add(health3);
@@ -200,11 +258,13 @@ public class Game {
                 health4.setValue(currentAgents.get(3).getCharacter().getHp());
                 health5.setValue(currentAgents.get(4).getCharacter().getHp());
                 health6.setValue(currentAgents.get(5).getCharacter().getHp());
+                health11.setText("HP:"+currentAgents.get(0).getCharacter().getHp());
+                health22.setText("HP:"+currentAgents.get(1).getCharacter().getHp());
+                health33.setText("HP:"+currentAgents.get(2).getCharacter().getHp());
+                health44.setText("HP:"+currentAgents.get(3).getCharacter().getHp());
+                health55.setText("HP:"+currentAgents.get(4).getCharacter().getHp());
+                health66.setText("HP: "+currentAgents.get(5).getCharacter().getHp());
                 menu.updateUI();
-                for (QueueUser c : currentAgents
-                ) {
-                    System.out.println(c.getCharacter().getHp());
-                }
 
             }, 0, 500, TimeUnit.MILLISECONDS);
 
@@ -224,24 +284,54 @@ public class Game {
             }
 
             if (counter.get() == 0) {
-                ablt1.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        setAblt1(evt);
+
+                Editor_Main.getLogin().getMenu().getFrame().requestFocusInWindow();
+
+                Editor_Main.getLogin().getMenu().getFrame().addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+
+                    }
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        System.out.println(e.getKeyCode());
+                        if(e.getKeyCode() == SettingsMgr.getS().getAbility1()){
+                            setAblt1();
+                        }
+                        if(e.getKeyCode() == SettingsMgr.getS().getAbility2()){
+                            setAblt2();
+                        }
+                        if(e.getKeyCode() == SettingsMgr.getS().getAbility3()){
+                            setAblt3();
+                        }
+                        if(e.getKeyCode() == SettingsMgr.getS().getAbility4()){
+                            ult();
+                        }
+                    }
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
                     }
                 });
+                ablt1.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        setAblt1();
+                    }
+                });
+
                 ablt2.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        setAblt2(evt);
+                        setAblt2();
                     }
                 });
                 ablt3.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        setAblt3(evt);
+                        setAblt3();
                     }
                 });
                 ult.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        ult(evt);
+                        ult();
                     }
                 });
 
@@ -252,7 +342,7 @@ public class Game {
         }, 0, 1, TimeUnit.SECONDS);
         }
 
-        private void ult (ActionEvent evt){
+        private void ult (){
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(4);
             try {
@@ -261,7 +351,7 @@ public class Game {
                 throw new RuntimeException(e);
             }
         }
-        private void setAblt3 (ActionEvent evt){
+        private void setAblt3 (){
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(3);
             try {
@@ -271,7 +361,7 @@ public class Game {
             }
 
         }
-        private void setAblt2 (ActionEvent evt){
+        private void setAblt2 (){
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(2);
             try {
@@ -280,7 +370,7 @@ public class Game {
                 throw new RuntimeException(e);
             }
         }
-        private void setAblt1 (ActionEvent evt){
+        private void setAblt1 (){
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(1);
             try {
