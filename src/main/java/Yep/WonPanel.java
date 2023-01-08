@@ -2,6 +2,8 @@ package Yep;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class WonPanel {
 
@@ -20,6 +22,23 @@ public class WonPanel {
       team.setForeground(Color.white);
       team.setBackground(Color.darkGray);
       menu.add(team);
+      JButton backtomain = new JButton();
+        backtomain.setText("Back to mainpanel");
+        backtomain.setBounds(700,300,300,60);
+        backtomain.setVisible(true);
+        backtomain.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        backtomain.setForeground(Color.white);
+        backtomain.setBackground(Color.darkGray);
+        menu.add(backtomain);
+    backtomain.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        menu= new StartMenu().getMenu();
+
+      }
+    });
+
 
     }
 

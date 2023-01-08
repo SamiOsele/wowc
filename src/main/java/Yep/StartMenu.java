@@ -602,9 +602,9 @@ public class StartMenu {
                             if(g != null){
 
                                 g.setCurrentAgents(currentAgents);
-
-                            }else if(g.isWon()){
-                                scheduler2.shutdownNow();
+                                 if(g.isWon() ){
+                                    scheduler2.shutdownNow();
+                                }
                             }
 
                              } catch (IOException e) {
@@ -621,8 +621,11 @@ public class StartMenu {
                 Thread th3 = new Thread(() -> {
 
                     while (true) {
+
+
                         if (currentAgents != null) {
                             if (currentAgents.size() > 0) {
+
                                 renderAgentsUnderUser();
                             }
                             if(g != null){
