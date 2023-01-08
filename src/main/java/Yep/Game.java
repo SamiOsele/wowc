@@ -83,13 +83,13 @@ public class Game {
         this.player4 = player4;
         this.player5 = player5;
         this.player6 = player6;
-        this.label11= label11;
-        this.label22= label22;
-        this.label33= label33;
-        this.label44= label44;
-        this.label55= label55;
-        this.label66= label66;
-
+        this.label11 = label11;
+        this.label22 = label22;
+        this.label33 = label33;
+        this.label44 = label44;
+        this.label55 = label55;
+        this.label66 = label66;
+            checkIfWon();
          if(currentAgents != null) {
 
             for (QueueUser u : currentAgents
@@ -142,6 +142,15 @@ public class Game {
             menu.add(ablt3);
             menu.add(ult);
 
+
+            JProgressBar shield1 = new JProgressBar(0, currentAgents.get(0).getCharacter().getShield());
+            JProgressBar shield2 = new JProgressBar(0, currentAgents.get(1).getCharacter().getShield());
+            JProgressBar shield3 = new JProgressBar(0, currentAgents.get(2).getCharacter().getShield());
+            JProgressBar shield4 = new JProgressBar(0, currentAgents.get(3).getCharacter().getShield());
+            JProgressBar shield5 = new JProgressBar(0, currentAgents.get(4).getCharacter().getShield());
+            JProgressBar shield6 = new JProgressBar(0, currentAgents.get(5).getCharacter().getShield());
+
+
             JLabel lblablt1 = new JLabel();
             lblablt1.setText( "      " + KeyEvent.getKeyText(SettingsMgr.getS().getAbility1()));
             lblablt1.setBounds(725, 800, 50, 50);
@@ -186,24 +195,29 @@ public class Game {
             JProgressBar health4 = new JProgressBar(0, currentAgents.get(3).getCharacter().getMaxHp());
             JProgressBar health5 = new JProgressBar(0, currentAgents.get(4).getCharacter().getMaxHp());
             JProgressBar health6 = new JProgressBar(0, currentAgents.get(5).getCharacter().getMaxHp());
+
+
             health1.setValue(currentAgents.get(0).getCharacter().getMaxHp());
             health2.setValue(currentAgents.get(1).getCharacter().getMaxHp());
             health3.setValue(currentAgents.get(2).getCharacter().getMaxHp());
             health4.setValue(currentAgents.get(3).getCharacter().getMaxHp());
             health5.setValue(currentAgents.get(4).getCharacter().getMaxHp());
             health6.setValue(currentAgents.get(5).getCharacter().getMaxHp());
+
             health1.setVisible(true);
             health2.setVisible(true);
             health3.setVisible(true);
             health4.setVisible(true);
             health5.setVisible(true);
             health6.setVisible(true);
+
             health1.setBounds(player1.getBounds().x, player1.getBounds().y + 50, 250, 30);
             health6.setBounds(player6.getBounds().x, player6.getBounds().y + 50, 250, 30);
              health2.setBounds(player2.getBounds().x, player2.getBounds().y + 50, 250, 30);
              health3.setBounds(player3.getBounds().x, player3.getBounds().y + 50, 250, 30);
              health4.setBounds(player4.getBounds().x, player4.getBounds().y + 50, 250, 30);
              health5.setBounds(player5.getBounds().x, player5.getBounds().y + 50, 250, 30);
+
              health1.setBorder(new EmptyBorder(10, 10, 10, 10));
              health2.setBorder(new EmptyBorder(10, 10, 10, 10));
              health3.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -211,6 +225,42 @@ public class Game {
              health5.setBorder(new EmptyBorder(10, 10, 10, 10));
              health6.setBorder(new EmptyBorder(10, 10, 10, 10));
 
+
+
+             shield1.setVisible(true);
+             shield2.setVisible(true);
+             shield3.setVisible(true);
+             shield4.setVisible(true);
+             shield5.setVisible(true);
+             shield6.setVisible(true);
+
+             shield1.setBounds(player1.getBounds().x, player1.getBounds().y + 50, 250, 30);
+             shield2.setBounds(player6.getBounds().x, player6.getBounds().y + 50, 250, 30);
+             shield3.setBounds(player2.getBounds().x, player2.getBounds().y + 50, 250, 30);
+             shield4.setBounds(player3.getBounds().x, player3.getBounds().y + 50, 250, 30);
+             shield5.setBounds(player4.getBounds().x, player4.getBounds().y + 50, 250, 30);
+             shield6.setBounds(player5.getBounds().x, player5.getBounds().y + 50, 250, 30);
+
+             shield1.setBorder(new EmptyBorder(10, 10, 10, 10));
+             shield2.setBorder(new EmptyBorder(10, 10, 10, 10));
+             shield3.setBorder(new EmptyBorder(10, 10, 10, 10));
+             shield4.setBorder(new EmptyBorder(10, 10, 10, 10));
+             shield5.setBorder(new EmptyBorder(10, 10, 10, 10));
+             shield6.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+
+             shield1.setForeground(Color.green);
+             shield1.setBackground(Color.black);
+             shield2.setForeground(Color.green);
+             shield2.setBackground(Color.black);
+             shield3.setForeground(Color.green);
+             shield3.setBackground(Color.black);
+             shield4.setForeground(Color.green);
+             shield4.setBackground(Color.black);
+             shield5.setForeground(Color.green);
+             shield5.setBackground(Color.black);
+             shield6.setForeground(Color.green);
+             shield6.setBackground(Color.black);
 
 
 
@@ -314,6 +364,12 @@ public class Game {
 
             ScheduledExecutorService scheduler22 = Executors.newScheduledThreadPool(1);
             scheduler22.scheduleAtFixedRate(() -> {
+                shield1.setValue(currentAgents.get(0).getCharacter().getShield());
+                shield2.setValue(currentAgents.get(1).getCharacter().getShield());
+                shield3.setValue(currentAgents.get(2).getCharacter().getShield());
+                shield4.setValue(currentAgents.get(3).getCharacter().getShield());
+                shield5.setValue(currentAgents.get(4).getCharacter().getShield());
+                shield6.setValue(currentAgents.get(5).getCharacter().getShield());
 
                 health1.setValue(currentAgents.get(0).getCharacter().getHp());
                 health2.setValue(currentAgents.get(1).getCharacter().getHp());
@@ -474,10 +530,11 @@ public class Game {
             int c1 = 0;
             for (QueueUser u : currentAgents) {
                 if(u.getTeam() == 1) {
-                    if(u.getCharacter().getHp() > 0) {
-                        break;
+                    if(u.getCharacter().getHp() <= 0) {
+                        c1++;
+                        System.out.println(c1);
                     }
-                    c1++;
+                    break;
 
                 }
             }
@@ -486,7 +543,7 @@ public class Game {
                 teamwon = 1;
                 ses.shutdownNow();
             }
-        }, 20 , 1, TimeUnit.SECONDS);
+        }, 2 , 1, TimeUnit.SECONDS);
     }
 
 }

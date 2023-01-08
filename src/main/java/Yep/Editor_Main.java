@@ -44,7 +44,7 @@ public class Editor_Main {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
+//asd
 
         JFrame frame = new JFrame("Login");
         login = new LoginPanel(frame);
