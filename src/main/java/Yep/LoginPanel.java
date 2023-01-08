@@ -4,6 +4,7 @@
  */
 package Yep;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -11,7 +12,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import Character.SettingsMgr;
@@ -125,7 +128,20 @@ public class LoginPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     private JFrame frame1 = new JFrame("Register");
-    private JPanel register = new JPanel();
+    private JPanel register = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            BufferedImage img;
+            try {
+                img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/bk/reg.png")));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            g.drawImage(img, 0,0, 300,300, null);
+        }
+
+    };
     private javax.swing.JTextField txt_password1 = new JTextField();
     private javax.swing.JTextField txt_username1 = new JTextField();
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +150,7 @@ public class LoginPanel extends javax.swing.JPanel {
         frame1.setCursor(Cursor.HAND_CURSOR);
         register.setLayout(null);
         register.setBackground(Color.DARK_GRAY);
+        register.updateUI();
         frame1.add(register);
         register.setVisible(true);
         register.setBounds(820,390,300,300);

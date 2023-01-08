@@ -1,5 +1,6 @@
 package Yep;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicTreeUI;
@@ -7,18 +8,34 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import Character.Settings;
 import Character.SettingsMgr;
 
 public class ChangeSettingFrame extends JFrame {
-    private JPanel panel = new JPanel();
+    private JPanel panel = new JPanel()  {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            BufferedImage img;
+            try {
+                img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/bk/settings.png")));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            g.drawImage(img, 0,0, 370,200, null);
+        }
+    };
 
     public ChangeSettingFrame() {
         super("Change Settings");
         panel.setLayout(null);
         panel.setBackground(Color.DARK_GRAY);
+        panel.updateUI();
         this.setResizable(false);
         this.setSize(370, 200);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
