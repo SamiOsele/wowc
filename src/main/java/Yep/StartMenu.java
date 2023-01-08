@@ -33,6 +33,7 @@ public class StartMenu {
     private final PasswordHistoryFrame passwordHistoryFrame = new PasswordHistoryFrame();
     private final StatsFrame statsFrame = new StatsFrame();
     private final FightLogFrame fightLogFrame = new FightLogFrame();
+    private final ChangeSettingFrame changeSettingFrame = new ChangeSettingFrame();
 
     public ArrayList<QueueUser> queueUsers;
     private final JButton selectCharacter = new JButton();
@@ -285,6 +286,18 @@ public class StartMenu {
         });
 
         menu.add(stats);
+
+        JButton settings = new JButton();
+        settings.setBackground(Color.gray);
+        settings.setText("Settings");
+        settings.setForeground(new Color(206, 192, 192));
+        settings.setBounds(40, 650, 200, 40);
+        settings.setBorder(new LineBorder(Color.BLACK, 2));
+        settings.addActionListener((l) -> {
+            changeSettingFrame.showSettings();
+        });
+
+        menu.add(settings);
 
         JButton fightLog = new JButton();
         fightLog.setBackground(Color.gray);

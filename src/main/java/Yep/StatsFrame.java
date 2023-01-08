@@ -6,7 +6,7 @@ import Stats.Stats;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.*;
 
 public class StatsFrame extends JFrame {
 
@@ -84,7 +84,17 @@ public class StatsFrame extends JFrame {
         lblPlayed.setFont(new Font("Verdana", Font.BOLD,20));
         panel.add(lblPlayed);
 
+
+
         Iterator<Played>  iterator = stats.getPlayed().iterator();
+        ArrayList<Played> _tmp = new ArrayList<>();
+        while (iterator.hasNext()) {
+            _tmp.add(iterator.next());
+        }
+        _tmp.sort(Comparator.comparing(Played::getWins));
+
+        iterator = _tmp.iterator();
+
         for (int i = 0; i < 9; i++) {
             JPanel panel1 = new JPanel();
             panel1.setBackground(Color.GRAY);
