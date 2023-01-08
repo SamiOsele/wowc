@@ -158,7 +158,7 @@ public class Game {
 
 
 
-             health11.setBackground(Color.darkGray);
+
              health11.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
              health11.setForeground(Color.white);
              health11.setText("HP:" + currentAgents.get(0).getCharacter().getHp());
@@ -277,6 +277,7 @@ public class Game {
                 if(won){
 
                     menu.removeAll();
+                    menu.updateUI();
                     WonPanel wonPanel= new WonPanel();
                     wonPanel.won(teamwon);
 
