@@ -113,10 +113,10 @@ public class Game {
             ablt2.setText(currentChar.getA().get(2).getName());
             ablt3.setText(currentChar.getA().get(3).getName());
             ult.setText(currentChar.getA().get(4).getName());
-            ablt1.setFont(new java.awt.Font("Gill Sans Nova", 1, 10));
-            ablt2.setFont(new java.awt.Font("Gill Sans Nova", 1, 10));
-            ablt3.setFont(new java.awt.Font("Gill Sans Nova", 1, 10));
-            ult.setFont(new java.awt.Font("Gill Sans Nova", 1, 10));
+            ablt1.setFont(new java.awt.Font("Gill Sans Nova", 1, 14));
+            ablt2.setFont(new java.awt.Font("Gill Sans Nova", 1, 14));
+            ablt3.setFont(new java.awt.Font("Gill Sans Nova", 1, 14));
+            ult.setFont(new java.awt.Font("Gill Sans Nova", 1, 14));
             ablt1.setVisible(true);
             ablt2.setVisible(true);
             ablt3.setVisible(true);
@@ -141,6 +141,44 @@ public class Game {
             menu.add(ablt2);
             menu.add(ablt3);
             menu.add(ult);
+
+            JLabel lblablt1 = new JLabel();
+            lblablt1.setText( "      " + KeyEvent.getKeyText(SettingsMgr.getS().getAbility1()));
+            lblablt1.setBounds(725, 800, 50, 50);
+            lblablt1.setForeground(new Color(206, 192, 192));
+            lblablt1.setBackground(Color.gray);
+            lblablt1.setOpaque(true);
+            lblablt1.setBorder(new LineBorder(Color.BLACK, 1));
+            menu.add(lblablt1);
+
+            JLabel lblablt2 = new JLabel();
+            lblablt2.setText( "      " + KeyEvent.getKeyText(SettingsMgr.getS().getAbility2()));
+            lblablt2.setBounds(855, 800, 50, 50);
+            lblablt2.setForeground(new Color(206, 192, 192));
+            lblablt2.setBackground(Color.gray);
+            lblablt2.setOpaque(true);
+            lblablt2.setBorder(new LineBorder(Color.BLACK, 1));
+            menu.add(lblablt2);
+
+
+            JLabel lblablt3 = new JLabel();
+            lblablt3.setText( "      " + KeyEvent.getKeyText(SettingsMgr.getS().getAbility3()));
+            lblablt3.setBounds(985, 800, 50, 50);
+            lblablt3.setForeground(new Color(206, 192, 192));
+            lblablt3.setBackground(Color.gray);
+            lblablt3.setOpaque(true);
+            lblablt3.setBorder(new LineBorder(Color.BLACK, 1));
+            menu.add(lblablt3);
+
+
+            JLabel lblablt4 = new JLabel();
+            lblablt4.setText( "      " + KeyEvent.getKeyText(SettingsMgr.getS().getAbility4()));
+            lblablt4.setBounds(1015, 800, 50, 50);
+            lblablt4.setForeground(new Color(206, 192, 192));
+            lblablt4.setBackground(Color.gray);
+            lblablt4.setOpaque(true);
+            lblablt4.setBorder(new LineBorder(Color.BLACK, 1));
+            menu.add(lblablt4);
 
             JProgressBar health1 = new JProgressBar(0, currentAgents.get(0).getCharacter().getMaxHp());
             JProgressBar health2 = new JProgressBar(0, currentAgents.get(1).getCharacter().getMaxHp());
