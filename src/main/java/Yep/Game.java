@@ -5,6 +5,7 @@ import Queue.QueueUser;
 import Character.SettingsMgr;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -120,6 +121,22 @@ public class Game {
             ablt2.setVisible(true);
             ablt3.setVisible(true);
             ult.setVisible(true);
+
+            ablt1.setBackground(Color.gray);
+            ablt2.setBackground(Color.gray);
+            ablt3.setBackground(Color.gray);
+            ult.setBackground(Color.gray);
+
+            ablt1.setBorder(new LineBorder(Color.BLACK, 1));
+            ablt2.setBorder(new LineBorder(Color.BLACK, 1));
+            ablt3.setBorder(new LineBorder(Color.BLACK, 1));
+            ult.setBorder(new LineBorder(Color.BLACK, 1));
+
+            ablt1.setForeground(new Color(206, 192, 192));
+            ablt2.setForeground(new Color(206, 192, 192));
+            ablt3.setForeground(new Color(206, 192, 192));
+            ult.setForeground(new Color(206, 192, 192));
+
             menu.add(ablt1);
             menu.add(ablt2);
             menu.add(ablt3);
