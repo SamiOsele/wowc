@@ -646,9 +646,9 @@ public class StartMenu {
                     character.setVisible(true);
                     miger += 1;
                     try {
-                        Image img = ImageIO.read(getClass().getResource("/characters/" + miger + ".png"));
+                        Image img = ImageIO.read(getClass().getResource("/characters/"+miger+"/" + miger + ".png"));
                         character.setIcon(new ImageIcon(img));
-
+                        character.setBackground(Color.lightGray);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -768,37 +768,37 @@ public class StartMenu {
         try {
             if(currentAgents.get(0).getCharacter() != null) {
                 int first= currentAgents.get(0).getCharacter().getId();
-                Image img1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + first + ".png")));
+                Image img1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+first+"/" + first + ".png")));
                 label1.setIcon(new ImageIcon(img1));
                 label11.setText( currentAgents.get(0).getCharacter().getName());
             }
             if(currentAgents.get(1).getCharacter() != null) {
                 int second= currentAgents.get(1).getCharacter().getId() ;
-                Image img2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + second + ".png")));
+                Image img2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+second+"/" + second + ".png")));
                 label2.setIcon(new ImageIcon(img2));
                 label22.setText( currentAgents.get(1).getCharacter().getName());
             }
             if(currentAgents.get(2).getCharacter() != null) {
                 int third= currentAgents.get(2).getCharacter().getId() ;
-                Image img3 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + third + ".png")));
+                Image img3 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+third+"/" + third + ".png")));
                 label3.setIcon(new ImageIcon(img3));
                 label33.setText( currentAgents.get(2).getCharacter().getName());
             }
             if(currentAgents.get(3).getCharacter() != null) {
                 int fourth= currentAgents.get(3).getCharacter().getId() ;
-                Image img4 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fourth + ".png")));
+                Image img4 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+fourth+"/" + fourth + ".png")));
                 label4.setIcon(new ImageIcon(img4));
                 label44.setText( currentAgents.get(3).getCharacter().getName());
             }
             if(currentAgents.get(4).getCharacter() != null) {
                 int fifth= currentAgents.get(4).getCharacter().getId() ;
-                Image img5 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fifth + ".png")));
+                Image img5 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+fifth+"/" + fifth + ".png")));
                 label5.setIcon(new ImageIcon(img5));
                 label55.setText( currentAgents.get(4).getCharacter().getName());
             }
             if(currentAgents.get(5).getCharacter() != null) {
                 int sixth= currentAgents.get(5).getCharacter().getId() ;
-                Image img6 =  ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + sixth + ".png")));
+                Image img6 =  ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+sixth+"/" + sixth + ".png")));
                 label6.setIcon(new ImageIcon(img6));
                 label66.setText( currentAgents.get(5).getCharacter().getName());
             }

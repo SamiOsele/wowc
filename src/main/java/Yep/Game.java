@@ -284,24 +284,14 @@ public class Game {
             }
 
             if (counter.get() == 0) {
-                Editor_Main.getLogin().getMenu().getFrame().addKeyListener(new KeyAdapter() {
+
+                Editor_Main.getLogin().getMenu().getFrame().requestFocusInWindow();
+
+                Editor_Main.getLogin().getMenu().getFrame().addKeyListener(new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
-                        System.out.println(e.getKeyCode());
-                        if(e.getKeyCode() == SettingsMgr.getS().getAbility1()){
-                            setAblt1();
-                        }
-                        if(e.getKeyCode() == SettingsMgr.getS().getAbility2()){
-                            setAblt2();
-                        }
-                        if(e.getKeyCode() == SettingsMgr.getS().getAbility3()){
-                            setAblt3();
-                        }
-                        if(e.getKeyCode() == SettingsMgr.getS().getAbility4()){
-                            ult();
-                        }
-                    }
 
+                    }
                     @Override
                     public void keyPressed(KeyEvent e) {
                         System.out.println(e.getKeyCode());
@@ -318,22 +308,9 @@ public class Game {
                             ult();
                         }
                     }
-
                     @Override
                     public void keyReleased(KeyEvent e) {
-                        System.out.println(e.getKeyCode());
-                        if(e.getKeyCode() == SettingsMgr.getS().getAbility1()){
-                            setAblt1();
-                        }
-                        if(e.getKeyCode() == SettingsMgr.getS().getAbility2()){
-                            setAblt2();
-                        }
-                        if(e.getKeyCode() == SettingsMgr.getS().getAbility3()){
-                            setAblt3();
-                        }
-                        if(e.getKeyCode() == SettingsMgr.getS().getAbility4()){
-                            ult();
-                        }
+
                     }
                 });
                 ablt1.addActionListener(new java.awt.event.ActionListener() {
