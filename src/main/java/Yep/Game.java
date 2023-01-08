@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class Game {
         scheduler5.scheduleAtFixedRate(() -> {
 
             while(currentAgents == null){
-                System.out.println("du hure");
+                System.out.println("ok");
             }
 
 
@@ -283,7 +284,7 @@ public class Game {
             }
 
             if (counter.get() == 0) {
-                Editor_Main.getLogin().getMenu().getFrame().addKeyListener(new KeyListener() {
+                Editor_Main.getLogin().getMenu().getFrame().addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyTyped(KeyEvent e) {
                         System.out.println(e.getKeyCode());
