@@ -38,6 +38,14 @@ public class Game {
     JLabel health44 = new JLabel();
     JLabel health55 = new JLabel();
     JLabel health66 = new JLabel();
+
+    boolean won = false;
+
+    public boolean isWon() {
+        return won;
+    }
+
+
     private ArrayList<QueueUser> currentAgents;
 
     public ArrayList<QueueUser> getCurrentAgents() {
@@ -263,8 +271,19 @@ public class Game {
                 health33.setText("HP:"+currentAgents.get(2).getCharacter().getHp());
                 health44.setText("HP:"+currentAgents.get(3).getCharacter().getHp());
                 health55.setText("HP:"+currentAgents.get(4).getCharacter().getHp());
-                health66.setText("HP: "+currentAgents.get(5).getCharacter().getHp());
+                health66.setText("HP:"+currentAgents.get(5).getCharacter().getHp());
                 menu.updateUI();
+
+                if(won){
+
+                    menu.removeAll();
+                    WonPanel wonPanel= new WonPanel();
+                    wonPanel.won(teamwon);
+
+                    scheduler22.shutdownNow();
+
+                }
+
 
             }, 0, 500, TimeUnit.MILLISECONDS);
 
@@ -294,7 +313,6 @@ public class Game {
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {
-                        System.out.println(e.getKeyCode());
                         if(e.getKeyCode() == SettingsMgr.getS().getAbility1()){
                             setAblt1();
                         }
@@ -379,5 +397,40 @@ public class Game {
                 throw new RuntimeException(e);
             }
         }
+        int teamwon;
+    public void checkIfWon() {
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        ses.scheduleAtFixedRate(() -> {
+            int c0 = 0;
+            for (QueueUser u : currentAgents) {
+                if(u.getTeam() == 0) {
+                    if(u.getCharacter().getHp() > 0) {
+                        break;
+                    }
+                    c0++;
+                }
+            }
+            if(c0 == 3) {
+                won = true;
+                teamwon = 0;
+                ses.shutdownNow();
+            }
+            int c1 = 0;
+            for (QueueUser u : currentAgents) {
+                if(u.getTeam() == 1) {
+                    if(u.getCharacter().getHp() > 0) {
+                        break;
+                    }
+                    c1++;
+
+                }
+            }
+            if(c1 == 3) {
+                won = true;
+                teamwon = 1;
+                ses.shutdownNow();
+            }
+        }, 20 , 1, TimeUnit.SECONDS);
+    }
 
 }

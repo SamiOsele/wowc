@@ -29,6 +29,10 @@ public class StartMenu {
         return frame;
     }
 
+    public JPanel getMenu() {
+        return menu;
+    }
+
     private final JFrame frame = new JFrame();
     private final JPanel menu = new JPanel();
 
@@ -599,6 +603,8 @@ public class StartMenu {
 
                                 g.setCurrentAgents(currentAgents);
 
+                            }else if(g.isWon()){
+                                scheduler2.shutdownNow();
                             }
 
                              } catch (IOException e) {
