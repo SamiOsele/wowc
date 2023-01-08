@@ -34,8 +34,13 @@ public class ChangeSettingFrame extends JFrame {
         l.setText("Settings");
         l.setFont(new Font("Gill Sans Nova", 0 , 20));
         l.setForeground(new Color(206, 192, 192));
-        l.setBounds(10, 10, 200, 20);
+        l.setBounds(10, 10, 200, 25);
         panel.add(l);
+
+
+
+
+
 
         JLabel lblSetting1 = new JLabel();
         lblSetting1.setText("Ability 1");
@@ -159,6 +164,23 @@ public class ChangeSettingFrame extends JFrame {
             abc.set(4);
         });
         panel.add(btnSettings4);
+
+        JButton def = new JButton("Default");
+        def.setForeground(new Color(206, 192, 192));
+        def.setBackground(Color.gray);
+        def.setBorder(new LineBorder(Color.BLACK, 1));
+        def.setBounds(270, 10, 80, 25);
+        def.addActionListener((w) -> {
+            setting1.setText("  " + KeyEvent.getKeyText(81));
+            setting2.setText("  " + KeyEvent.getKeyText(87));
+            setting3.setText("  " + KeyEvent.getKeyText(69));
+            setting4.setText("  " + KeyEvent.getKeyText(82));
+            s.setAbility1(81);s.setAbility2(87);s.setAbility3(69);s.setAbility4(82);
+            SettingsMgr.save();
+        });
+
+        panel.add(def);
+
         panel.requestFocus();
         panel.addKeyListener(new KeyAdapter() {
             @Override
@@ -166,37 +188,38 @@ public class ChangeSettingFrame extends JFrame {
             }
             @Override
             public void keyPressed(KeyEvent e) {
-
                 if(abc.get() != 0) {
                     Settings s = SettingsMgr.getS();
                     int c = e.getKeyCode();
-                    switch (abc.get()) {
-                        case 1-> {
-                            btnSettings1.setText("SET");
-                            setting1.setText("  " +KeyEvent.getKeyText(c));
-                            btnSettings1.paintImmediately(btnSettings1.getVisibleRect());
-                            s.setAbility1(c);
+                    if(c != s.getAbility1() && c != s.getAbility2() && c != s.getAbility3() && c != s.getAbility4()) {
+                        switch (abc.get()) {
+                            case 1 -> {
+                                btnSettings1.setText("SET");
+                                setting1.setText("  " + KeyEvent.getKeyText(c));
+                                btnSettings1.paintImmediately(btnSettings1.getVisibleRect());
+                                s.setAbility1(c);
+                            }
+                            case 2 -> {
+                                btnSettings2.setText("SET");
+                                setting2.setText("  " + KeyEvent.getKeyText(c));
+                                btnSettings2.paintImmediately(btnSettings2.getVisibleRect());
+                                s.setAbility2(c);
+                            }
+                            case 3 -> {
+                                btnSettings3.setText("SET");
+                                setting3.setText("  " + KeyEvent.getKeyText(c));
+                                btnSettings3.paintImmediately(btnSettings3.getVisibleRect());
+                                s.setAbility3(c);
+                            }
+                            case 4 -> {
+                                btnSettings4.setText("SET");
+                                setting4.setText("  " + KeyEvent.getKeyText(c));
+                                btnSettings4.paintImmediately(btnSettings4.getVisibleRect());
+                                s.setAbility4(c);
+                            }
                         }
-                        case 2-> {
-                            btnSettings2.setText("SET");
-                            setting2.setText("  " + KeyEvent.getKeyText(c));
-                            btnSettings2.paintImmediately(btnSettings2.getVisibleRect());
-                            s.setAbility2(c);
-                        }
-                        case 3 -> {
-                            btnSettings3.setText("SET");
-                            setting3.setText("  " +KeyEvent.getKeyText(c));
-                            btnSettings3.paintImmediately(btnSettings3.getVisibleRect());
-                            s.setAbility3(c);
-                        }
-                        case 4 -> {
-                            btnSettings4.setText("SET");
-                            setting4.setText("  " +KeyEvent.getKeyText(c));
-                            btnSettings4.paintImmediately(btnSettings4.getVisibleRect());
-                            s.setAbility4(c);
-                        }
+                        abc.set(0);
                     }
-                    abc.set(0);
                     SettingsMgr.save();
                 }
             }
