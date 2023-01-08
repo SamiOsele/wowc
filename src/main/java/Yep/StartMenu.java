@@ -33,8 +33,17 @@ public class StartMenu {
         return menu;
     }
 
+
+    private Image img6;
     private final JFrame frame = new JFrame();
-    private final JPanel menu = new JPanel();
+    private final JPanel menu = new JPanel(){
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(img6, 0, 0, getWidth(), getHeight(), this);
+        }
+    };
 
     Game g;
     private final NameHistoryFrame nameHistoryFrame = new NameHistoryFrame();
@@ -120,10 +129,20 @@ public class StartMenu {
         frame.add(menu);
         frame.setVisible(true);
         frame.setSize(1920, 1040);
-        menu.setBackground(Color.darkGray);
+        try {
+            img6 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/misc/main.png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
 
     }
+
+
+
+
 
     public void SeitenMenu() {
 
@@ -402,7 +421,11 @@ public class StartMenu {
                 time.setBounds(960, 60, 100, 60);
                 menu.add(time);
                 menu.updateUI();
-
+                try {
+                    img6 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/misc/lobby.png")));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 AtomicInteger counternigga = new AtomicInteger(90);
                 ScheduledExecutorService sceduler = Executors.newScheduledThreadPool(1);
                 sceduler.scheduleAtFixedRate(() -> {
@@ -588,7 +611,7 @@ public class StartMenu {
                 menu.add(label66);
                 ScheduledExecutorService scheduler2 = Executors.newScheduledThreadPool(1);
                 scheduler2.scheduleAtFixedRate(() -> {
-                    System.out.println(channelfree);
+
                     if(channelfree){
 
                         try {
