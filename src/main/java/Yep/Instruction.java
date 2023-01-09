@@ -16,7 +16,11 @@ public enum Instruction {
         RDMCHAR,
         REQGAMEUSER,
         GETSETTINGS,
+        SAVESETTINGS,
         GAMESTARTCD,
         GAMEFINISCHED,
+        REQPWDHISTORY,
+        CHANGEPWD,
+        REQFIGHTLOG,
         DC,
 }

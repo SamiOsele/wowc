@@ -10,6 +10,8 @@ import javax.swing.border.LineBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,20 +21,51 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static Yep.Instruction.CHANGENAME;
-import static Yep.Instruction.DC;
+import static Yep.Instruction.*;
 
 
 public class StartMenu {
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public JPanel getMenu() {
+        return menu;
+    }
+
+
+    private Image img6;
     private final JFrame frame = new JFrame();
-    private final JPanel menu = new JPanel();
+    private final JPanel menu = new JPanel(){
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(img6, 0, 0, getWidth(), getHeight(), this);
+        }
+    };
+
+    Game g;
     private final NameHistoryFrame nameHistoryFrame = new NameHistoryFrame();
+    private final PasswordHistoryFrame passwordHistoryFrame = new PasswordHistoryFrame();
+    private final StatsFrame statsFrame = new StatsFrame();
+    private final FightLogFrame fightLogFrame = new FightLogFrame();
+    private final ChangeSettingFrame changeSettingFrame = new ChangeSettingFrame();
 
     public ArrayList<QueueUser> queueUsers;
     private final JButton selectCharacter = new JButton();
 
     public Charakter rdmChar;
     private ArrayList<JLabel> labels;
+
+    public ArrayList<QueueUser> getCurrentAgents() {
+        return currentAgents;
+    }
+
+    public void setCurrentAgents(ArrayList<QueueUser> currentAgents) {
+        this.currentAgents = currentAgents;
+    }
+
     private ArrayList<QueueUser> currentAgents = new ArrayList<>();
     private boolean channelfree = true;
 
@@ -48,31 +81,94 @@ public class StartMenu {
     JLabel time = new JLabel();
 
     public void StartMenu() {
+        frame.setTitle("Game");
+        frame.setResizable(false);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
 
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                SenderObject so = new SenderObject(Instruction.DC);
+                try {
+                    Editor_Main.getSocket().getOut().writeObject(so);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         menu.setLayout(null);
         frame.add(menu);
         frame.setVisible(true);
         frame.setSize(1920, 1040);
-        menu.setBackground(Color.darkGray);
+        try {
+            img6 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/misc/main.png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
 
     }
 
+
+
+
+
     public void SeitenMenu() {
+
+        JLabel lblUsername = new JLabel();
+        lblUsername.setBackground(Color.darkGray);
+        lblUsername.setFont(new java.awt.Font("Gill Sans Nova", 1, 20));
+        lblUsername.setForeground(new Color(206, 192, 192));
+        lblUsername.setText("Currently logged in as: ");
+        lblUsername.setVisible(true);
+        lblUsername.setBounds(40, 2, 260, 40);
+        menu.add(lblUsername);
+
         JLabel username = new JLabel();
         username.setBackground(Color.darkGray);
-        username.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-        username.setForeground(Color.white);
+        username.setFont(new java.awt.Font("Gill Sans Nova", 1, 20));
+        username.setForeground(new Color(206, 192, 192));
         username.setText(String.valueOf(Editor_Main.getLoggedInUser().getUsername()));
         username.setVisible(true);
-        username.setBounds(20, 20, 200, 20);
+        username.setBounds(40, 40, 200, 20);
         menu.add(username);
 
 
         JLabel level= new JLabel();
         level.setBackground(Color.darkGray);
         level.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-        level.setForeground(Color.white);
+        level.setForeground(new Color(206, 192, 192));
         level.setText("Level: " +String.valueOf(Editor_Main.getLoggedInUser().getLevel()));
         level.setVisible(true);
         level.setBounds(1800,50,100,30);
@@ -82,7 +178,7 @@ public class StartMenu {
         JLabel xp= new JLabel();
         xp.setBackground(Color.darkGray);
         xp.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
-        xp.setForeground(Color.white);
+        xp.setForeground(new Color(206, 192, 192));
         xp.setText("Xp: " +String.valueOf(Editor_Main.getLoggedInUser().getXp()));
         xp.setVisible(true);
         xp.setBounds(1800,80,100,20);
@@ -92,8 +188,8 @@ public class StartMenu {
         JButton nameHistory = new JButton();
         nameHistory.setBackground(Color.gray);
         nameHistory.setText("Name History");
-        nameHistory.setForeground(Color.white);
-        nameHistory.setBounds(40, 280, 200, 40);
+        nameHistory.setForeground(new Color(206, 192, 192));
+        nameHistory.setBounds(40, 250, 200, 40);
         nameHistory.setBorder(new LineBorder(Color.BLACK, 2));
         nameHistory.addActionListener((l) -> {
             nameHistoryFrame.updateNameHistory();
@@ -105,36 +201,144 @@ public class StartMenu {
         JTextField newUsername = new JTextField();
         newUsername.setBackground(Color.gray);
         newUsername.setBounds(40, 150, 200, 40);
-        newUsername.setForeground(Color.white);
+        newUsername.setForeground(new Color(206, 192, 192));
         newUsername.setBorder(new LineBorder(Color.BLACK, 2));
         menu.add(newUsername);
 
         JButton changeName = new JButton();
         changeName.setBackground(Color.gray);
         changeName.setText("Change Name");
-        changeName.setForeground(Color.white);
+        changeName.setForeground(new Color(206, 192, 192));
         changeName.setBounds(40, 200, 200, 40);
         changeName.setBorder(new LineBorder(Color.BLACK, 2));
         changeName.addActionListener((l) -> {
             SenderObject so = new SenderObject(CHANGENAME);
             so.setNewUsername(newUsername.getText());
             SenderObject so2 = new SenderObject(DC);
+            SenderObject so3;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
                 Editor_Main.getSocket().getOut().writeObject(so2);
-            } catch (IOException e) {
+                so3 = (SenderObject) Editor_Main.getSocket().getIn().readObject();
+            } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            JOptionPane.showMessageDialog(null," Name Changed -> Pls Restart the client");
-            try {
-                Thread.sleep(5000);
-                System.exit(0);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            System.out.println(so3.getCode());
+            if(so3.getCode() == 99) {
+                JOptionPane.showMessageDialog(null,"Name Changed not applied User already exist");
+            }else {
+                JOptionPane.showMessageDialog(null," Name Changed -> Pls Restart the client");
+                try {
+                    Thread.sleep(2500);
+                    System.exit(0);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
+
+
+
         });
 
         menu.add(changeName);
+
+        JButton pwdHistory = new JButton();
+        pwdHistory.setBackground(Color.gray);
+        pwdHistory.setText("Password History");
+        pwdHistory.setForeground(new Color(206, 192, 192));
+        pwdHistory.setBounds(260, 250, 200, 40);
+        pwdHistory.setBorder(new LineBorder(Color.BLACK, 2));
+        pwdHistory.addActionListener((l) -> {
+            passwordHistoryFrame.updatePwdHistory();
+            passwordHistoryFrame.showPwds();
+        });
+
+        menu.add(pwdHistory);
+
+        JTextField newPwd = new JTextField();
+        newPwd.setBackground(Color.gray);
+        newPwd.setBounds(260, 150, 200, 40);
+        newPwd.setForeground(new Color(206, 192, 192));
+        newPwd.setBorder(new LineBorder(Color.BLACK, 2));
+        menu.add(newPwd);
+
+        JButton changePwd = new JButton();
+        changePwd.setBackground(Color.gray);
+        changePwd.setText("Change Password");
+        changePwd.setForeground(new Color(206, 192, 192));
+        changePwd.setBounds(260, 200, 200, 40);
+        changePwd.setBorder(new LineBorder(Color.BLACK, 2));
+        changePwd.addActionListener((l) -> {
+            SenderObject so = new SenderObject(CHANGEPWD);
+            so.setNewUsername(newPwd.getText());
+            SenderObject so2 = new SenderObject(DC);
+            SenderObject so3;
+            try {
+                Editor_Main.getSocket().getOut().writeObject(so);
+                Editor_Main.getSocket().getOut().writeObject(so2);
+                so3 = (SenderObject) Editor_Main.getSocket().getIn().readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println(so3.getCode());
+            if(so3.getCode() == 99) {
+                JOptionPane.showMessageDialog(null,"Password Changed not applied User already exist");
+            }else {
+                JOptionPane.showMessageDialog(null,"Password Changed -> Pls Restart the client");
+                try {
+                    Thread.sleep(2500);
+                    System.exit(0);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
+
+        });
+
+        menu.add(changePwd);
+
+
+
+        JButton stats = new JButton();
+        stats.setBackground(Color.gray);
+        stats.setText("Stats");
+        stats.setForeground(new Color(206, 192, 192));
+        stats.setBounds(40, 350, 200, 40);
+        stats.setBorder(new LineBorder(Color.BLACK, 2));
+        stats.addActionListener((l) -> {
+            statsFrame.updateStats();
+            statsFrame.showStats();
+        });
+
+        menu.add(stats);
+
+        JButton settings = new JButton();
+        settings.setBackground(Color.gray);
+        settings.setText("Settings");
+        settings.setForeground(new Color(206, 192, 192));
+        settings.setBounds(40, 650, 200, 40);
+        settings.setBorder(new LineBorder(Color.BLACK, 2));
+        settings.addActionListener((l) -> {
+            changeSettingFrame.showSettings();
+        });
+
+        menu.add(settings);
+
+        JButton fightLog = new JButton();
+        fightLog.setBackground(Color.gray);
+        fightLog.setText("FightLog");
+        fightLog.setForeground(new Color(206, 192, 192));
+        fightLog.setBounds(260, 350, 200, 40);
+        fightLog.setBorder(new LineBorder(Color.BLACK, 2));
+        fightLog.addActionListener((l) -> {
+            fightLogFrame.updateFightlog();
+            fightLogFrame.showFightlog();
+        });
+
+        menu.add(fightLog);
+
 
         JButton queue = new JButton();
         queue.setBackground(Color.darkGray);
@@ -143,16 +347,47 @@ public class StartMenu {
         queue.setText("JOIN MATCH");
         queue.setVisible(true);
         queue.setBounds(800,600,200,40);
-        queue.setBorder(null);
+        queue.setBorder(new LineBorder(Color.BLACK, 1));
+
         queue.setModel(new FixedStateButtonModel());
         menu.add(queue);
+
+        JLabel lblQueueTime = new JLabel();
+        lblQueueTime.setText("Time elapsed: 0:0");
+        lblQueueTime.setFont(new Font("Verdana" , Font.BOLD , 18));
+        lblQueueTime.setForeground(new Color(206, 192, 192));
+        lblQueueTime.setBounds(810, 550, 200, 40);
+        lblQueueTime.setVisible(false);
+        menu.add(lblQueueTime);
+
         Selection yes = new Selection();
         queue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SenderObject s = new SenderObject(Instruction.JOINQUEUE);
+                nameHistory.setVisible(false);
+                queue.setText("Joining Match");
+                queue.paintImmediately(queue.getVisibleRect());
                 menu.remove(nameHistory);
                 menu.remove(newUsername);
                 menu.remove(changeName);
+
+                menu.updateUI();
+
+                //TODO remove name History
+                lblQueueTime.setVisible(true);
+                lblQueueTime.paintImmediately(lblQueueTime.getVisibleRect());
+                AtomicInteger sec = new AtomicInteger();
+                ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                ses.scheduleAtFixedRate(() -> {
+                    lblQueueTime.setText("Time elapsed: " + sec.get()/60 + ":" + sec.get()%60 );
+                    menu.updateUI();
+                    lblQueueTime.paintImmediately(lblQueueTime.getVisibleRect());
+                    sec.getAndIncrement();
+                }, 1, 1, TimeUnit.SECONDS);
+
+
+                frame.setCursor(Cursor.WAIT_CURSOR);
+
+                SenderObject s = new SenderObject(Instruction.JOINQUEUE);
                 try {
 
                     Editor_Main.getSocket().getOut().writeObject(s);
@@ -161,10 +396,11 @@ public class StartMenu {
 
                         if (sr.getInstruction() == Instruction.JOINQUEUE) {
                             queueUsers = sr.getQueueUsers();
-
-
                         }
                     }
+                    frame.setCursor(Cursor.DEFAULT_CURSOR);
+                    ses.shutdownNow();
+                    lblQueueTime.setVisible(false);
 
                     for (QueueUser user : queueUsers) {
 
@@ -185,7 +421,11 @@ public class StartMenu {
                 time.setBounds(960, 60, 100, 60);
                 menu.add(time);
                 menu.updateUI();
-
+                try {
+                    img6 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/misc/lobby.png")));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 AtomicInteger counternigga = new AtomicInteger(90);
                 ScheduledExecutorService sceduler = Executors.newScheduledThreadPool(1);
                 sceduler.scheduleAtFixedRate(() -> {
@@ -220,8 +460,8 @@ public class StartMenu {
                             removelustigesochn2();
 
 
-                            Game g = new Game();
-                            g.startGame(menu,player1,player2,player3,player4,player5,player6,currentAgents);
+                             g = new Game();
+                            g.startGame(menu,player1,player2,player3,player4,player5,player6,label11,label22,label33,label44,label55,label66);
 
 
                             sceduler.shutdownNow();
@@ -235,8 +475,8 @@ public class StartMenu {
                         removelustigesochn2();
 
 
-                        Game g = new Game();
-                        g.startGame(menu,player1,player2,player3,player4,player5,player6,currentAgents);
+                         g = new Game();
+                        g.startGame(menu,player1,player2,player3,player4,player5,player6,label11,label22,label33,label44,label55,label66);
 
 
                         sceduler.shutdownNow();
@@ -363,21 +603,32 @@ public class StartMenu {
                 menu.add(label4);
                 menu.add(label5);
                 menu.add(label6);
+                menu.add(label11);
+                menu.add(label22);
+                menu.add(label33);
+                menu.add(label44);
+                menu.add(label55);
+                menu.add(label66);
                 ScheduledExecutorService scheduler2 = Executors.newScheduledThreadPool(1);
                 scheduler2.scheduleAtFixedRate(() -> {
-                    System.out.println(channelfree);
+
                     if(channelfree){
 
                         try {
                             SenderObject so = new SenderObject(Instruction.REQGAMEUSER);
                             Editor_Main.getSocket().getOut().writeObject(so);
-
                             SenderObject so4 = (SenderObject) Editor_Main.getSocket().getIn().readUnshared();
                             currentAgents.clear();
                             currentAgents= so4.getQueueUsers();
-                            System.out.println(currentAgents);
 
 
+                            if(g != null){
+
+                                g.setCurrentAgents(currentAgents);
+                                 if(g.isWon() ){
+                                    scheduler2.shutdownNow();
+                                }
+                            }
 
                              } catch (IOException e) {
                             System.out.println(e.getMessage());
@@ -388,18 +639,20 @@ public class StartMenu {
 
 
 
-
-
-
-
                 }, 0, 500, TimeUnit.MILLISECONDS);
 
                 Thread th3 = new Thread(() -> {
 
                     while (true) {
+
+
                         if (currentAgents != null) {
                             if (currentAgents.size() > 0) {
+
                                 renderAgentsUnderUser();
+                            }
+                            if(g != null){
+                            break;
                             }
 
                             try {
@@ -438,9 +691,9 @@ public class StartMenu {
                     character.setVisible(true);
                     miger += 1;
                     try {
-                        Image img = ImageIO.read(getClass().getResource("/characters/" + miger + ".png"));
+                        Image img = ImageIO.read(getClass().getResource("/characters/"+miger+"/" + miger + ".png"));
                         character.setIcon(new ImageIcon(img));
-
+                        character.setBackground(Color.lightGray);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -511,7 +764,12 @@ public class StartMenu {
     JLabel label4 = new JLabel();
     JLabel label5 = new JLabel();
     JLabel label6 = new JLabel();
-
+    JLabel label11 = new JLabel();
+    JLabel label22 = new JLabel();
+    JLabel label33 = new JLabel();
+    JLabel label44 = new JLabel();
+    JLabel label55 = new JLabel();
+    JLabel label66 = new JLabel();
 
 
     private void renderAgentsUnderUser() {
@@ -524,48 +782,70 @@ public class StartMenu {
         label4.setBounds(1640,350,64,64);
         label5.setBounds(1640,550,64,64);
         label6.setBounds(1640,750,64,64);
-        label1.setBackground(Color.red);
 
-        label1.setText("dor georg isch geil");
-        label2.setText("dor georg isch geil ");
-        label3.setText("dor georg isch geil ");
-        label4.setText("dor georg isch geil ");
-        label5.setText("dor georg isch geil ");
-        label6.setText("dor georg isch geil ");
+        label11.setBounds(100,420,200,64);
+        label22.setBounds(100,620,200,64);
+        label33.setBounds(100,820,200,64);
+        label44.setBounds(1640,420,200,64);
+        label55.setBounds(1640,620,200,64);
+        label66.setBounds(1640,820,200,64);
 
+        label11.setBackground(Color.darkGray);
+        label11.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label11.setForeground(Color.white);
+        label22.setBackground(Color.darkGray);
+        label22.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label22.setForeground(Color.white);
+        label33.setBackground(Color.darkGray);
+        label33.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label33.setForeground(Color.white);
+        label44.setBackground(Color.darkGray);
+        label44.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label44.setForeground(Color.white);
+        label55.setBackground(Color.darkGray);
+        label55.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label55.setForeground(Color.white);
+        label66.setBackground(Color.darkGray);
+        label66.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label66.setForeground(Color.white);
 
 
         try {
             if(currentAgents.get(0).getCharacter() != null) {
                 int first= currentAgents.get(0).getCharacter().getId();
-                Image img1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + first + ".png")));
+                Image img1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+first+"/" + first + ".png")));
                 label1.setIcon(new ImageIcon(img1));
-
+                label11.setText( currentAgents.get(0).getCharacter().getName());
             }
             if(currentAgents.get(1).getCharacter() != null) {
                 int second= currentAgents.get(1).getCharacter().getId() ;
-                Image img2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + second + ".png")));
+                Image img2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+second+"/" + second + ".png")));
                 label2.setIcon(new ImageIcon(img2));
+                label22.setText( currentAgents.get(1).getCharacter().getName());
             }
             if(currentAgents.get(2).getCharacter() != null) {
                 int third= currentAgents.get(2).getCharacter().getId() ;
-                Image img3 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + third + ".png")));
+                Image img3 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+third+"/" + third + ".png")));
                 label3.setIcon(new ImageIcon(img3));
+                label33.setText( currentAgents.get(2).getCharacter().getName());
             }
             if(currentAgents.get(3).getCharacter() != null) {
                 int fourth= currentAgents.get(3).getCharacter().getId() ;
-                Image img4 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fourth + ".png")));
+                Image img4 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+fourth+"/" + fourth + ".png")));
                 label4.setIcon(new ImageIcon(img4));
+                label44.setText( currentAgents.get(3).getCharacter().getName());
             }
             if(currentAgents.get(4).getCharacter() != null) {
                 int fifth= currentAgents.get(4).getCharacter().getId() ;
-                Image img5 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + fifth + ".png")));
+                Image img5 =ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+fifth+"/" + fifth + ".png")));
                 label5.setIcon(new ImageIcon(img5));
+                label55.setText( currentAgents.get(4).getCharacter().getName());
             }
             if(currentAgents.get(5).getCharacter() != null) {
                 int sixth= currentAgents.get(5).getCharacter().getId() ;
-                Image img6 =  ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + sixth + ".png")));
+                Image img6 =  ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/"+sixth+"/" + sixth + ".png")));
                 label6.setIcon(new ImageIcon(img6));
+                label66.setText( currentAgents.get(5).getCharacter().getName());
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -577,7 +857,12 @@ public class StartMenu {
         label4.setVisible(true);
         label5.setVisible(true);
         label6.setVisible(true);
-
+        label11.setVisible(true);
+        label22.setVisible(true);
+        label33.setVisible(true);
+        label44.setVisible(true);
+        label55.setVisible(true);
+        label66.setVisible(true);
         menu.updateUI();
 
 

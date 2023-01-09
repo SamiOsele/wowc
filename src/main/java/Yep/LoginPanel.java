@@ -4,12 +4,17 @@
  */
 package Yep;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import Character.SettingsMgr;
@@ -21,6 +26,12 @@ import Queue.QueueUser;
 public class LoginPanel extends javax.swing.JPanel {
 
     private JFrame parent;
+    private StartMenu menu;
+
+    public StartMenu getMenu() {
+        return menu;
+    }
+
 
     /**
      * Creates new form LoginPanel
@@ -37,6 +48,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private void initComponents() {
         AtomicBoolean updateCurser = new AtomicBoolean(true);
         this.setLayout(null);
+
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -116,14 +128,29 @@ public class LoginPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     private JFrame frame1 = new JFrame("Register");
-    private JPanel register = new JPanel();
+    private JPanel register = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            BufferedImage img;
+            try {
+                img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/bk/reg.png")));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            g.drawImage(img, 0,0, 300,300, null);
+        }
+
+    };
     private javax.swing.JTextField txt_password1 = new JTextField();
     private javax.swing.JTextField txt_username1 = new JTextField();
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {
+
         frame1.setResizable(false);
         frame1.setCursor(Cursor.HAND_CURSOR);
         register.setLayout(null);
         register.setBackground(Color.DARK_GRAY);
+        register.updateUI();
         frame1.add(register);
         register.setVisible(true);
         register.setBounds(820,390,300,300);
@@ -229,8 +256,11 @@ public class LoginPanel extends javax.swing.JPanel {
         l.setUsername(txt_username.getText());
         l.setPassword(txt_password.getText());
         s.setUser(l);
+
         try {
-            Editor_Main.getSocket().getOut().writeObject(s);
+            Editor_Main.getSocket().getOut().flush();
+            Editor_Main.getSocket().getOut().reset();
+            Editor_Main.getSocket().getOut().writeUnshared(s);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -261,10 +291,11 @@ public class LoginPanel extends javax.swing.JPanel {
 
         if(u != null){
             Editor_Main.setLoggedInUser(u);
-            StartMenu Menu = new StartMenu();
+            frame1.dispose(); //TODO marked for some reason
+            menu = new StartMenu();
 
-            Menu.StartMenu();
-            Menu.SeitenMenu();
+            menu.StartMenu();
+            menu.SeitenMenu();
             parent.dispose();
 
 

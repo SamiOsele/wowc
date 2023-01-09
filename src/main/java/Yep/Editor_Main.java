@@ -16,17 +16,25 @@ import java.util.ArrayList;
 public class Editor_Main {
 
     private static ClientSocket socket = new ClientSocket();
-
-
     private static ArrayList<Charakter> characters;
+
+    public static LoginPanel getLogin() {
+        return login;
+    }
+
+    public static void setLogin(LoginPanel login) {
+        Editor_Main.login = login;
+    }
+
     private static User loggedInUser;
+
+    static LoginPanel  login;
     public static void main(String[] args) {
 
         socket.connect();
         System.out.println("Connection succesfull");
         socket.start();
 
-        System.out.println("started");
         SenderObject so = new SenderObject(Instruction.GETALLCHARS);
         try {
             socket.getOut().writeObject(so);
@@ -36,12 +44,10 @@ public class Editor_Main {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println("got the characters");
-        System.out.println(getCharacters().get(0).getA().get(4).getName());
+//asd
 
         JFrame frame = new JFrame("Login");
-        LoginPanel login = new LoginPanel(frame);
+        login = new LoginPanel(frame);
 
         frame.setContentPane(login);
         frame.pack();
