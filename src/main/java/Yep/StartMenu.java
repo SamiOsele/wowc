@@ -609,8 +609,8 @@ public class StartMenu {
                 menu.add(label44);
                 menu.add(label55);
                 menu.add(label66);
-                ScheduledExecutorService scheduler2 = Executors.newScheduledThreadPool(1);
-                scheduler2.scheduleAtFixedRate(() -> {
+                ScheduledExecutorService schgaguler = Executors.newScheduledThreadPool(1);
+                schgaguler.scheduleAtFixedRate(() -> {
 
                     if(channelfree){
 
@@ -626,7 +626,7 @@ public class StartMenu {
 
                                 g.setCurrentAgents(currentAgents);
                                  if(g.isWon() ){
-                                    scheduler2.shutdownNow();
+                                    schgaguler.shutdownNow();
                                 }
                             }
 
@@ -878,7 +878,7 @@ public class StartMenu {
         menu.updateUI();
         channelfree=false;
         try {
-            Thread.sleep(769);
+            Thread.sleep(150);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
