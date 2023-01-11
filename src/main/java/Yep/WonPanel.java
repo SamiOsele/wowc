@@ -16,8 +16,8 @@ public class WonPanel {
 
       JLabel team = new JLabel();
       wonteam++;
-      team.setText("Team "+wonteam+ " has won!!! \n Congratulations!");
-      team.setBounds(700,300,300,60);
+      team.setText("Team "+wonteam+ " has won!!!  \n Congratulations!");
+      team.setBounds(700,300,500,80);
       team.setVisible(true);
       team.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
       team.setForeground(Color.white);
@@ -31,11 +31,16 @@ public class WonPanel {
         backtomain.setForeground(Color.white);
         backtomain.setBackground(Color.darkGray);
         menu.add(backtomain);
+
+        menu.updateUI();
     backtomain.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        Editor_Main.getLogin().getMenu().getFrame().dispose();
         StartMenu s = new StartMenu();
+        s.StartMenu();
+        s.SeitenMenu();
+        Editor_Main.getLogin().getMenu().getFrame().dispose();
+
 
 
       }

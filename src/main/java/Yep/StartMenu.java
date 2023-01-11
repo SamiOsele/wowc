@@ -42,8 +42,13 @@ public class StartMenu {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             g.drawImage(img6, 0, 0, getWidth(), getHeight(), this);
+
         }
     };
+
+
+
+
 
     Game g;
     private final NameHistoryFrame nameHistoryFrame = new NameHistoryFrame();

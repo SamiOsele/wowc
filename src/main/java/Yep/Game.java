@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game {
 
-    JPanel menu;
+    JPanel menu ;
     JLabel player1 = new JLabel();
     JLabel player2 = new JLabel();
     JLabel player3 = new JLabel();
@@ -52,7 +53,7 @@ public class Game {
     boolean pressed4= false;
     boolean won = false;
 
-    int ult3;
+
 
     public boolean isWon() {
         return won;
@@ -76,8 +77,16 @@ public class Game {
     private JButton ult = new JButton();
     private Charakter currentChar;
 
+    private QueueUser currentUser;
 
 
+
+
+    public void doit(){
+
+
+
+    }
 
     public void startGame(JPanel menu, JLabel player1,JLabel player2,JLabel player3,JLabel player4,JLabel player5,JLabel player6, JLabel label11, JLabel label22, JLabel label33, JLabel label44, JLabel label55, JLabel label66) {
         ScheduledExecutorService scheduler5 = Executors.newScheduledThreadPool(1);
@@ -86,15 +95,30 @@ public class Game {
             while(currentAgents == null){
                 System.out.println("ok");
             }
+            this.menu = menu;
 
 
-        this.menu = menu;
         this.player1 = player1;
+
+
         this.player2 = player2;
+
+
         this.player3 = player3;
+
+
         this.player4 = player4;
+
+
         this.player5 = player5;
+
+
         this.player6 = player6;
+
+
+
+
+
         this.label11 = label11;
         this.label22 = label22;
         this.label33 = label33;
@@ -109,12 +133,17 @@ public class Game {
                 System.out.println(u.getUser());
                 if (u.getUser().getId() == Editor_Main.getLoggedInUser().getId()) {
                     currentChar = u.getCharacter();
+                    currentUser =  u;
                 }
 
             }
              System.out.println(currentChar.getName());
             for (int i = 0; i < 6; i++) {
                 Editor_Main.getLoggedInUser().getId();
+            }
+
+            if(Objects.equals(currentUser.getUser().getUsername(), player1.getText())){
+
             }
 
             ablt1.setBounds(700, 860, 100, 64);
@@ -376,6 +405,7 @@ public class Game {
                 throw new RuntimeException(e);
             }
 
+
              JLabel lblablt1cd = new JLabel();
              lblablt1cd.setText( "0" );
              lblablt1cd.setBounds(725, 740, 50, 50);
@@ -426,7 +456,7 @@ public class Game {
                         if(pressed1 && dampfi1 > 1) {
                             counter1.set(currentChar.getA().get(1).getCd());
                             pressed1 = false;
-                            ablt1.setEnabled(false);
+
                         }
                     }else {
                         ablt1.setEnabled(false);
@@ -450,7 +480,7 @@ public class Game {
                          if(pressed2  && dampfi2 > 1) {
                              counter2.set(currentChar.getA().get(2).getCd());
                              pressed2 = false;
-                             ablt2.setEnabled(false);
+
                          }
                      } else {
                          ablt2.setEnabled(false);
@@ -474,7 +504,7 @@ public class Game {
                          if (pressed3 && dampfi3 > 1) {
                              counter3.set(currentChar.getA().get(3).getCd());
                              pressed3 = false;
-                             ablt3.setEnabled(false);
+
                          }
                      }else {
                          ablt3.setEnabled(false);
@@ -499,7 +529,7 @@ public class Game {
                                  if(pressed4) {
                                      counter4.set(currentChar.getA().get(4).getCd());
                                      pressed4 = false;
-                                     ult.setEnabled(false);
+
                                  }
                              }else {
                                  ult.setEnabled(false);
@@ -632,6 +662,7 @@ public class Game {
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(4);
             pressed4 = true;
+            ult.setEnabled(false);
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
             } catch (IOException e) {
@@ -643,6 +674,7 @@ public class Game {
             so.setAb(3);
             a3 = true;
             dampfi3++;
+            ablt3.setEnabled(false);
             pressed3 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
@@ -656,6 +688,7 @@ public class Game {
             so.setAb(2);
             a2 = true;
             dampfi2++;
+            ablt2.setEnabled(false);
             pressed2 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
@@ -667,6 +700,7 @@ public class Game {
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(1);
             a1 = true;
+            ablt1.setEnabled(false);
             dampfi1++;
             pressed1 = true;
             try {
@@ -690,26 +724,24 @@ public class Game {
             }
             if(c0 == 3) {
                 won = true;
-                teamwon = 0;
+                teamwon = 1;
                 ses.shutdownNow();
             }
             int c1 = 0;
             for (QueueUser u : currentAgents) {
                 if(u.getTeam() == 1) {
-                    if(u.getCharacter().getHp() <= 0) {
-                        c1++;
-                        System.out.println(c1);
+                    if(u.getCharacter().getHp() > 0) {
+                        break;
                     }
-                    break;
-
+                    c1++;
                 }
             }
             if(c1 == 3) {
                 won = true;
-                teamwon = 1;
+                teamwon = 0;
                 ses.shutdownNow();
             }
-        }, 2 , 1, TimeUnit.SECONDS);
+        }, 2 , 200, TimeUnit.MILLISECONDS);
     }
 
 
