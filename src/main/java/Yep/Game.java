@@ -38,7 +38,21 @@ public class Game {
     JLabel health55 = new JLabel();
     JLabel health66 = new JLabel();
 
+
+    boolean a1= false;
+    boolean a2= false;
+    boolean a3= false;
+    boolean a4= false;
+
+
+
+    boolean pressed1= false;
+    boolean pressed2= false;
+    boolean pressed3= false;
+    boolean pressed4= false;
     boolean won = false;
+
+    int ult3;
 
     public boolean isWon() {
         return won;
@@ -180,7 +194,7 @@ public class Game {
 
             JLabel lblablt4 = new JLabel();
             lblablt4.setText( "      " + KeyEvent.getKeyText(SettingsMgr.getS().getAbility4()));
-            lblablt4.setBounds(1015, 800, 50, 50);
+            lblablt4.setBounds(1115, 800, 50, 50);
             lblablt4.setForeground(new Color(206, 192, 192));
             lblablt4.setBackground(Color.gray);
             lblablt4.setOpaque(true);
@@ -222,6 +236,9 @@ public class Game {
              health4.setBorder(new EmptyBorder(10, 10, 10, 10));
              health5.setBorder(new EmptyBorder(10, 10, 10, 10));
              health6.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+
+
 
 
 
@@ -359,6 +376,119 @@ public class Game {
                 throw new RuntimeException(e);
             }
 
+             JLabel lblablt1cd = new JLabel();
+             lblablt1cd.setText( "0" );
+             lblablt1cd.setBounds(725, 740, 50, 50);
+             lblablt1cd.setForeground(new Color(206, 192, 192));
+             lblablt1cd.setBackground(Color.gray);
+             lblablt1cd.setOpaque(true);
+             lblablt1cd.setBorder(new LineBorder(Color.BLACK, 1));
+             menu.add(lblablt1cd);
+
+             JLabel lblablt2cd = new JLabel();
+             lblablt2cd.setText( "0");
+             lblablt2cd.setBounds(855, 740, 50, 50);
+             lblablt2cd.setForeground(new Color(206, 192, 192));
+             lblablt2cd.setBackground(Color.gray);
+             lblablt2cd.setOpaque(true);
+             lblablt2cd.setBorder(new LineBorder(Color.BLACK, 1));
+             menu.add(lblablt2cd);
+
+
+             JLabel lblablt3cd = new JLabel();
+             lblablt3cd.setText( "0" );
+             lblablt3cd.setBounds(985, 740, 50, 50);
+             lblablt3cd.setForeground(new Color(206, 192, 192));
+             lblablt3cd.setBackground(Color.gray);
+             lblablt3cd.setOpaque(true);
+             lblablt3cd.setBorder(new LineBorder(Color.BLACK, 1));
+             menu.add(lblablt3cd);
+
+
+             JLabel lblablt4cd = new JLabel();
+             lblablt4cd.setText("");
+             lblablt4cd.setBounds(1115, 740, 50, 50);
+             lblablt4cd.setForeground(new Color(206, 192, 192));
+             lblablt4cd.setBackground(Color.gray);
+             lblablt4cd.setOpaque(true);
+             lblablt4cd.setBorder(new LineBorder(Color.BLACK, 1));
+             menu.add(lblablt4cd);
+
+             AtomicInteger counter1 = new AtomicInteger(currentChar.getA().get(1).getCd());
+             ScheduledExecutorService schgaguler1 = Executors.newScheduledThreadPool(1);
+             schgaguler1.scheduleAtFixedRate(() -> {
+
+                if(a1 && pressed1) {
+                    lblablt1cd.setText(""+counter1.get());
+                    ablt1.setEnabled(false);
+                    counter1.getAndDecrement();
+                    if (counter1.get() == 0) {
+                        ablt1.setEnabled(true);
+                        counter1.set(currentChar.getA().get(1).getCd());
+
+                    }
+                }if(won){
+                     schgaguler1.shutdownNow();
+                 }
+             }, 0, 1, TimeUnit.SECONDS);
+
+
+             AtomicInteger counter2 = new AtomicInteger(currentChar.getA().get(2).getCd());
+             ScheduledExecutorService schgaguler2 = Executors.newScheduledThreadPool(1);
+             schgaguler2.scheduleAtFixedRate(() -> {
+
+                 if(a2 && pressed2) {
+                     lblablt2cd.setText(""+counter2.get());
+                     ablt2.setEnabled(false);counter2.getAndDecrement();
+                     if (counter2.get() == 0) {
+                         ablt2.setEnabled(true);
+                         counter2.set(currentChar.getA().get(2).getCd());
+
+                     }
+                 }if(won){
+                     schgaguler2.shutdownNow();
+                 }
+
+
+             }, 0, 1, TimeUnit.SECONDS);
+             AtomicInteger counter3 = new AtomicInteger(currentChar.getA().get(3).getCd());
+             ScheduledExecutorService schgaguler3 = Executors.newScheduledThreadPool(1);
+             schgaguler3.scheduleAtFixedRate(() -> {
+
+                 if(a3 &&pressed3) {
+                     lblablt3cd.setText(""+counter3.get());
+                     ablt3.setEnabled(false);counter3.getAndDecrement();
+                     if (counter3.get() == 0) {
+                         ablt3.setEnabled(true);
+                         counter3.set(currentChar.getA().get(3).getCd());
+                     }
+                 }if(won){
+                     schgaguler3.shutdownNow();
+                 }
+
+             }, 0, 1, TimeUnit.SECONDS);
+             AtomicInteger counter4 = new AtomicInteger(currentChar.getA().get(4).getCd());
+             ScheduledExecutorService schgaguler4 = Executors.newScheduledThreadPool(1);
+             schgaguler4.scheduleAtFixedRate(() -> {
+
+
+                     lblablt4cd.setText("" + counter4.get());
+                     ult.setEnabled(false);
+                     counter4.getAndDecrement();
+
+
+                     if (counter4.get() == 0) {
+                         ult.setEnabled(true);
+                         counter4.set(currentChar.getA().get(4).getCd());
+                     }
+
+                 if(won){
+                     schgaguler4.shutdownNow();
+                 }
+
+
+             }, 0, 1, TimeUnit.SECONDS);
+
 
             ScheduledExecutorService scheduler22 = Executors.newScheduledThreadPool(1);
             scheduler22.scheduleAtFixedRate(() -> {
@@ -473,6 +603,7 @@ public class Game {
         private void ult (){
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(4);
+            a4 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
             } catch (IOException e) {
@@ -482,6 +613,7 @@ public class Game {
         private void setAblt3 (){
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(3);
+            a3 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
             } catch (IOException e) {
@@ -492,6 +624,7 @@ public class Game {
         private void setAblt2 (){
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(2);
+            a2 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
             } catch (IOException e) {
@@ -501,6 +634,7 @@ public class Game {
         private void setAblt1 (){
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(1);
+            a1 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
             } catch (IOException e) {
@@ -543,5 +677,7 @@ public class Game {
             }
         }, 2 , 1, TimeUnit.SECONDS);
     }
+
+
 
 }
