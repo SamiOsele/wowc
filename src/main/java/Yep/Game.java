@@ -42,7 +42,7 @@ public class Game {
     boolean a1= false;
     boolean a2= false;
     boolean a3= false;
-    boolean a4= false;
+
 
 
 
@@ -419,17 +419,15 @@ public class Game {
              schgaguler1.scheduleAtFixedRate(() -> {
 
                 if(a1) {
-                    lblablt1cd.setText(""+counter1.get());
-
+                    lblablt1cd.setText(" "+counter1.get());
 
                     if (counter1.get() == 0) {
                         ablt1.setEnabled(true);
-                        if(pressed1) {
+                        if(pressed1 && dampfi1 > 1) {
                             counter1.set(currentChar.getA().get(1).getCd());
                             pressed1 = false;
+                            ablt1.setEnabled(false);
                         }
-                    }else if(!pressed1 && counter1.get() == 0){
-                        System.out.println("I bins dor schagagi1");
                     }else {
                         ablt1.setEnabled(false);
                         counter1.getAndDecrement();
@@ -445,18 +443,16 @@ public class Game {
              schgaguler2.scheduleAtFixedRate(() -> {
 
                  if(a2) {
-                     lblablt2cd.setText(""+counter2.get());
-
+                     lblablt2cd.setText(" "+counter2.get());
 
                      if (counter2.get() == 0) {
                          ablt2.setEnabled(true);
-                         if(pressed2) {
+                         if(pressed2  && dampfi2 > 1) {
                              counter2.set(currentChar.getA().get(2).getCd());
                              pressed2 = false;
+                             ablt2.setEnabled(false);
                          }
-                     }else if(!pressed2 && counter2.get() == 0){
-                         System.out.println("I bins dor schagagi1");
-                     }else {
+                     } else {
                          ablt2.setEnabled(false);
                          counter2.getAndDecrement();
                      }
@@ -471,17 +467,15 @@ public class Game {
              schgaguler3.scheduleAtFixedRate(() -> {
 
                  if(a3) {
-                     lblablt3cd.setText(""+counter3.get());
+                     lblablt3cd.setText(" "+counter3.get());
 
-
-                     if (counter3.get() == 0) {
+                     if (counter3.get() == 0 ) {
                          ablt3.setEnabled(true);
-                         if(pressed3) {
+                         if (pressed3 && dampfi3 > 1) {
                              counter3.set(currentChar.getA().get(3).getCd());
                              pressed3 = false;
+                             ablt3.setEnabled(false);
                          }
-                     }else if(!pressed3 && counter3.get() == 0){
-                         System.out.println("I bins dor schagagi1");
                      }else {
                          ablt3.setEnabled(false);
                          counter3.getAndDecrement();
@@ -497,7 +491,7 @@ public class Game {
 
 
 
-                             lblablt4cd.setText(""+counter4.get());
+                             lblablt4cd.setText(" "+counter4.get());
 
 
                              if (counter4.get() == 0) {
@@ -505,9 +499,8 @@ public class Game {
                                  if(pressed4) {
                                      counter4.set(currentChar.getA().get(4).getCd());
                                      pressed4 = false;
+                                     ult.setEnabled(false);
                                  }
-                             }else if(!pressed4 && counter4.get() == 0){
-                                 System.out.println("I bins dor schagagi1");
                              }else {
                                  ult.setEnabled(false);
                                  counter4.getAndDecrement();
@@ -630,11 +623,14 @@ public class Game {
         scheduler5.shutdownNow();
         }, 0, 1, TimeUnit.SECONDS);
         }
+        int dampfi1 = 0;
+        int dampfi2 = 0;
+        int dampfi3 = 0;
+        int dampfi4= 0;
 
         private void ult (){
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(4);
-            a4 = true;
             pressed4 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
@@ -646,6 +642,7 @@ public class Game {
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(3);
             a3 = true;
+            dampfi3++;
             pressed3 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
@@ -658,6 +655,7 @@ public class Game {
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(2);
             a2 = true;
+            dampfi2++;
             pressed2 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
@@ -669,6 +667,7 @@ public class Game {
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(1);
             a1 = true;
+            dampfi1++;
             pressed1 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);

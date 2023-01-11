@@ -26,7 +26,7 @@ public  class ClientSocket {
     }
     public void connect() {
         try {
-            socket = new Socket("192.168.167.53", 6969);
+            socket = new Socket("185.187.222.127", 6969);
 
         } catch (IOException e) {
             e.printStackTrace();
