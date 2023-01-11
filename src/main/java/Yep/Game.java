@@ -418,14 +418,21 @@ public class Game {
              ScheduledExecutorService schgaguler1 = Executors.newScheduledThreadPool(1);
              schgaguler1.scheduleAtFixedRate(() -> {
 
-                if(a1 && pressed1) {
+                if(a1) {
                     lblablt1cd.setText(""+counter1.get());
-                    ablt1.setEnabled(false);
-                    counter1.getAndDecrement();
+
+
                     if (counter1.get() == 0) {
                         ablt1.setEnabled(true);
-                        counter1.set(currentChar.getA().get(1).getCd());
-
+                        if(pressed1) {
+                            counter1.set(currentChar.getA().get(1).getCd());
+                            pressed1 = false;
+                        }
+                    }else if(!pressed1 && counter1.get() == 0){
+                        System.out.println("I bins dor schagagi1");
+                    }else {
+                        ablt1.setEnabled(false);
+                        counter1.getAndDecrement();
                     }
                 }if(won){
                      schgaguler1.shutdownNow();
@@ -437,13 +444,21 @@ public class Game {
              ScheduledExecutorService schgaguler2 = Executors.newScheduledThreadPool(1);
              schgaguler2.scheduleAtFixedRate(() -> {
 
-                 if(a2 && pressed2) {
+                 if(a2) {
                      lblablt2cd.setText(""+counter2.get());
-                     ablt2.setEnabled(false);counter2.getAndDecrement();
+
+
                      if (counter2.get() == 0) {
                          ablt2.setEnabled(true);
-                         counter2.set(currentChar.getA().get(2).getCd());
-
+                         if(pressed2) {
+                             counter2.set(currentChar.getA().get(2).getCd());
+                             pressed2 = false;
+                         }
+                     }else if(!pressed2 && counter2.get() == 0){
+                         System.out.println("I bins dor schagagi1");
+                     }else {
+                         ablt2.setEnabled(false);
+                         counter2.getAndDecrement();
                      }
                  }if(won){
                      schgaguler2.shutdownNow();
@@ -455,12 +470,21 @@ public class Game {
              ScheduledExecutorService schgaguler3 = Executors.newScheduledThreadPool(1);
              schgaguler3.scheduleAtFixedRate(() -> {
 
-                 if(a3 &&pressed3) {
+                 if(a3) {
                      lblablt3cd.setText(""+counter3.get());
-                     ablt3.setEnabled(false);counter3.getAndDecrement();
+
+
                      if (counter3.get() == 0) {
                          ablt3.setEnabled(true);
-                         counter3.set(currentChar.getA().get(3).getCd());
+                         if(pressed3) {
+                             counter3.set(currentChar.getA().get(3).getCd());
+                             pressed3 = false;
+                         }
+                     }else if(!pressed3 && counter3.get() == 0){
+                         System.out.println("I bins dor schagagi1");
+                     }else {
+                         ablt3.setEnabled(false);
+                         counter3.getAndDecrement();
                      }
                  }if(won){
                      schgaguler3.shutdownNow();
@@ -468,22 +492,29 @@ public class Game {
 
              }, 0, 1, TimeUnit.SECONDS);
              AtomicInteger counter4 = new AtomicInteger(currentChar.getA().get(4).getCd());
-             ScheduledExecutorService schgaguler4 = Executors.newScheduledThreadPool(1);
-             schgaguler4.scheduleAtFixedRate(() -> {
+             ScheduledExecutorService schgagi = Executors.newScheduledThreadPool(1);
+             schgagi.scheduleAtFixedRate(() -> {
 
 
-                     lblablt4cd.setText("" + counter4.get());
-                     ult.setEnabled(false);
-                     counter4.getAndDecrement();
+
+                             lblablt4cd.setText(""+counter4.get());
 
 
-                     if (counter4.get() == 0) {
-                         ult.setEnabled(true);
-                         counter4.set(currentChar.getA().get(4).getCd());
-                     }
+                             if (counter4.get() == 0) {
+                                 ult.setEnabled(true);
+                                 if(pressed4) {
+                                     counter4.set(currentChar.getA().get(4).getCd());
+                                     pressed4 = false;
+                                 }
+                             }else if(!pressed4 && counter4.get() == 0){
+                                 System.out.println("I bins dor schagagi1");
+                             }else {
+                                 ult.setEnabled(false);
+                                 counter4.getAndDecrement();
+                             }
 
                  if(won){
-                     schgaguler4.shutdownNow();
+                     schgagi.shutdownNow();
                  }
 
 
@@ -604,6 +635,7 @@ public class Game {
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(4);
             a4 = true;
+            pressed4 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
             } catch (IOException e) {
@@ -614,6 +646,7 @@ public class Game {
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(3);
             a3 = true;
+            pressed3 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
             } catch (IOException e) {
@@ -625,6 +658,7 @@ public class Game {
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(2);
             a2 = true;
+            pressed2 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
             } catch (IOException e) {
@@ -635,6 +669,7 @@ public class Game {
             SenderObject so = new SenderObject(Instruction.EXAB);
             so.setAb(1);
             a1 = true;
+            pressed1 = true;
             try {
                 Editor_Main.getSocket().getOut().writeObject(so);
             } catch (IOException e) {

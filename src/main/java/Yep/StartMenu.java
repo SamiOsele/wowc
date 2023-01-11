@@ -360,7 +360,6 @@ public class StartMenu {
         lblQueueTime.setVisible(false);
         menu.add(lblQueueTime);
 
-        Selection yes = new Selection();
         queue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameHistory.setVisible(false);
@@ -461,7 +460,7 @@ public class StartMenu {
 
 
                              g = new Game();
-                            g.startGame(menu,player1,player2,player3,player4,player5,player6,label11,label22,label33,label44,label55,label66);
+                             g.startGame(menu,player1,player2,player3,player4,player5,player6,label11,label22,label33,label44,label55,label66);
 
 
                             sceduler.shutdownNow();
