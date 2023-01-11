@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
@@ -62,14 +61,6 @@ public class StartMenu {
 
     public Charakter rdmChar;
     private ArrayList<JLabel> labels;
-
-    public ArrayList<QueueUser> getCurrentAgents() {
-        return currentAgents;
-    }
-
-    public void setCurrentAgents(ArrayList<QueueUser> currentAgents) {
-        this.currentAgents = currentAgents;
-    }
 
     private ArrayList<QueueUser> currentAgents = new ArrayList<>();
     private boolean channelfree = true;
@@ -153,7 +144,7 @@ public class StartMenu {
 
         JLabel lblUsername = new JLabel();
         lblUsername.setBackground(Color.darkGray);
-        lblUsername.setFont(new java.awt.Font("Gill Sans Nova", 1, 20));
+        lblUsername.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 20));
         lblUsername.setForeground(new Color(206, 192, 192));
         lblUsername.setText("Currently logged in as: ");
         lblUsername.setVisible(true);
@@ -162,7 +153,7 @@ public class StartMenu {
 
         JLabel username = new JLabel();
         username.setBackground(Color.darkGray);
-        username.setFont(new java.awt.Font("Gill Sans Nova", 1, 20));
+        username.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 20));
         username.setForeground(new Color(206, 192, 192));
         username.setText(String.valueOf(Editor_Main.getLoggedInUser().getUsername()));
         username.setVisible(true);
@@ -172,9 +163,9 @@ public class StartMenu {
 
         JLabel level= new JLabel();
         level.setBackground(Color.darkGray);
-        level.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        level.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
         level.setForeground(new Color(206, 192, 192));
-        level.setText("Level: " +String.valueOf(Editor_Main.getLoggedInUser().getLevel()));
+        level.setText("Level: " + Editor_Main.getLoggedInUser().getLevel());
         level.setVisible(true);
         level.setBounds(1800,50,100,30);
         menu.add(level);
@@ -182,9 +173,9 @@ public class StartMenu {
 
         JLabel xp= new JLabel();
         xp.setBackground(Color.darkGray);
-        xp.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        xp.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
         xp.setForeground(new Color(206, 192, 192));
-        xp.setText("Xp: " +String.valueOf(Editor_Main.getLoggedInUser().getXp()));
+        xp.setText("Xp: " + Editor_Main.getLoggedInUser().getXp());
         xp.setVisible(true);
         xp.setBounds(1800,80,100,20);
         menu.add(xp);
@@ -325,9 +316,7 @@ public class StartMenu {
         settings.setForeground(new Color(206, 192, 192));
         settings.setBounds(40, 650, 200, 40);
         settings.setBorder(new LineBorder(Color.BLACK, 2));
-        settings.addActionListener((l) -> {
-            changeSettingFrame.showSettings();
-        });
+        settings.addActionListener((l) -> changeSettingFrame.showSettings());
 
         menu.add(settings);
 
@@ -347,7 +336,7 @@ public class StartMenu {
 
         JButton queue = new JButton();
         queue.setBackground(Color.darkGray);
-        queue.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        queue.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
         queue.setForeground(Color.white);
         queue.setText("JOIN MATCH");
         queue.setVisible(true);
@@ -411,15 +400,13 @@ public class StartMenu {
                         System.out.println(user.getUser().getUsername());
 
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 menu.removeAll();
 
                 time.setBackground(Color.darkGray);
-                time.setFont(new java.awt.Font("Gill Sans Nova", 1, 40));
+                time.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 40));
                 time.setForeground(Color.white);
                 time.setVisible(true);
                 time.setBounds(960, 60, 100, 60);
@@ -497,7 +484,7 @@ public class StartMenu {
 
                 menu.updateUI();
                 team1.setBackground(Color.darkGray);
-                team1.setFont(new java.awt.Font("Gill Sans Nova", 1, 50));
+                team1.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 50));
                 team1.setForeground(Color.white);
                 team1.setText("Team 1");
                 team1.setVisible(true);
@@ -505,7 +492,7 @@ public class StartMenu {
                 menu.add(team1);
 
                 team2.setBackground(Color.darkGray);
-                team2.setFont(new java.awt.Font("Gill Sans Nova", 1, 50));
+                team2.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 50));
                 team2.setForeground(Color.white);
                 team2.setText("Team 2");
                 team2.setVisible(true);
@@ -514,7 +501,7 @@ public class StartMenu {
 
 
                 player1.setBackground(Color.darkGray);
-                player1.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player1.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
                 player1.setForeground(Color.white);
                 player1.setText(String.valueOf(queueUsers.get(0).getUser().getUsername()));
                 player1.setVisible(true);
@@ -522,7 +509,7 @@ public class StartMenu {
                 menu.add(player1);
 
                 player2.setBackground(Color.darkGray);
-                player2.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player2.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
                 player2.setForeground(Color.white);
                 player2.setText(String.valueOf(queueUsers.get(1).getUser().getUsername()));
                 player2.setVisible(true);
@@ -530,7 +517,7 @@ public class StartMenu {
                 menu.add(player2);
 
                 player3.setBackground(Color.darkGray);
-                player3.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player3.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
                 player3.setForeground(Color.white);
                 player3.setText(String.valueOf(queueUsers.get(2).getUser().getUsername()));
                 player3.setVisible(true);
@@ -538,7 +525,7 @@ public class StartMenu {
                 menu.add(player3);
 
                 player4.setBackground(Color.darkGray);
-                player4.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player4.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
                 player4.setForeground(Color.white);
                 player4.setText(String.valueOf(queueUsers.get(3).getUser().getUsername()));
                 player4.setVisible(true);
@@ -546,7 +533,7 @@ public class StartMenu {
                 menu.add(player4);
 
                 player5.setBackground(Color.darkGray);
-                player5.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player5.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
                 player5.setForeground(Color.white);
                 player5.setText(String.valueOf(queueUsers.get(4).getUser().getUsername()));
                 player5.setVisible(true);
@@ -554,7 +541,7 @@ public class StartMenu {
                 menu.add(player5);
 
                 player6.setBackground(Color.darkGray);
-                player6.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+                player6.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
                 player6.setForeground(Color.white);
                 player6.setText(String.valueOf(queueUsers.get(5).getUser().getUsername()));
                 player6.setVisible(true);
@@ -572,34 +559,6 @@ public class StartMenu {
 
                 menu.updateUI();
 
-      /*          Thread th = new Thread(() -> {
-                    int counter = 0;
-                    while (counter < 6) {
-
-                        try {
-                            SenderObject so = (SenderObject) Editor_Main.getSocket().getIn().readObject();
-                            for (QueueUser u : queueUsers) {
-                                if (u.getUser().getUsername().equals(so.getUser().getUsername())) {
-                                    u.setCharacter(so.getCharacter());
-                                    counter++;
-                                }
-                            }
-
-                        } catch (IOException | ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-
-                });
-                th.start();
-*/
                 int counterx = 0;
                 menu.add(label1);
                 menu.add(label2);
@@ -634,9 +593,7 @@ public class StartMenu {
                                 }
                             }
 
-                             } catch (IOException e) {
-                            System.out.println(e.getMessage());
-                        } catch (ClassNotFoundException e) {
+                             } catch (IOException | ClassNotFoundException e) {
                             System.out.println(e.getMessage());
                         }
                     }
@@ -695,7 +652,7 @@ public class StartMenu {
                     character.setVisible(true);
                     miger += 1;
                     try {
-                        Image img = ImageIO.read(getClass().getResource("/characters/"+miger+"/" + miger + ".png"));
+                        Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource("/characters/" + miger + "/" + miger + ".png")));
                         character.setIcon(new ImageIcon(img));
                         character.setBackground(Color.lightGray);
                     } catch (IOException e) {
@@ -714,14 +671,10 @@ public class StartMenu {
                         }
 
                         public void mouseExited(java.awt.event.MouseEvent evt) {
-                            characterActionPerformedExited(evt);
+                            characterActionPerformedExited();
                         }
                     });
-                    character.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent ent) {
-                            characterActionPerformedClicked(ent);
-                        }
-                    });
+                    character.addActionListener(ent -> characterActionPerformedClicked(ent));
 
 
                 }
@@ -795,22 +748,22 @@ public class StartMenu {
         label66.setBounds(1640,820,200,64);
 
         label11.setBackground(Color.darkGray);
-        label11.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label11.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
         label11.setForeground(Color.white);
         label22.setBackground(Color.darkGray);
-        label22.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label22.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
         label22.setForeground(Color.white);
         label33.setBackground(Color.darkGray);
-        label33.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label33.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
         label33.setForeground(Color.white);
         label44.setBackground(Color.darkGray);
-        label44.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label44.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
         label44.setForeground(Color.white);
         label55.setBackground(Color.darkGray);
-        label55.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label55.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
         label55.setForeground(Color.white);
         label66.setBackground(Color.darkGray);
-        label66.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+        label66.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
         label66.setForeground(Color.white);
 
 
@@ -876,7 +829,7 @@ public class StartMenu {
 
 
 
-    private void selectCharacter(ActionEvent evt) {
+    private void selectCharacter() {
 
         removelustigesochn();
         menu.updateUI();
@@ -892,11 +845,8 @@ public class StartMenu {
 
         try {
             Editor_Main.getSocket().getOut().writeObject(so);
-            SenderObject so5= (SenderObject) Editor_Main.getSocket().getIn().readObject();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
 
         channelfree= true;
@@ -906,7 +856,7 @@ public class StartMenu {
 
 
 
-    public class FixedStateButtonModel extends DefaultButtonModel    {
+    public static class FixedStateButtonModel extends DefaultButtonModel    {
 
         @Override
         public boolean isPressed() {
@@ -924,71 +874,71 @@ public class StartMenu {
     private void bo3(int agent) {
         name.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                nameActionPerformed(evt, agent);
+                nameActionPerformed(agent);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                nameActionPerformedExited(evt);
+                nameActionPerformedExited();
             }
         });
 
         klasse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                klasseActionPerformedClicked(evt, agent);
+                klasseActionPerformedClicked();
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                klasseActionPerformedExited(evt);
+                klasseActionPerformedExited();
             }
         });
         ablt1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ablt1ActionPerformedClicked(evt, agent);
+                ablt1ActionPerformedClicked(agent);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                ablt1ActionPerformedExited(evt);
+                ablt1ActionPerformedExited();
             }
         });
         ablt2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ablt2ActionPerformedClicked(evt, agent);
+                ablt2ActionPerformedClicked(agent);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                ablt2ActionPerformedExited(evt);
+                ablt2ActionPerformedExited();
             }
         });
         ablt3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ablt3ActionPerformedClicked(evt, agent);
+                ablt3ActionPerformedClicked(agent);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                ablt3ActionPerformedExited(evt);
+                ablt3ActionPerformedExited();
             }
         });
         ult.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ultActionPerformedClicked(evt, agent);
+                ultActionPerformedClicked(agent);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                ultActionPerformedExited(evt);
+                ultActionPerformedExited();
             }
         });
         passive.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                passiveActionPerformedClicked(evt, agent);
+                passiveActionPerformedClicked(agent);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                passiveActionPerformedExited(evt);
+                passiveActionPerformedExited();
             }
         });
     }
 
-    private void nameActionPerformed(java.awt.event.MouseEvent evt, int agent) {
+    private void nameActionPerformed(int agent) {
 
         namelabel.setBackground(Color.darkGray);
         namelabel.setForeground(Color.white);
@@ -1001,7 +951,7 @@ public class StartMenu {
     }
 
 
-    private void nameActionPerformedExited(java.awt.event.MouseEvent ent) {
+    private void nameActionPerformedExited() {
 
         menu.remove(namelabel);
         menu.updateUI();
@@ -1009,7 +959,7 @@ public class StartMenu {
     }
 
 
-    private void klasseActionPerformedClicked(java.awt.event.MouseEvent ent, int agent) {
+    private void klasseActionPerformedClicked() {
         klasselabel.setBackground(Color.darkGray);
         klasselabel.setForeground(Color.white);
         klasselabel.setText("Fick di");
@@ -1022,14 +972,14 @@ public class StartMenu {
     }
 
 
-    private void klasseActionPerformedExited(java.awt.event.MouseEvent ent) {
+    private void klasseActionPerformedExited() {
 
         menu.remove(klasselabel);
         menu.updateUI();
 
     }
 
-    private void ablt1ActionPerformedClicked(java.awt.event.MouseEvent ent, int agent) {
+    private void ablt1ActionPerformedClicked(int agent) {
 
         ablt1label.setBackground(Color.darkGray);
         ablt1label.setForeground(Color.white);
@@ -1043,14 +993,14 @@ public class StartMenu {
 
     }
 
-    private void ablt1ActionPerformedExited(java.awt.event.MouseEvent ent) {
+    private void ablt1ActionPerformedExited() {
 
         menu.remove(ablt1label);
         menu.updateUI();
 
     }
 
-    private void ablt2ActionPerformedClicked(java.awt.event.MouseEvent ent, int agent) {
+    private void ablt2ActionPerformedClicked(int agent) {
 
         ablt2label.setBackground(Color.darkGray);
         ablt2label.setForeground(Color.white);
@@ -1063,14 +1013,14 @@ public class StartMenu {
 
     }
 
-    private void ablt2ActionPerformedExited(java.awt.event.MouseEvent ent) {
+    private void ablt2ActionPerformedExited() {
 
         menu.remove(ablt2label);
         menu.updateUI();
 
     }
 
-    private void ablt3ActionPerformedClicked(java.awt.event.MouseEvent ent, int agent) {
+    private void ablt3ActionPerformedClicked(int agent) {
 
         ablt3label.setBackground(Color.darkGray);
         ablt3label.setForeground(Color.white);
@@ -1083,14 +1033,14 @@ public class StartMenu {
 
     }
 
-    private void ablt3ActionPerformedExited(java.awt.event.MouseEvent ent) {
+    private void ablt3ActionPerformedExited() {
 
         menu.remove(ablt3label);
         menu.updateUI();
 
     }
 
-    private void ultActionPerformedClicked(java.awt.event.MouseEvent ent, int agent) {
+    private void ultActionPerformedClicked(int agent) {
 
         ultlabel.setBackground(Color.darkGray);
         ultlabel.setForeground(Color.white);
@@ -1103,14 +1053,14 @@ public class StartMenu {
 
     }
 
-    private void ultActionPerformedExited(java.awt.event.MouseEvent ent) {
+    private void ultActionPerformedExited() {
 
         menu.remove(ultlabel);
         menu.updateUI();
 
     }
 
-    private void passiveActionPerformedClicked(java.awt.event.MouseEvent ent, int agent) {
+    private void passiveActionPerformedClicked(int agent) {
 
 
         passivelabel.setBackground(Color.darkGray);
@@ -1125,7 +1075,7 @@ public class StartMenu {
 
     }
 
-    private void passiveActionPerformedExited(java.awt.event.MouseEvent ent) {
+    private void passiveActionPerformedExited() {
 
         menu.remove(passivelabel);
         menu.updateUI();
@@ -1133,19 +1083,19 @@ public class StartMenu {
     }
 
     private JButton name = new JButton();
-    private JLabel namelabel = new JLabel();
+    private final JLabel namelabel = new JLabel();
     private JButton klasse = new JButton();
-    private JLabel klasselabel = new JLabel();
+    private final JLabel klasselabel = new JLabel();
     private JButton ablt1 = new JButton();
-    private JLabel ablt1label = new JLabel();
+    private final JLabel ablt1label = new JLabel();
     private JButton ablt2 = new JButton();
-    private JLabel ablt2label = new JLabel();
+    private final JLabel ablt2label = new JLabel();
     private JButton ablt3 = new JButton();
-    private JLabel ablt3label = new JLabel();
+    private final JLabel ablt3label = new JLabel();
     private JButton ult = new JButton();
-    private JLabel ultlabel = new JLabel();
+    private final JLabel ultlabel = new JLabel();
     private JButton passive = new JButton();
-    private JLabel passivelabel = new JLabel();
+    private final JLabel passivelabel = new JLabel();
 
 
 
@@ -1180,39 +1130,39 @@ public class StartMenu {
 
     private void nuierButton(int agent, String name1, String klasse1, String ability1, String ability2, String
             ability3, String ult1, String passive1) {
-        name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        name.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         name.setText(name1);
         name.setBackground(Color.darkGray);
         name.setForeground(Color.white);
         name.setBounds(300, 300, 200, 20);
 
-        klasse.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        klasse.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         klasse.setText(klasse1);
         klasse.setForeground(Color.white);
         klasse.setBounds(300, 320, 200, 20);
 
-        ablt1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ablt1.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         ablt1.setText(ability1);
         ablt1.setForeground(Color.white);
         ablt1.setBounds(300, 340, 200, 20);
 
-        ablt2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ablt2.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         ablt2.setText(ability2);
         ablt2.setForeground(Color.white);
         ablt2.setBounds(300, 360, 200, 20);
 
-        ablt3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ablt3.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         ablt3.setText(ability3);
         ablt3.setForeground(Color.white);
         ablt3.setBounds(300, 380, 200, 20);
 
-        ult.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ult.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         ult.setText(ult1);
         ult.setForeground(Color.white);
         ult.setBounds(300, 400, 200, 20);
         menu.updateUI();
 
-        passive.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        passive.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         passive.setText(passive1);
         passive.setForeground(Color.white);
         passive.setBounds(300, 420, 200, 20);
@@ -1242,11 +1192,7 @@ public class StartMenu {
         selectCharacter.setVisible(true);
         menu.add(selectCharacter);
 
-        selectCharacter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectCharacter(evt);
-            }
-        });
+        selectCharacter.addActionListener(evt -> selectCharacter());
 
         clicked = true;
 
@@ -1308,8 +1254,8 @@ public class StartMenu {
 
     }
     int agent = 10;
-    private void characterActionPerformedExited(java.awt.event.MouseEvent evt) {
-        if (clicked == false) {
+    private void characterActionPerformedExited() {
+        if (!clicked) {
             menu.remove(klasse);
             menu.remove(name);
             menu.remove(ablt1);
@@ -1382,7 +1328,7 @@ public class StartMenu {
 
     }
 
-    private ArrayList<JButton> characters = new ArrayList<>();
+    private final ArrayList<JButton> characters = new ArrayList<>();
 
 
 }

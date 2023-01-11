@@ -10,7 +10,7 @@ import java.util.Collections;
 
 public class FightLogFrame extends JFrame {
 
-    private JPanel panel = new JPanel();
+    private final JPanel panel = new JPanel();
     private ArrayList<Fightlog> fightlogs;
 
     public FightLogFrame() {
@@ -25,7 +25,7 @@ public class FightLogFrame extends JFrame {
 
     public void updateFightlog() {
         fightlogs = FightlogMgr.init();
-        fightlogs.sort(((o1, o2) -> o1.getDateAndTime().compareTo(o2.getDateAndTime())));
+        fightlogs.sort((o1, o2) -> o1.getDateAndTime().compareTo(o2.getDateAndTime()));
         Collections.reverse(fightlogs);
     }
 

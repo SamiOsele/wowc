@@ -41,7 +41,4 @@ public  class ClientSocket {
         return out;
     }
 
-    public Socket getSocket() {
-        return socket;
-    }
 }

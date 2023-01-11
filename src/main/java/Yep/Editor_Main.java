@@ -15,15 +15,11 @@ import java.util.ArrayList;
  */
 public class Editor_Main {
 
-    private static ClientSocket socket = new ClientSocket();
+    private static final ClientSocket socket = new ClientSocket();
     private static ArrayList<Charakter> characters;
 
     public static LoginPanel getLogin() {
         return login;
-    }
-
-    public static void setLogin(LoginPanel login) {
-        Editor_Main.login = login;
     }
 
     private static User loggedInUser;
@@ -39,9 +35,7 @@ public class Editor_Main {
         try {
             socket.getOut().writeObject(so);
             characters = ((SenderObject) socket.getIn().readObject()).getCharacters();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 //asd
@@ -72,8 +66,5 @@ public class Editor_Main {
         return characters;
     }
 
-    public static void setCharacters(ArrayList<Charakter> characters) {
-        Editor_Main.characters = characters;
-    }
 }
 

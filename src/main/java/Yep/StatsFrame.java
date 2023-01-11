@@ -11,7 +11,7 @@ import java.util.*;
 public class StatsFrame extends JFrame {
 
     private Stats stats;
-    private JPanel panel = new JPanel();
+    private final JPanel panel = new JPanel();
 
     public StatsFrame() {
         super("Stats");

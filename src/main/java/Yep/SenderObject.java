@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class SenderObject  implements Serializable {
     @Serial
     private static final long serialVersionUID = 6529685098267757690L;
-    private Instruction instruction;
+    private final Instruction instruction;
     private User user;
     private int code;
     private ArrayList<QueueUser> queueUsers;

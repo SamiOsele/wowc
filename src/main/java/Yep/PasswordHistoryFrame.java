@@ -1,18 +1,17 @@
 package Yep;
 
-import NameHistory.NameHistory;
+import NameHistory.PasswordHistory;
+import NameHistory.PasswordHistoryMgr;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import NameHistory.PasswordHistory;
-import NameHistory.PasswordHistoryMgr;
 
 public class PasswordHistoryFrame extends JFrame {
 
-    private JPanel panel = new JPanel();
+    private final JPanel panel = new JPanel();
     private ArrayList<PasswordHistory> pwdHistory;
 
     public PasswordHistoryFrame() {

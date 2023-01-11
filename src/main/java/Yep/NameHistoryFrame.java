@@ -11,7 +11,7 @@ import NameHistory.NameHistory;
 
 public class NameHistoryFrame extends JFrame {
 
-    private JPanel panel = new JPanel();
+    private final JPanel panel = new JPanel();
     private ArrayList<NameHistory> nameHistories;
 
     public NameHistoryFrame() {
@@ -28,8 +28,6 @@ public class NameHistoryFrame extends JFrame {
         nameHistories = NameHistorMgr.init();
         Collections.reverse(nameHistories);
     }
-
-    private final ArrayList<JPanel> panels = new ArrayList<>();
 
     public void showNames() {
         this.setVisible(true);

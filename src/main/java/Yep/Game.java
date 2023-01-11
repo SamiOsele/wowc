@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -62,31 +61,17 @@ public class Game {
 
     private ArrayList<QueueUser> currentAgents;
 
-    public ArrayList<QueueUser> getCurrentAgents() {
-        return currentAgents;
-    }
-
     public void setCurrentAgents(ArrayList<QueueUser> currentAgents) {
         this.currentAgents = currentAgents;
     }
 
 
-    private JButton ablt1 = new JButton();
-    private JButton ablt2 = new JButton();
-    private JButton ablt3 = new JButton();
-    private JButton ult = new JButton();
+    private final JButton ablt1 = new JButton();
+    private final JButton ablt2 = new JButton();
+    private final JButton ablt3 = new JButton();
+    private final JButton ult = new JButton();
     private Charakter currentChar;
 
-    private QueueUser currentUser;
-
-
-
-
-    public void doit(){
-
-
-
-    }
 
     public void startGame(JPanel menu, JLabel player1,JLabel player2,JLabel player3,JLabel player4,JLabel player5,JLabel player6, JLabel label11, JLabel label22, JLabel label33, JLabel label44, JLabel label55, JLabel label66) {
         ScheduledExecutorService scheduler5 = Executors.newScheduledThreadPool(1);
@@ -133,18 +118,11 @@ public class Game {
                 System.out.println(u.getUser());
                 if (u.getUser().getId() == Editor_Main.getLoggedInUser().getId()) {
                     currentChar = u.getCharacter();
-                    currentUser =  u;
                 }
 
             }
-             System.out.println(currentChar.getName());
-            for (int i = 0; i < 6; i++) {
-                Editor_Main.getLoggedInUser().getId();
-            }
 
-            if(Objects.equals(currentUser.getUser().getUsername(), player1.getText())){
 
-            }
 
             ablt1.setBounds(700, 860, 100, 64);
             ablt2.setBounds(830, 860, 100, 64);
@@ -154,10 +132,10 @@ public class Game {
             ablt2.setText(currentChar.getA().get(2).getName());
             ablt3.setText(currentChar.getA().get(3).getName());
             ult.setText(currentChar.getA().get(4).getName());
-            ablt1.setFont(new java.awt.Font("Gill Sans Nova", 1, 14));
-            ablt2.setFont(new java.awt.Font("Gill Sans Nova", 1, 14));
-            ablt3.setFont(new java.awt.Font("Gill Sans Nova", 1, 14));
-            ult.setFont(new java.awt.Font("Gill Sans Nova", 1, 14));
+            ablt1.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 14));
+            ablt2.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 14));
+            ablt3.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 14));
+            ult.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 14));
             ablt1.setVisible(true);
             ablt2.setVisible(true);
             ablt3.setVisible(true);
@@ -308,42 +286,42 @@ public class Game {
 
 
 
-             health11.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health11.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
              health11.setForeground(Color.white);
              health11.setText("HP:" + currentAgents.get(0).getCharacter().getHp());
              health11.setVisible(true);
              health11.setBounds(player1.getBounds().x+ player1.getWidth(), player1.getBounds().y, 200, 20);
              health11.setBackground(Color.darkGray);
 
-             health22.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health22.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
              health22.setForeground(Color.white);
              health22.setText("HP:" + currentAgents.get(1).getCharacter().getHp());
              health22.setVisible(true);
              health22.setBounds(player2.getBounds().x+ player2.getWidth(), player2.getBounds().y, 200, 20);
              health22.setBackground(Color.darkGray);
 
-             health33.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health33.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
              health33.setForeground(Color.white);
              health33.setText("HP:" + currentAgents.get(2).getCharacter().getHp());
              health33.setVisible(true);
              health33.setBounds(player3.getBounds().x+ player3.getWidth(), player3.getBounds().y, 200, 20);
              health33.setBackground(Color.darkGray);
 
-             health44.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health44.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
              health44.setForeground(Color.white);
              health44.setText("HP:" + currentAgents.get(3).getCharacter().getHp());
              health44.setVisible(true);
              health44.setBounds(player4.getBounds().x+ player4.getWidth(), player4.getBounds().y, 200, 20);
              health44.setBackground(Color.darkGray);
 
-             health55.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health55.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
              health55.setForeground(Color.white);
              health55.setText("HP:" + currentAgents.get(4).getCharacter().getHp());
              health55.setVisible(true);
              health55.setBounds(player5.getBounds().x+ player5.getWidth(), player5.getBounds().y, 200, 20);
              health55.setBackground(Color.darkGray);
 
-             health66.setFont(new java.awt.Font("Gill Sans Nova", 1, 24));
+             health66.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 24));
              health66.setForeground(Color.white);
              health66.setText("HP:" + currentAgents.get(5).getCharacter().getHp());
              health66.setVisible(true);
@@ -379,7 +357,7 @@ public class Game {
             menu.updateUI();
             JLabel time = new JLabel();
             time.setBackground(Color.darkGray);
-            time.setFont(new java.awt.Font("Gill Sans Nova", 1, 40));
+            time.setFont(new java.awt.Font("Gill Sans Nova", Font.BOLD, 40));
             time.setForeground(Color.white);
             time.setVisible(true);
             time.setBounds(960, 60, 100, 60);
@@ -625,27 +603,11 @@ public class Game {
 
                     }
                 });
-                ablt1.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        setAblt1();
-                    }
-                });
+                ablt1.addActionListener(evt -> setAblt1());
 
-                ablt2.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        setAblt2();
-                    }
-                });
-                ablt3.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        setAblt3();
-                    }
-                });
-                ult.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        ult();
-                    }
-                });
+                ablt2.addActionListener(evt -> setAblt2());
+                ablt3.addActionListener(evt -> setAblt3());
+                ult.addActionListener(evt -> ult());
 
 
             }
@@ -656,7 +618,7 @@ public class Game {
         int dampfi1 = 0;
         int dampfi2 = 0;
         int dampfi3 = 0;
-        int dampfi4= 0;
+
 
         private void ult (){
             SenderObject so = new SenderObject(Instruction.EXAB);

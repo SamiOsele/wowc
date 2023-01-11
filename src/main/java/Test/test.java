@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class test {
 
-    private static ArrayList<JButton> characters = new ArrayList<>();
-    private static JFrame j = new JFrame();
-    private static JPanel jp = new JPanel();
+    private static final ArrayList<JButton> characters = new ArrayList<>();
+    private static final JFrame j = new JFrame();
+    private static final JPanel jp = new JPanel();
 
     public static void main(String[] args) {
 
@@ -54,20 +54,20 @@ public class test {
 
 
     private static JButton name = new JButton();
-    private static JLabel namelabel = new JLabel();
+    private static final JLabel namelabel = new JLabel();
     private static JButton klasse = new JButton();
-    private static JLabel klasselabel = new JLabel();
+    private static final JLabel klasselabel = new JLabel();
     private static JButton ablt1 = new JButton();
-    private static JLabel ablt1label = new JLabel();
+    private static final JLabel ablt1label = new JLabel();
     private static JButton ablt2 = new JButton();
-    private static JLabel ablt2label = new JLabel();
+    private static final JLabel ablt2label = new JLabel();
     private static JButton ablt3 = new JButton();
-    private static JLabel ablt3label = new JLabel();
+    private static final JLabel ablt3label = new JLabel();
     private static JButton ult = new JButton();
-    private static JLabel ultlabel = new JLabel();
+    private static final JLabel ultlabel = new JLabel();
     private static JButton passive = new JButton();
-    private static JLabel passivelabel = new JLabel();
-    private static JButton selectCharacter = new JButton();
+    private static final JLabel passivelabel = new JLabel();
+    private static final JButton selectCharacter = new JButton();
 
     private static void bo() {
         name.setForeground(Color.white);
@@ -227,7 +227,7 @@ public class test {
     }
 
     private static void characterActionPerformedExited(java.awt.event.MouseEvent evt) {
-        if (clicked == false) {
+        if (!clicked) {
             jp.remove(klasse);
             jp.remove(name);
             jp.remove(ablt1);

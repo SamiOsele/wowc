@@ -1,23 +1,21 @@
 package Yep;
 
+import Character.Settings;
+import Character.SettingsMgr;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicTreeUI;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import Character.Settings;
-import Character.SettingsMgr;
-
 public class ChangeSettingFrame extends JFrame {
-    private JPanel panel = new JPanel()  {
+    private final JPanel panel = new JPanel()  {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -49,7 +47,7 @@ public class ChangeSettingFrame extends JFrame {
         panel.removeAll();
         JLabel l = new JLabel();
         l.setText("Settings");
-        l.setFont(new Font("Gill Sans Nova", 0 , 20));
+        l.setFont(new Font("Gill Sans Nova", Font.PLAIN, 20));
         l.setForeground(new Color(206, 192, 192));
         l.setBounds(10, 10, 200, 25);
         panel.add(l);
@@ -61,14 +59,14 @@ public class ChangeSettingFrame extends JFrame {
 
         JLabel lblSetting1 = new JLabel();
         lblSetting1.setText("Ability 1");
-        lblSetting1.setFont(new Font("Gill Sans Nova" , 0, 16));
+        lblSetting1.setFont(new Font("Gill Sans Nova" , Font.PLAIN, 16));
         lblSetting1.setForeground(new Color(206, 192, 192));
         lblSetting1.setBounds(20, 40, 100, 25);
         panel.add(lblSetting1);
 
         JLabel setting1 = new JLabel();
         setting1.setText( "  " +KeyEvent.getKeyText(s.getAbility1()));
-        setting1.setFont(new Font("Gill Sans Nova" , 0, 16));
+        setting1.setFont(new Font("Gill Sans Nova" , Font.PLAIN, 16));
         setting1.setForeground(new Color(206, 192, 192));
         setting1.setBorder(new LineBorder(Color.BLACK, 1));
         setting1.setBounds(38, 65, 30, 30);
@@ -76,14 +74,14 @@ public class ChangeSettingFrame extends JFrame {
 
         JLabel lblSetting2 = new JLabel();
         lblSetting2.setText("Ability 2");
-        lblSetting2.setFont(new Font("Gill Sans Nova" , 0, 16));
+        lblSetting2.setFont(new Font("Gill Sans Nova" , Font.PLAIN, 16));
         lblSetting2.setForeground(new Color(206, 192, 192));
         lblSetting2.setBounds(100, 40, 100, 20);
         panel.add(lblSetting2);
 
         JLabel setting2 = new JLabel();
         setting2.setText( "  " +KeyEvent.getKeyText(s.getAbility2()));
-        setting2.setFont(new Font("Gill Sans Nova" , 0, 16));
+        setting2.setFont(new Font("Gill Sans Nova" , Font.PLAIN, 16));
         setting2.setForeground(new Color(206, 192, 192));
         setting2.setBorder(new LineBorder(Color.BLACK, 1));
         setting2.setBounds(118, 65, 30, 30);
@@ -91,14 +89,14 @@ public class ChangeSettingFrame extends JFrame {
 
         JLabel lblSetting3 = new JLabel();
         lblSetting3.setText("Ability 3");
-        lblSetting3.setFont(new Font("Gill Sans Nova" , 0, 16));
+        lblSetting3.setFont(new Font("Gill Sans Nova" , Font.PLAIN, 16));
         lblSetting3.setForeground(new Color(206, 192, 192));
         lblSetting3.setBounds(180, 40, 100, 20);
         panel.add(lblSetting3);
 
         JLabel setting3 = new JLabel();
         setting3.setText( "  " +KeyEvent.getKeyText(s.getAbility3()));
-        setting3.setFont(new Font("Gill Sans Nova" , 0, 16));
+        setting3.setFont(new Font("Gill Sans Nova" , Font.PLAIN, 16));
         setting3.setForeground(new Color(206, 192, 192));
         setting3.setBorder(new LineBorder(Color.BLACK, 1));
         setting3.setBounds(198, 65, 30, 30);
@@ -106,14 +104,14 @@ public class ChangeSettingFrame extends JFrame {
 
         JLabel lblSetting4 = new JLabel();
         lblSetting4.setText("Ability 4");
-        lblSetting4.setFont(new Font("Gill Sans Nova" , 0, 16));
+        lblSetting4.setFont(new Font("Gill Sans Nova" , Font.PLAIN, 16));
         lblSetting4.setForeground(new Color(206, 192, 192));
         lblSetting4.setBounds(260, 40, 100, 20);
         panel.add(lblSetting4);
 
         JLabel setting4 = new JLabel();
         setting4.setText("  " + KeyEvent.getKeyText(s.getAbility4()));
-        setting4.setFont(new Font("Gill Sans Nova" , 0, 16));
+        setting4.setFont(new Font("Gill Sans Nova" , Font.PLAIN, 16));
         setting4.setForeground(new Color(206, 192, 192));
         setting4.setBorder(new LineBorder(Color.BLACK, 1));
         setting4.setBounds(278, 65, 30, 30);
