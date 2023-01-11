@@ -13,10 +13,10 @@ public  class ClientSocket {
     public void start() {
         try {
             System.out.println(socket.getInetAddress().getHostAddress());
-           // InputStream inputStream= socket.getInputStream();
+
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
-            // OutputStream outputStream= socket.getOutputStream();
+
 
 
         } catch (IOException e) {
