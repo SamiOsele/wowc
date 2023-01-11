@@ -25,8 +25,8 @@ public class FightLogFrame extends JFrame {
 
     public void updateFightlog() {
         fightlogs = FightlogMgr.init();
-        Collections.reverse(fightlogs);
         fightlogs.sort(((o1, o2) -> o1.getDateAndTime().compareTo(o2.getDateAndTime())));
+        Collections.reverse(fightlogs);
     }
 
     public void showFightlog() {
@@ -51,8 +51,10 @@ public class FightLogFrame extends JFrame {
             p.add(l);
 
             JLabel gamWon = new JLabel();
-            gamWon.setText(fightlogs.get(i).isWon() ? "Game Won" : "Game Lost");
-            gamWon.setForeground(fightlogs.get(i).isWon() ? Color.green : Color.red);
+            System.out.println(fightlogs.get(i).isWon());
+            //gamWon.setText(fightlogs.get(i).isWon() ? "Game Won" : "Game Lost");
+            gamWon.setText(fightlogs.get(i).isWon() ? "Game Lost" : "Game Won");
+            gamWon.setForeground(fightlogs.get(i).isWon() ? Color.red : Color.green);
             gamWon.setBounds(140, 10, 200, 20);
             p.add(gamWon);
 

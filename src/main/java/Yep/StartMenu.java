@@ -878,7 +878,7 @@ public class StartMenu {
         menu.updateUI();
         channelfree=false;
         try {
-            Thread.sleep(769);
+            Thread.sleep(150);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
