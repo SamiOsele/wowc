@@ -586,16 +586,24 @@ public class Game {
                     @Override
                     public void keyPressed(KeyEvent e) {
                         if(e.getKeyCode() == SettingsMgr.getS().getAbility1()){
-                            setAblt1();
+                          if(ablt1.isEnabled()){
+                              setAblt1();
+                          }
                         }
                         if(e.getKeyCode() == SettingsMgr.getS().getAbility2()){
-                            setAblt2();
+                            if(ablt2.isEnabled()) {
+                                setAblt2();
+                            }
                         }
                         if(e.getKeyCode() == SettingsMgr.getS().getAbility3()){
-                            setAblt3();
+                            if(ablt3.isEnabled()) {
+                                setAblt3();
+                            }
                         }
                         if(e.getKeyCode() == SettingsMgr.getS().getAbility4()){
-                            ult();
+                            if(ult.isEnabled()) {
+                                ult();
+                            }
                         }
                     }
                     @Override
@@ -603,11 +611,27 @@ public class Game {
 
                     }
                 });
-                ablt1.addActionListener(evt -> setAblt1());
+                ablt1.addActionListener(evt -> {
 
-                ablt2.addActionListener(evt -> setAblt2());
-                ablt3.addActionListener(evt -> setAblt3());
-                ult.addActionListener(evt -> ult());
+                        setAblt1();
+
+                });
+
+                ablt2.addActionListener(evt -> {
+
+                        setAblt2();
+
+                });
+                ablt3.addActionListener(evt -> {
+
+                        setAblt3();
+
+                });
+                ult.addActionListener(evt ->{
+
+                        ult();
+
+                });
 
 
             }
